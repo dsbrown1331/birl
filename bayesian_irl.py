@@ -17,6 +17,14 @@ class BIRL:
         self.epsilon = epsilon
         self.beta = beta
 
+        #check to see if FeatureMDP or just plain MDP
+        if hasattr(self.env, 'feature_weights'):
+            self.num_mcmc_dims = len(self.env.feature_weights)
+        else:
+            self.num_mcmc_dims = self.env.num_states
+
+        
+
     
 
     def calc_ll(self, hyp_reward):
@@ -45,6 +53,10 @@ class BIRL:
         return proposal_r
 
 
+    def initial_solution(self):
+        # initialize problem solution for MCMC to all zeros, maybe not best initialization but it works in most cases
+        return np.zeros(self.num_mcmc_dims)  
+
     def run_mcmc(self, samples, stepsize, normalize=True):
         '''
             run metropolis hastings MCMC with Gaussian symmetric proposal and uniform prior
@@ -59,56 +71,52 @@ class BIRL:
         accept_cnt = 0  #keep track of how often MCMC accepts, ideally around 40% of the steps accept
         #if accept count is too high, increase stdev, if too low reduce
 
+        self.chain = np.zeros((num_samples, self.num_mcmc_dims)) #store rewards found via BIRL here, preallocate for speed
+        
+        cur_sol = self.initial_solution() #initial guess for MCMC
 
-        #check to see if FeatureMDP or just plain MDP
-        if hasattr(self.env, 'feature_weights'):
-            num_reward_dims = len(self.env.feature_weights)
-        else:
-            num_reward_dims = self.env.num_states
-        cur_r = np.zeros(num_reward_dims)  # initialize problem solution for MCMC to all zeros, maybe not best initialization but it works
+        
 
-
-        self.chain = np.zeros((num_samples, num_reward_dims)) #store rewards found via BIRL here, preallocate for speed
-        cur_ll = self.calc_ll(cur_r)  # log likelihood
+        cur_ll = self.calc_ll(cur_sol)  # log likelihood
         #keep track of MAP loglikelihood and solution
         map_ll = cur_ll  
-        map_r = cur_r
+        map_sol = cur_sol
         for i in range(num_samples):
             # sample from proposal distribution
-            prop_r = self.generate_proposal(cur_r, stepsize, normalize)
+            prop_sol = self.generate_proposal(cur_sol, stepsize, normalize)
             # calculate likelihood ratio test
-            prop_ll = self.calc_ll(prop_r)
+            prop_ll = self.calc_ll(prop_sol)
             if prop_ll > cur_ll:
                 # accept
-                self.chain[i,:] = prop_r
+                self.chain[i,:] = prop_sol
                 accept_cnt += 1
-                cur_r = prop_r
+                cur_sol = prop_sol
                 cur_ll = prop_ll
                 if prop_ll > map_ll:  # maxiumum aposterioi
                     map_ll = prop_ll
-                    map_r = prop_r
+                    map_sol = prop_sol
             else:
                 # accept with prob exp(prop_ll - cur_ll)
                 if np.random.rand() < np.exp(prop_ll - cur_ll):
-                    self.chain[i,:] = prop_r
+                    self.chain[i,:] = prop_sol
                     accept_cnt += 1
-                    cur_r = prop_r
+                    cur_sol = prop_sol
                     cur_ll = prop_ll
 
                 else:
                     # reject
-                    self.chain[i,:] = cur_r
+                    self.chain[i,:] = cur_sol
 
         print("accept rate:", accept_cnt / num_samples)
         self.accept_rate = accept_cnt / num_samples
-        self.map_r = map_r
+        self.map_sol = map_sol
         # print("MAP Loglikelihood", map_ll)
         # print("MAP reward")
-        # print_array_as_grid(map_r, mdp)
+        # print_array_as_grid(map_sol, mdp)
         
 
     def get_map_solution(self):
-        return self.map_r
+        return self.map_sol
 
 
     def get_mean_solution(self, burn_frac=0.1, skip_rate=1):
