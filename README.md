@@ -1,1 +1,1 @@
-# bicrl
+# bicrl: Bayesian Inverse Constrained RL
