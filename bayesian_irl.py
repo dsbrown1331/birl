@@ -113,6 +113,34 @@ class BIRL:
         # print("MAP Loglikelihood", map_ll)
         # print("MAP reward")
         # print_array_as_grid(map_sol, mdp)
+
+    def generate_samples_with_mcmc(self, samples, stepsize, normalize=True):
+        num_samples = samples
+        self.chain = np.zeros((num_samples, self.num_mcmc_dims))
+        curr_sol = self.initial_solution()
+        curr_ll = self.calc_ll(curr_sol)
+        map_ll, map_sol = curr_ll, curr_sol
+        generated_samples = []
+        for i in range(num_samples):
+            prop_sol = self.generate_proposal(curr_sol, stepsize, normalize)
+            prop_ll = self.calc_ll(prop_sol)
+            if prop_ll > curr_ll:
+                self.chain[i, :] = prop_sol
+                curr_sol = prop_sol
+                curr_ll = prop_ll
+                if prop_ll > map_ll:
+                    map_ll = prop_ll
+                    map_sol = prop_sol
+            else:
+                if np.random.rand() < np.exp(prop_ll - curr_ll):
+                    self.chain[i, :] = prop_sol
+                    curr_sol = prop_sol
+                    curr_ll = prop_ll
+                else:
+                    self.chain[i, :] = curr_sol
+            generated_samples.append(curr_sol)
+        self.map_sol = map_sol
+        return generated_samples
         
 
     def get_map_solution(self):

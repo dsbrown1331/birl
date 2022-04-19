@@ -19,7 +19,6 @@ def gen_simple_world():
     return env
 
 
-
 def random_gridworld(rows, columns):
     """
     Randomly chooses rewards, no terminal, noisy transitions
@@ -27,6 +26,31 @@ def random_gridworld(rows, columns):
     random_mdp = MDP(rows, columns, [], np.random.randn(rows * columns), gamma=0.95, noise = 0.1)
     return random_mdp
 
+
+def random_feature_mdp(rows, columns):
+    """
+    e.g. if each cell in a 3x3 non-terminal grid world has a color: red or white, and red states have as reward of -1
+    and white states have a reward of +1, then this could be created by having
+    feature_weights = np.array([-1.0, +1.0])
+    r = np.array([1,0]) #features for red
+    w = np.array([0,1]) #features for white
+    state_features = [w, w, w,
+                        r, r, w
+                        r, w, w]
+    mdp = FeatureMDP(3,3,[], reward_weights, reward_features, 0.95, noise = 0)
+
+    (self, num_rows, num_cols, terminals, feature_weights, state_features, gamma, noise = 0.0)
+    """
+    weights = [-1.0, -0.8, -0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+    feature_weights = np.random.choice(weights, size = 3, replace = True)
+    r = np.array([1, 0, 0])
+    y = np.array([0, 1, 0])
+    b = np.array([0, 0, 1])
+    g = np.array([0, 0, 0, 1])
+    features = [r, y, b]
+    state_features = [features[np.random.choice([0, 1, 2])] for _ in range(rows * columns)]
+    mdp = FeatureMDP(rows, columns, [], feature_weights, state_features, gamma = 0.95)
+    return mdp
 
 
 
