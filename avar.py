@@ -27,7 +27,7 @@ if __name__ == "__main__":
         burn_rate = 0.1
         skip_rate = 1
         random_normalization = False # whether or not to normalize with random policy
-        num_worlds = 50
+        num_worlds = 100
         beta = 10.0
         N = 100
         step_stdev = 0.1
