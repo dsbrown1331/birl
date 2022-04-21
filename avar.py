@@ -9,16 +9,6 @@ import math
 import sys
 
 if __name__ == "__main__":
-    # - MDP\R: mdp but without a defined reward function
-    # - pi_eval: the policy we are evaluating, as opposed to pi*, the optimal policy. what is the
-    # policy loss if we use pi_eval instead of pi*?
-    # - D: set of demonstrations (in this case just 1)
-    # - c: confidence in the optimality of D
-    # - alpha: risk-sensitivity
-    # - delta: (1 - delta) is the desired confidence level on estimate of avar.
-    # higher delta => lower desired confidence; lower delta => higher desired confidence
-    # - V_R^pi: (expected) value of a policy pi using the reward function R
-
     # Hyperparameters
     c = 100 # since demonstrations are optimal
     alpha = float(sys.argv[1])
@@ -32,7 +22,6 @@ if __name__ == "__main__":
     step_stdev = 0.1
 
     envs = [mdp_worlds.random_feature_mdp(4, 4) for _ in range(num_worlds)]
-    # envs = [mdp_worlds.random_gridworld(4, 4) for _ in range(num_worlds)]
     policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
     policy_archive = [{} for _ in range(num_worlds)]
     demos = [[] for _ in range(num_worlds)]
@@ -68,8 +57,6 @@ if __name__ == "__main__":
             policy_losses.sort()
             N_burned = N - int(burn_rate * N)
             k = math.ceil(N_burned * alpha + norm.ppf(1 - delta) * np.sqrt(N_burned*alpha*(1 - alpha)) - 0.5)
-            if k >= N_burned:
-                k = len(policy_losses) - 1
             avar_bound = policy_losses[k]
             p_loss_bound.append(avar_bound)
             # accuracy: # of trials where upper bound > ground truth expected value difference / total # of trials
