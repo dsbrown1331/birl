@@ -57,8 +57,8 @@ def policy_evaluation(policy, env, epsilon):
 
     return V
 
-def policy_evaluation_stochastic(policy, env, epsilon):
-    # V(s) = R(s) + gamma * T(s, a, s') * sum_s'[pi(s, a, s') * V(s')]
+def policy_evaluation_stochastic(env, epsilon):
+    # V(s) = R(s) + gamma * sum_a T(s, a, s') sum_s'[pi(s, a, s') * V(s')]
     n = env.num_states
     num_actions = 4
     V = np.zeros(n)
@@ -67,8 +67,8 @@ def policy_evaluation_stochastic(policy, env, epsilon):
         V_old = V.copy()
         delta = 0
         for s in range(n):
-            a = policy[s]
-            policy_action_value = np.dot(env.transitions[s][a], V_old)
+            actions = [0, 1, 2, 3]
+            policy_action_value = sum([np.dot(env.transitions[s][a], V_old) for a in actions])
             V[s] = env.rewards[s] + env.gamma * 1/num_actions * policy_action_value
             delta = max(delta, abs(V[s] - V_old[s]))
     return V
@@ -236,8 +236,7 @@ def calculate_expected_value_difference(eval_policy, env, epsilon=0.0001, rn = F
     V_opt = value_iteration(env, epsilon)
     V_eval = policy_evaluation(eval_policy, env, epsilon)
     if rn:
-        rand_policy = np.random.choice([0, 1, 2, 3], size = 16, replace = True)
-        V_rand = policy_evaluation(rand_policy, env, epsilon)
+        V_rand = policy_evaluation_stochastic(env, epsilon)
         return (np.mean(V_opt) - np.mean(V_eval)) / (np.mean(V_opt) - np.mean(V_rand))
     return np.mean(V_opt) - np.mean(V_eval)
 

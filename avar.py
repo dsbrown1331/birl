@@ -25,7 +25,7 @@ if __name__ == "__main__":
     delta = 0.05
     burn_rate = 0.1
     skip_rate = 1
-    random_normalization = False # whether or not to normalize with random policy
+    random_normalization = True # whether or not to normalize with random policy
     num_worlds = 100
     beta = 10.0
     N = 100
