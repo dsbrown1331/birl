@@ -115,8 +115,6 @@ if __name__ == "__main__":
             policy_losses.sort()
             N_burned = len(samples)
             k = math.ceil(N_burned * alpha + norm.ppf(1 - delta) * np.sqrt(N_burned*alpha*(1 - alpha)) - 0.5)
-            if k >= N_burned:
-                k = len(policy_losses) - 1
             avar_bound = policy_losses[k]
             if debug:
                 print("vav bound", avar_bound)
