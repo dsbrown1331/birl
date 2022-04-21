@@ -107,7 +107,7 @@ class BIRL:
                     # reject
                     self.chain[i,:] = cur_sol
 
-        print("accept rate:", accept_cnt / num_samples)
+        # print("accept rate:", accept_cnt / num_samples)
         self.accept_rate = accept_cnt / num_samples
         self.map_sol = map_sol
         # print("MAP Loglikelihood", map_ll)
