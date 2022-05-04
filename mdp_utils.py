@@ -45,7 +45,7 @@ def policy_evaluation(policy, env, epsilon):
     V = np.zeros(n)  # could also use np.zero(n)
     Delta = 10
     
-    while Delta > epsilon:
+    while Delta > epsilon * (1 - env.gamma) / env.gamma:
         V_old = V.copy()
         Delta = 0
         for s in range(n):
@@ -57,18 +57,17 @@ def policy_evaluation(policy, env, epsilon):
 
     return V
 
-def policy_evaluation_stochastic(policy, env, epsilon):
-    # V(s) = R(s) + gamma * T(s, a, s') * sum_s'[pi(s, a, s') * V(s')]
+def policy_evaluation_stochastic(env, epsilon):
+    # V(s) = R(s) + gamma * sum_a T(s, a, s') sum_s'[pi(s, a, s') * V(s')]
     n = env.num_states
-    num_actions = 4
+    num_actions = env.num_actions
     V = np.zeros(n)
     delta = 10
-    while delta > epsilon:
+    while delta > epsilon * (1 - env.gamma) / env.gamma:
         V_old = V.copy()
         delta = 0
         for s in range(n):
-            a = policy[s]
-            policy_action_value = np.dot(env.transitions[s][a], V_old)
+            policy_action_value = sum([np.dot(env.transitions[s][a], V_old) for a in range(num_actions)])
             V[s] = env.rewards[s] + env.gamma * 1/num_actions * policy_action_value
             delta = max(delta, abs(V[s] - V_old[s]))
     return V
@@ -207,6 +206,21 @@ def print_array_as_grid(array_values, env):
         print(print_row)
 
 
+def print_array_as_grid_raw(array_values, env):
+    """
+  Prints array as a grid
+  :param array_values:
+  :param env:
+  :return:
+  """
+    count = 0
+    for r in range(env.num_rows):
+        print_row = ""
+        for c in range(env.num_cols):
+            print_row += "{}\t".format(array_values[count])
+            count += 1
+        print(print_row)
+
 def arg_max_set(values, eps=0.0001):
     # return a set of the indices that correspond to the maximum element(s) in the set of values
     # input is a list or 1-d array and eps tolerance for determining equality
@@ -236,8 +250,7 @@ def calculate_expected_value_difference(eval_policy, env, epsilon=0.0001, rn = F
     V_opt = value_iteration(env, epsilon)
     V_eval = policy_evaluation(eval_policy, env, epsilon)
     if rn:
-        rand_policy = np.random.choice([0, 1, 2, 3], size = 16, replace = True)
-        V_rand = policy_evaluation(rand_policy, env, epsilon)
+        V_rand = policy_evaluation_stochastic(env, epsilon)
         return (np.mean(V_opt) - np.mean(V_eval)) / (np.mean(V_opt) - np.mean(V_rand))
     return np.mean(V_opt) - np.mean(V_eval)
 
@@ -301,3 +314,15 @@ def generate_boltzman_demo(env, beta, start_state):
     return boltzman_rational_trajectory
 
 
+def visualize_binary_features(env):
+    #takes as input mdp_env and prints out a human readable grid of features numbered 0 to K-1, where K is number of reward
+    #features. Note this method assumes binary (one-hot) features
+    assert(type(env) is FeatureMDP)
+    feature_values = [list(f).index(1) for f in env.state_features]
+    print_array_as_grid_raw(feature_values, env)
+
+
+def sample_l2_ball(k):
+    #sample a vector of dimension k with l2 norm of 1
+    sample = np.random.randn(k)
+    return sample / np.linalg.norm(sample)
