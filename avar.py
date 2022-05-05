@@ -88,7 +88,7 @@ if __name__ == "__main__":
                 learned_env = copy.deepcopy(env)
                 learned_env.set_rewards(sample)
                 # learned_policy = mdp_utils.get_optimal_policy(learned_env)
-                Zi = mdp_utils.calculate_expected_value_difference(map_policy, learned_env, rn=random_normalization) # compute policy loss
+                Zi = mdp_utils.calculate_expected_value_difference(map_policy, learned_env, birl.value_iters, rn=random_normalization) # compute policy loss
                 policy_losses.append(Zi)
 
             #compute VaR bound
@@ -104,7 +104,7 @@ if __name__ == "__main__":
             # accuracy: # of trials where upper bound > ground truth expected value difference / total # of trials
             
             #calculate the ground-truth EVD for evaluation
-            map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, rn=random_normalization)
+            map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn=random_normalization)
             #check if bound is actually upper bound  
             good_upper_bound += avar_bound >= map_evd
             # bound error: upper bound - EVD(eval_policy with ground truth reward)
