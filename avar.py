@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0  # confidence for mcmc
-    N = 500
+    N = 100
     step_stdev = 0.3
     burn_rate = 0.1
     skip_rate = 2
