@@ -21,12 +21,12 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0  # confidence for mcmc
-    N = 500
+    N = 100
     step_stdev = 0.3
     burn_rate = 0.1
     skip_rate = 2
-    random_normalization = bool(sys.argv[2]) # whether or not to normalize with random policy
-    num_worlds = 100
+    random_normalization = False # whether or not to normalize with random policy
+    num_worlds = 50
 
     envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
     policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
