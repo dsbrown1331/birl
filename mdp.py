@@ -6,7 +6,7 @@ import mdp_utils
 
 
 class MDP:
-    def __init__(self, num_rows, num_cols, terminals, rewards, gamma, noise = 0.1):
+    def __init__(self, num_rows, num_cols, num_actions, terminals, rewards, gamma, noise = 0.1, driving = False):
 
         """
         Markov Decision Processes (MDP):
@@ -18,7 +18,7 @@ class MDP:
         """
         self.gamma = gamma
         self.num_states = num_rows * num_cols 
-        self.num_actions = 4  #up:0, down:1, left:2, right:3
+        self.num_actions = num_actions #up:0, down:1, left:2, right:3
         self.num_rows = num_rows
         self.num_cols = num_cols
         self.terminals = terminals
@@ -26,147 +26,182 @@ class MDP:
         
         #initialize transitions given desired noise level
         self.transitions = np.zeros((self.num_states, self.num_actions, self.num_states))
-        self.init_transition_probabilities(noise)
+        self.init_transition_probabilities(noise, driving)
 
 
-    def init_transition_probabilities(self, noise):
-        # 0: up, 1 : down, 2:left, 3:right
+    def init_transition_probabilities(self, noise, driving = False):
+        if not driving:
+            # 0: up, 1 : down, 2:left, 3:right
+            UP = 0
+            DOWN = 1
+            LEFT = 2
+            RIGHT = 3
 
-        UP = 0
-        DOWN = 1
-        LEFT = 2
-        RIGHT = 3
-        # going UP
-        for s in range(self.num_states):
+            # going UP
+            for s in range(self.num_states):
+                # possibility of going foward
+                if s >= self.num_cols:
+                    self.transitions[s][UP][s - self.num_cols] = 1.0 - (2 * noise)
+                else:
+                    self.transitions[s][UP][s] = 1.0 - (2 * noise)
+                # possibility of going left
+                if s % self.num_cols == 0:
+                    self.transitions[s][UP][s] = noise
+                else:
+                    self.transitions[s][UP][s - 1] = noise
+                # possibility of going right
+                if s % self.num_cols < self.num_cols - 1:
+                    self.transitions[s][UP][s + 1] = noise
+                else:
+                    self.transitions[s][UP][s] = noise
+                # special case top left corner
+                if s < self.num_cols and s % self.num_cols == 0.0:
+                    self.transitions[s][UP][s] = 1.0 - noise
+                elif s < self.num_cols and s % self.num_cols == self.num_cols - 1:
+                    self.transitions[s][UP][s] = 1.0 - noise
+            
+            # going down
+            for s in range(self.num_states):
+                # possibility of going down
+                if s < (self.num_rows - 1) * self.num_cols:
+                    self.transitions[s][DOWN][s + self.num_cols] = 1.0 - (2 * noise)
+                else:
+                    self.transitions[s][DOWN][s] = 1.0 - (2 * noise)
+                # possibility of going left
+                if s % self.num_cols == 0:
+                    self.transitions[s][DOWN][s] = noise
+                else:
+                    self.transitions[s][DOWN][s - 1] = noise
+                # possibility of going right
+                if s % self.num_cols < self.num_cols - 1:
+                    self.transitions[s][DOWN][s + 1] = noise
+                else:
+                    self.transitions[s][DOWN][s] = noise
+                # checking bottom right corner
+                if s >= (self.num_rows - 1) * self.num_cols and s % self.num_cols == 0:
+                    self.transitions[s][DOWN][s] = 1.0 - noise
+                elif (
+                    s >= (self.num_rows - 1) * self.num_cols
+                    and s % self.num_cols == self.num_cols - 1
+                ):
+                    self.transitions[s][DOWN][s] = 1.0 - noise
+            
+            # going left
+            for s in range(self.num_states):
+                # possibility of going left
+                if s % self.num_cols > 0:
+                    self.transitions[s][LEFT][s - 1] = 1.0 - (2 * noise)
+                else:
+                    self.transitions[s][LEFT][s] = 1.0 - (2 * noise)
+                # possibility of going up
+                if s >= self.num_cols:
+                    self.transitions[s][LEFT][s - self.num_cols] = noise
+                else:
+                    self.transitions[s][LEFT][s] = noise
+                # possiblity of going down
+                if s < (self.num_rows - 1) * self.num_cols:
+                    self.transitions[s][LEFT][s + self.num_cols] = noise
+                else:
+                    self.transitions[s][LEFT][s] = noise
+                # check  top left corner
+                if s < self.num_cols and s % self.num_cols == 0:
+                    self.transitions[s][LEFT][s] = 1.0 - noise
+                elif s >= (self.num_rows - 1) * self.num_cols and s % self.num_cols == 0:
+                    self.transitions[s][LEFT][s] = 1 - noise
 
-            # possibility of going foward
+            # going right
+            for s in range(self.num_states):
+                if s % self.num_cols < self.num_cols - 1:
+                    self.transitions[s][RIGHT][s + 1] = 1.0 - (2 * noise)
+                else:
+                    self.transitions[s][RIGHT][s] = 1.0 - (2 * noise)
+                # possibility of going up
+                if s >= self.num_cols:
+                    self.transitions[s][RIGHT][s - self.num_cols] = noise
+                else:
+                    self.transitions[s][RIGHT][s] = noise
+                # possibility of going down
+                if s < (self.num_rows - 1) * self.num_cols:
+                    self.transitions[s][RIGHT][s + self.num_cols] = noise
+                else:
+                    self.transitions[s][RIGHT][s] = noise
+                # check top right corner
+                if (s < self.num_cols) and (s % self.num_cols == self.num_cols - 1):
+                    self.transitions[s][RIGHT][s] = 1 - noise
+                # check bottom rihgt corner case
+                elif (
+                    s >= (self.num_rows - 1) * self.num_cols
+                    and s % self.num_cols == self.num_cols - 1
+                ):
+                    self.transitions[s][RIGHT][s] = 1.0 - noise
 
-            if s >= self.num_cols:
-                self.transitions[s][UP][s - self.num_cols] = 1.0 - (2 * noise)
-            else:
-                self.transitions[s][UP][s] = 1.0 - (2 * noise)
+            for s in range(self.num_states):
+                if s in self.terminals:
+                    for a in range(self.num_actions):
+                        for s2 in range(self.num_states):
+                            self.transitions[s][a][s2] = 0.0
+        
+        else:
+            # 0: stay, 1: left, 2: right
+            # TODO: add acceleration
+            STAY = 0
+            LEFT = 1
+            RIGHT = 2
 
-            # possibility of going left
+            # STAY in lane
+            for s in range(self.num_states):
+                fwd_state = s + 3 if s < 3 * (self.num_rows - 1) else s % 3
+                left_state = s + 2 if s < 3 * (self.num_rows - 1) else (s - 1) % 3
+                right_state = s + 4 if s < 3 * (self.num_rows - 1) else (s + 1) % 3
+                if s % 3 == 0: # left lanes
+                    self.transitions[s][STAY][fwd_state] = 1.0 - noise # possibility of moving forward
+                    self.transitions[s][STAY][right_state] = noise # possibility of going right
+                elif s % 3 == 1: # middle lanes
+                    self.transitions[s][STAY][fwd_state] = 1.0 - (2 * noise) # possibility of moving forward
+                    self.transitions[s][STAY][left_state] = noise # possibility of going left
+                    self.transitions[s][STAY][right_state] = noise # possibility of going right
+                elif s % 3 == 2: # right lanes
+                    self.transitions[s][STAY][fwd_state] = 1.0 - noise # possibility of staying
+                    self.transitions[s][STAY][left_state] = noise # possibility of going left
+            
+            # moving LEFT
+            for s in range(self.num_states):
+                fwd_state = s + 3 if s < 3 * (self.num_rows - 1) else s % 3
+                left_state = s + 2 if s < 3 * (self.num_rows - 1) else (s - 1) % 3
+                right_state = s + 4 if s < 3 * (self.num_rows - 1) else (s + 1) % 3
+                if s % 3 == 0: # left lanes
+                    self.transitions[s][LEFT][s] = 1.0 - noise # possibility of going left (not possible)
+                    self.transitions[s][LEFT][fwd_state] = noise # possibility of moving forward
+                elif s % 3 == 1: # middle lanes
+                    self.transitions[s][LEFT][left_state] = 1.0 - (2 * noise) # possibility of going left
+                    self.transitions[s][LEFT][fwd_state] = noise # possibility of moving forward
+                    self.transitions[s][LEFT][right_state] = noise # possibility of going right
+                elif s % 3 == 2: # right lanes
+                    self.transitions[s][LEFT][left_state] = 1.0 - noise # possibility of going left
+                    self.transitions[s][LEFT][fwd_state] = noise # possibility of moving forward
+            
+            # moving RIGHT
+            for s in range(self.num_states):
+                fwd_state = s + 3 if s < 3 * (self.num_rows - 1) else s % 3
+                left_state = s + 2 if s < 3 * (self.num_rows - 1) else (s - 1) % 3
+                right_state = s + 4 if s < 3 * (self.num_rows - 1) else (s + 1) % 3
+                if s % 3 == 0: # left lanes
+                    self.transitions[s][RIGHT][right_state] = 1.0 - noise # possibility of going right
+                    self.transitions[s][RIGHT][fwd_state] = noise # possibility of moving forward
+                elif s % 3 == 1: # middle lanes
+                    self.transitions[s][RIGHT][right_state] = 1.0 - (2 * noise) # possibility of going right
+                    self.transitions[s][RIGHT][fwd_state] = noise # possibility of moving forward
+                    self.transitions[s][RIGHT][left_state] = noise # possibility of going left
+                elif s % 3 == 2: # right lanes
+                    self.transitions[s][RIGHT][s] = 1.0 - noise # possibility of going right (not possible)
+                    self.transitions[s][RIGHT][fwd_state] = noise # possibility of moving forward
 
-            if s % self.num_cols == 0:
-                self.transitions[s][UP][s] = noise
-            else:
-                self.transitions[s][UP][s - 1] = noise
-
-            # possibility of going right
-
-            if s % self.num_cols < self.num_cols - 1:
-                self.transitions[s][UP][s + 1] = noise
-            else:
-                self.transitions[s][UP][s] = noise
-
-            # special case top left corner
-
-            if s < self.num_cols and s % self.num_cols == 0.0:
-                self.transitions[s][UP][s] = 1.0 - noise
-            elif s < self.num_cols and s % self.num_cols == self.num_cols - 1:
-                self.transitions[s][UP][s] = 1.0 - noise
-
-        # going down
-        for s in range(self.num_states):
-
-            # self.num_rows = gridHeight
-            # self.num_cols = gridwidth
-
-            # possibility of going down
-            if s < (self.num_rows - 1) * self.num_cols:
-                self.transitions[s][DOWN][s + self.num_cols] = 1.0 - (2 * noise)
-            else:
-                self.transitions[s][DOWN][s] = 1.0 - (2 * noise)
-
-            # possibility of going left
-            if s % self.num_cols == 0:
-                self.transitions[s][DOWN][s] = noise
-            else:
-                self.transitions[s][DOWN][s - 1] = noise
-
-            # possibility of going right
-            if s % self.num_cols < self.num_cols - 1:
-                self.transitions[s][DOWN][s + 1] = noise
-            else:
-                self.transitions[s][DOWN][s] = noise
-
-            # checking bottom right corner
-            if s >= (self.num_rows - 1) * self.num_cols and s % self.num_cols == 0:
-                self.transitions[s][DOWN][s] = 1.0 - noise
-            elif (
-                s >= (self.num_rows - 1) * self.num_cols
-                and s % self.num_cols == self.num_cols - 1
-            ):
-                self.transitions[s][DOWN][s] = 1.0 - noise
-
-        # going left
-        # self.num_rows = gridHeight
-        # self.num_cols = gridwidth
-        for s in range(self.num_states):
-            # possibility of going left
-
-            if s % self.num_cols > 0:
-                self.transitions[s][LEFT][s - 1] = 1.0 - (2 * noise)
-            else:
-                self.transitions[s][LEFT][s] = 1.0 - (2 * noise)
-
-            # possibility of going up
-
-            if s >= self.num_cols:
-                self.transitions[s][LEFT][s - self.num_cols] = noise
-            else:
-                self.transitions[s][LEFT][s] = noise
-
-            # possiblity of going down
-            if s < (self.num_rows - 1) * self.num_cols:
-                self.transitions[s][LEFT][s + self.num_cols] = noise
-            else:
-                self.transitions[s][LEFT][s] = noise
-
-            # check  top left corner
-            if s < self.num_cols and s % self.num_cols == 0:
-                self.transitions[s][LEFT][s] = 1.0 - noise
-            elif s >= (self.num_rows - 1) * self.num_cols and s % self.num_cols == 0:
-                self.transitions[s][LEFT][s] = 1 - noise
-
-        # going right
-        for s in range(self.num_states):
-
-            if s % self.num_cols < self.num_cols - 1:
-                self.transitions[s][RIGHT][s + 1] = 1.0 - (2 * noise)
-            else:
-                self.transitions[s][RIGHT][s] = 1.0 - (2 * noise)
-
-            # possibility of going up
-
-            if s >= self.num_cols:
-                self.transitions[s][RIGHT][s - self.num_cols] = noise
-            else:
-                self.transitions[s][RIGHT][s] = noise
-
-            # possibility of going down
-
-            if s < (self.num_rows - 1) * self.num_cols:
-                self.transitions[s][RIGHT][s + self.num_cols] = noise
-            else:
-                self.transitions[s][RIGHT][s] = noise
-
-            # check top right corner
-            if (s < self.num_cols) and (s % self.num_cols == self.num_cols - 1):
-                self.transitions[s][RIGHT][s] = 1 - noise
-            # check bottom rihgt corner case
-            elif (
-                s >= (self.num_rows - 1) * self.num_cols
-                and s % self.num_cols == self.num_cols - 1
-            ):
-                self.transitions[s][RIGHT][s] = 1.0 - noise
-
-        for s in range(self.num_states):
-            if s in self.terminals:
-                for a in range(self.num_actions):
-                    for s2 in range(self.num_states):
-                        self.transitions[s][a][s2] = 0.0
+            # deal with terminal states
+            for s in range(self.num_states):
+                if s in self.terminals:
+                    for a in range(self.num_actions):
+                        for s2 in range(self.num_states):
+                            self.transitions[s][a][s2] = 0.0
 
     
     def set_rewards(self, _rewards):
@@ -197,20 +232,18 @@ class FeatureMDP(MDP):
 
     """
         
-    def __init__(self, num_rows, num_cols, terminals, feature_weights, state_features, gamma, noise = 0.0):
+    def __init__(self, num_rows, num_cols, num_actions, terminals, feature_weights, state_features, gamma, noise = 0.0, driving = False):
 
         assert(num_rows * num_cols == len(state_features))
         assert(len(state_features[0]) == len(feature_weights))
 
         #rewards are linear combination of features
         rewards = np.dot(state_features, feature_weights)
-        super().__init__(num_rows, num_cols, terminals, rewards, gamma, noise)
+        super().__init__(num_rows, num_cols, num_actions, terminals, rewards, gamma, noise, driving)
 
         self.feature_weights = feature_weights
         self.state_features = state_features
 
-
-    
     def set_rewards(self, _feature_weights):
         ''' set reward weights and update state rewards everywhere'''
         #check and make sure reward weights are right size
@@ -224,6 +257,53 @@ class FeatureMDP(MDP):
 
 
 
+class ObjectWorld(MDP):
+    """
+    Like an MDP, but agent must complete tasks before reaching the terminal state.
+    Init with tasks: an array of task positions
+    """
+    def __init__(self, num_rows, num_cols, num_actions, terminals, rewards, gamma, tasks, noise = 0.1):
+        self.gamma = gamma
+        self.num_states = num_rows * num_cols 
+        self.num_actions = num_actions
+        self.num_rows = num_rows
+        self.num_cols = num_cols
+        self.terminals = terminals
+        self.rewards = rewards
+        self.tasks = tasks
+        self.transitions = np.zeros((self.num_states, self.num_actions, self.num_states))
+        self.init_transition_probabilities(noise)
+
+
+
+class DrivingSimulator(FeatureMDP):
+    """
+    An "continuous"-state MDP that simulates driving on a three-lane highway.
+    Visually, states are arranged in rows of three: |  i  | i+1 | i+2 |
+    The purpose is to avoid obstacles on the road i.e. other cars and motorists,
+    as well as avoid getting ticketed, all represented by features.
+    Actions include STAYing in the current lane, moving LEFT, and moving RIGHT.
+    """
+    def __init__(self, num_rows, terminals, feature_weights, motorists = None, police = None, gamma, noise = 0.0):
+        # feature_weights are weights for each of: normal, collision, tailgating, highspeed. Ex. [0, -10, -1, -5]
+        # motorists and police are arrays of locations
+        n = np.array([1, 0, 0, 0])
+        c = np.array([0, 1, 0, 0])
+        t = np.array([0, 0, 1, 0])
+        hs = np.array([0, 0, 0, 1])
+        state_features = np.array()
+        for s in range(num_rows * 3):
+            if s in motorists:
+                state_features.append(c)
+            elif (s + 3) in motorists:
+                state_features.append(t)
+            elif (s + 1) in police or (s - 1) in police:
+                state_features.append(hs)
+            else:
+                state_features.append(n)
+        num_lanes = 3
+        num_actions = 3
+        super().__init__(self, num_rows, num_lanes, num_actions, terminals, feature_weights, state_features, gamma, noise, driving = True)
 
 
 

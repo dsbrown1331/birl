@@ -115,7 +115,7 @@ def demonstrate_entire_optimal_policy(env):
 
 
 
-def calculate_q_values(env, V=None, epsilon=0.0001):
+def calculate_q_values(env, storage = None, V = None, epsilon = 0.0001):
     """
   gets q values for a markov decision process
 
@@ -127,6 +127,8 @@ def calculate_q_values(env, V=None, epsilon=0.0001):
     #runs value iteration if not supplied as input
     if not V:
         V = value_iteration(env, epsilon)
+        if storage:
+            storage[env] = V
     n = env.num_states
 
     Q_values = np.zeros((n, env.num_actions))
@@ -245,9 +247,12 @@ def calculate_percentage_optimal_actions(pi, env, epsilon=0.0001):
     return accuracy / env.num_states
 
 
-def calculate_expected_value_difference(eval_policy, env, epsilon=0.0001, rn = False):
+def calculate_expected_value_difference(eval_policy, env, storage, epsilon = 0.0001, rn = False):
     '''calculates the difference in expected returns between an optimal policy for an mdp and the eval_policy'''
-    V_opt = value_iteration(env, epsilon)
+    if env in storage:
+        V_opt = storage[env]
+    else:
+        V_opt = value_iteration(env, epsilon)
     V_eval = policy_evaluation(eval_policy, env, epsilon)
     if rn:
         V_rand = policy_evaluation_stochastic(env, epsilon)

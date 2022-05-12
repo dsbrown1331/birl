@@ -8,6 +8,10 @@ import numpy as np
 import math
 import sys
 
+rseed = 168
+random.seed(rseed)
+np.random.seed(rseed)
+
 if __name__ == "__main__":
     debug = False # set to False to suppress terminal outputs
 
@@ -21,12 +25,12 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0  # confidence for mcmc
-    N = 100
+    N = 500
     step_stdev = 0.3
     burn_rate = 0.1
     skip_rate = 2
-    random_normalization = False # whether or not to normalize with random policy
-    num_worlds = 50
+    random_normalization = True # whether or not to normalize with random policy
+    num_worlds = 100
 
     envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
     policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
@@ -38,6 +42,7 @@ if __name__ == "__main__":
     avg_bound_errors = []
     bounds = []
     evds = []
+    
     for M in range(0, max_num_demos): # number of demonstrations
         good_upper_bound = 0
         bound_error = []
@@ -88,7 +93,7 @@ if __name__ == "__main__":
                 learned_env = copy.deepcopy(env)
                 learned_env.set_rewards(sample)
                 # learned_policy = mdp_utils.get_optimal_policy(learned_env)
-                Zi = mdp_utils.calculate_expected_value_difference(map_policy, learned_env, rn=random_normalization) # compute policy loss
+                Zi = mdp_utils.calculate_expected_value_difference(map_policy, learned_env, birl.value_iters, rn = random_normalization) # compute policy loss
                 policy_losses.append(Zi)
 
             #compute VaR bound
@@ -99,12 +104,12 @@ if __name__ == "__main__":
                 k = len(policy_losses) - 1
             avar_bound = policy_losses[k]
             if debug:
-                print("vav bound", avar_bound)
+                print("var bound", avar_bound)
             p_loss_bound.append(avar_bound)
             # accuracy: # of trials where upper bound > ground truth expected value difference / total # of trials
             
             #calculate the ground-truth EVD for evaluation
-            map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, rn=random_normalization)
+            map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
             #check if bound is actually upper bound  
             good_upper_bound += avar_bound >= map_evd
             # bound error: upper bound - EVD(eval_policy with ground truth reward)

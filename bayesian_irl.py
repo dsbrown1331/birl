@@ -16,6 +16,7 @@ class BIRL:
         self.demonstrations = demos
         self.epsilon = epsilon
         self.beta = beta
+        self.value_iters = {} # key: environment, value: value iteration result
 
         #check to see if FeatureMDP or just plain MDP
         if hasattr(self.env, 'feature_weights'):
@@ -30,7 +31,10 @@ class BIRL:
     def calc_ll(self, hyp_reward):
         #perform hypothetical given current reward hypothesis
         self.env.set_rewards(hyp_reward)
-        q_values = calculate_q_values(self.env, epsilon=self.epsilon)
+        if self.env in self.value_iters:
+            q_values = calculate_q_values(self.env, V = self.value_iters[self.env], epsilon = self.epsilon)
+        else:
+            q_values = calculate_q_values(self.env, storage = self.value_iters, epsilon = self.epsilon)
         #calculate the log likelihood of the reward hypothesis given the demonstrations
         log_prior = 0.0  #assume unimformative prior
         log_sum = log_prior
