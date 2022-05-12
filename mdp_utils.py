@@ -115,7 +115,11 @@ def demonstrate_entire_optimal_policy(env):
 
 
 
+<<<<<<< HEAD
 def calculate_q_values(env, storage = None, V = None, epsilon = 0.0001):
+=======
+def calculate_q_values(env, storage = None, V=None, epsilon=0.0001):
+>>>>>>> 71a527d01ba914c0901c24b620ad867586fb552c
     """
   gets q values for a markov decision process
 
