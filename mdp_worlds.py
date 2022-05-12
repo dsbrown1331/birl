@@ -57,7 +57,7 @@ def random_feature_mdp(rows, columns, num_features):
     features = [tuple(f) for f in f_vecs]
     #randomly select features for each state in mdp
     state_features = [features[np.random.randint(num_features)] for _ in range(rows * columns)]
-    mdp = FeatureMDP(rows, columns, [], feature_weights, state_features, gamma = 0.95)
+    mdp = FeatureMDP(rows, columns, 4, [], feature_weights, state_features, gamma = 0.95)
     return mdp
 
 

@@ -284,7 +284,7 @@ class DrivingSimulator(FeatureMDP):
     as well as avoid getting ticketed, all represented by features.
     Actions include STAYing in the current lane, moving LEFT, and moving RIGHT.
     """
-    def __init__(self, num_rows, terminals, feature_weights, motorists = None, police = None, gamma, noise = 0.0):
+    def __init__(self, num_rows, terminals, feature_weights, motorists, police, gamma, noise = 0.0):
         # feature_weights are weights for each of: normal, collision, tailgating, highspeed. Ex. [0, -10, -1, -5]
         # motorists and police are arrays of locations
         n = np.array([1, 0, 0, 0])
