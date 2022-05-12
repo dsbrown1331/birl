@@ -8,6 +8,10 @@ import numpy as np
 import math
 import sys
 
+rseed = 168
+random.seed(rseed)
+np.random.seed(rseed)
+
 if __name__ == "__main__":
     debug = False # set to False to suppress terminal outputs
 
