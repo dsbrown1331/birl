@@ -6,11 +6,10 @@ import copy
 from scipy.stats import norm
 import numpy as np
 import math
-import sys
 
-# rseed = 168
-# random.seed(rseed)
-# np.random.seed(rseed)
+rseed = 168
+random.seed(rseed)
+np.random.seed(rseed)
 
 if __name__ == "__main__":
     debug = False # set to False to suppress terminal outputs
@@ -25,12 +24,12 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0  # confidence for mcmc
-    N = 500
+    N = 300
     step_stdev = 0.3
-    burn_rate = 0
-    skip_rate = 1
+    burn_rate = 0.1
+    skip_rate = 2
     random_normalization = True # whether or not to normalize with random policy
-    num_worlds = 5
+    num_worlds = 100
 
     envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
     policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
@@ -99,10 +98,10 @@ if __name__ == "__main__":
             #calculate the ground-truth EVD for evaluation
             map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
             norm_evd.append(map_evd)
+            policy_losses.sort()
+            N_burned = len(samples)
             for alpha in alphas:
                 #compute VaR bound
-                policy_losses.sort()
-                N_burned = len(samples)
                 k = math.ceil(N_burned * alpha + norm.ppf(1 - delta) * np.sqrt(N_burned*alpha*(1 - alpha)) - 0.5)
                 if k >= len(policy_losses):
                     k = len(policy_losses) - 1
@@ -124,8 +123,8 @@ if __name__ == "__main__":
         for alpha in alphas:
             accuracy = good_upper_bound[alpha] / num_worlds
             accuracies[alpha].append(accuracy)
-            avg_bound_errors[alpha].append(bound_error)
-            bounds[alpha].append(p_loss_bound)
+            avg_bound_errors[alpha].append(bound_error[alpha])
+            bounds[alpha].append(p_loss_bound[alpha])
         evds.append(norm_evd)
         print("Done with {} demonstrations".format(M + 1))
     for alpha in alphas:
