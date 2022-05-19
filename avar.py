@@ -16,22 +16,23 @@ if __name__ == "__main__":
 
     # Hyperparameters
     max_num_demos = 9 # maximum number of demos to give agent, start with 1 demo and then work up to max_num_demos
-    alphas = [0.9, 0.95, 0.99]
+    alphas = [0.90, 0.95, 0.99]
     delta = 0.05
-    num_rows = 4
+    num_rows = 5 # 4 normal, 5 driving
     num_cols = 4
     num_features = 3
 
     # MCMC hyperparameters
     beta = 10.0  # confidence for mcmc
-    N = 300
+    N = 25
     step_stdev = 0.3
-    burn_rate = 0.1
-    skip_rate = 2
+    burn_rate = 0.05
+    skip_rate = 1
     random_normalization = True # whether or not to normalize with random policy
-    num_worlds = 100
+    num_worlds = 5
 
-    envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
+    # envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
+    envs = [mdp_worlds.random_driving_simulator(num_rows) for _ in range(num_worlds)]
     policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
     policy_archive = [{} for _ in range(num_worlds)]
     demos = [[] for _ in range(num_worlds)]
@@ -74,15 +75,15 @@ if __name__ == "__main__":
             map_policy = mdp_utils.get_optimal_policy(map_env)
             #debugging to visualize the learned policy
             if debug:
-                print("feature map")
-                mdp_utils.visualize_binary_features(env)
+                # print("feature map")
+                # mdp_utils.visualize_binary_features(env)
                 print("map policy")
                 print("MAP weights", map_env.feature_weights)
-                mdp_utils.visualize_policy(map_policy, env)
+                # mdp_utils.visualize_policy(map_policy, env)
                 print("optimal policy")
                 print("true weights", env.feature_weights)
                 opt_policy = mdp_utils.get_optimal_policy(env)
-                mdp_utils.visualize_policy(opt_policy, env)
+                # mdp_utils.visualize_policy(opt_policy, env)
                 policy_accuracy = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
                 print("policy accuracy", policy_accuracy)
 

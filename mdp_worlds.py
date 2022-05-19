@@ -1,8 +1,7 @@
-from mdp import FeatureMDP, MDP
+from mdp import DrivingSimulator, FeatureMDP, MDP
 import numpy as np
 import mdp_utils
-
-
+import math
 
 
 def gen_simple_world():
@@ -58,6 +57,22 @@ def random_feature_mdp(rows, columns, num_features):
     #randomly select features for each state in mdp
     state_features = [features[np.random.randint(num_features)] for _ in range(rows * columns)]
     mdp = FeatureMDP(rows, columns, 4, [], feature_weights, state_features, gamma = 0.95)
+    return mdp
+
+
+def random_driving_simulator(rows):
+    # create random weight vector
+    weights = [] # normal, good speed, best speed, collision, tailgating
+    weights.append(np.random.randint(0, 3))
+    weights.append(np.random.randint(3, 6))
+    weights.append(np.random.randint(6, 9))
+    weights.append(np.random.randint(-10, -5))
+    weights.append(np.random.randint(-5, 0))
+    weights /= np.linalg.norm(np.array(weights))
+    # disperse motorists randomly, assuming three lanes and three speeds
+    motorist_positions = np.random.choice([s for s in range(rows * 5) if s % 5 in [1, 2, 3]], size = math.floor(rows * 5/4))
+    motorists = np.concatenate((motorist_positions, motorist_positions + rows * 5, motorist_positions + rows * 5 * 2))
+    mdp = DrivingSimulator(rows, [], weights, motorists, None, gamma = 0.95, noise = 0.0)
     return mdp
 
 

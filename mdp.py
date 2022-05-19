@@ -17,7 +17,10 @@ class MDP:
                 e.g. if taking up action, then the agent has probability noise of going right and probability noise of going left.
         """
         self.gamma = gamma
-        self.num_states = num_rows * num_cols 
+        if not driving:
+            self.num_states = num_rows * num_cols 
+        else: # assuming three speeds for driving
+            self.num_states = num_rows * num_cols * 3
         self.num_actions = num_actions #up:0, down:1, left:2, right:3
         self.num_rows = num_rows
         self.num_cols = num_cols
@@ -135,6 +138,7 @@ class MDP:
                 ):
                     self.transitions[s][RIGHT][s] = 1.0 - noise
 
+            # handle terminals
             for s in range(self.num_states):
                 if s in self.terminals:
                     for a in range(self.num_actions):
@@ -142,59 +146,470 @@ class MDP:
                             self.transitions[s][a][s2] = 0.0
         
         else:
-            # 0: stay, 1: left, 2: right
-            # TODO: add acceleration
-            STAY = 0
-            LEFT = 1
-            RIGHT = 2
+            # 0: left & decelerate, 1: left & cruise, 2: left & accelerate
+            # 3: straight & decelerate, 4: straight & cruise, 5: straight & accelerate
+            # 6: right & decelerate, 7: right & cruise, 8: right & accelerate
+            LEFT_DECEL = 0
+            LEFT_CRUISE = 1
+            LEFT_ACCEL = 2
+            STRAIGHT_DECEL = 3
+            STRAIGHT_CRUISE = 4
+            STRAIGHT_ACCEL = 5
+            RIGHT_DECEL = 6
+            RIGHT_CRUISE = 7
+            RIGHT_ACCEL = 8
 
-            # STAY in lane
+            shift = self.num_rows * self.num_cols
+            road_ends = np.array(range(self.num_cols * (self.num_rows - 1), self.num_cols * self.num_rows))
+            all_road_ends = np.concatenate((road_ends, road_ends + shift, road_ends + shift * 2))
+            speed_0_states = np.array(range(shift))
+            speed_1_states = np.array(range(shift, shift * 2))
+            speed_2_states = np.array(range(shift * 2, shift * 3))
+            def lb(s): # is state left border?
+                return s % self.num_cols == 0
+            def rb(s): # is state right border?
+                return s % self.num_cols == self.num_cols - 1
+
+            # LEFT, DECEL
             for s in range(self.num_states):
-                fwd_state = s + 3 if s < 3 * (self.num_rows - 1) else s % 3
-                left_state = s + 2 if s < 3 * (self.num_rows - 1) else (s - 1) % 3
-                right_state = s + 4 if s < 3 * (self.num_rows - 1) else (s + 1) % 3
-                if s % 3 == 0: # left lanes
-                    self.transitions[s][STAY][fwd_state] = 1.0 - noise # possibility of moving forward
-                    self.transitions[s][STAY][right_state] = noise # possibility of going right
-                elif s % 3 == 1: # middle lanes
-                    self.transitions[s][STAY][fwd_state] = 1.0 - (2 * noise) # possibility of moving forward
-                    self.transitions[s][STAY][left_state] = noise # possibility of going left
-                    self.transitions[s][STAY][right_state] = noise # possibility of going right
-                elif s % 3 == 2: # right lanes
-                    self.transitions[s][STAY][fwd_state] = 1.0 - noise # possibility of staying
-                    self.transitions[s][STAY][left_state] = noise # possibility of going left
+                # move to correct location and speed and account for wraparound
+                if 0 <= s < shift:
+                    if not lb(s):
+                        left_state = (s - 1) % self.num_cols if (s - 1) in all_road_ends else s - 1
+                    else:
+                        left_state = s % self.num_cols if s in all_road_ends else s
+                    straight_state = s % self.num_cols if s in all_road_ends else s
+                    if not rb(s):
+                        right_state = (s + 1) % self.num_cols if (s + 1) in all_road_ends else s + 1
+                    else:
+                        right_state = s % self.num_cols if s in all_road_ends else s
+                elif shift <= s < shift * 2:
+                    if not lb(s):
+                        left_state = ((s - 1) % self.num_cols if (s - 1) in all_road_ends else s - 1) - shift
+                    else:
+                        left_state = (s % self.num_cols if s in all_road_ends else s) - shift
+                    straight_state = (s % self.num_cols if s in all_road_ends else s) - shift
+                    if not rb(s):
+                        right_state = ((s + 1) % self.num_cols if (s + 1) in all_road_ends else s + 1) - shift
+                    else:
+                        right_state = (s % self.num_cols if s in all_road_ends else s) - shift
+                else:
+                    if not lb(s):
+                        left_state = ((s + 4) % self.num_cols if (s + 4) in all_road_ends else s + 4) - shift
+                    else:
+                        left_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) - shift
+                    straight_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) - shift
+                    if not rb(s):
+                        right_state = ((s + 6) % self.num_cols if (s + 6) in all_road_ends else s + 6) - shift
+                    else:
+                        right_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) - shift
+                # transitions for each lane
+                if s % self.num_cols == 0: # left border
+                    self.transitions[s][LEFT_DECEL][left_state] = 0.0
+                    self.transitions[s][LEFT_DECEL][straight_state] = 0.5
+                    self.transitions[s][LEFT_DECEL][right_state] = 0.5
+                elif s % self.num_cols == self.num_cols - 1: # right border
+                    self.transitions[s][LEFT_DECEL][left_state] = 1.0 - noise
+                    self.transitions[s][LEFT_DECEL][straight_state] = noise
+                    self.transitions[s][LEFT_DECEL][right_state] = 0.0
+                else: # main lanes
+                    self.transitions[s][LEFT_DECEL][left_state] = 1.0 - (2 * noise)
+                    self.transitions[s][LEFT_DECEL][straight_state] = noise
+                    self.transitions[s][LEFT_DECEL][right_state] = noise
             
-            # moving LEFT
+            # LEFT, CRUISE
             for s in range(self.num_states):
-                fwd_state = s + 3 if s < 3 * (self.num_rows - 1) else s % 3
-                left_state = s + 2 if s < 3 * (self.num_rows - 1) else (s - 1) % 3
-                right_state = s + 4 if s < 3 * (self.num_rows - 1) else (s + 1) % 3
-                if s % 3 == 0: # left lanes
-                    self.transitions[s][LEFT][s] = 1.0 - noise # possibility of going left (not possible)
-                    self.transitions[s][LEFT][fwd_state] = noise # possibility of moving forward
-                elif s % 3 == 1: # middle lanes
-                    self.transitions[s][LEFT][left_state] = 1.0 - (2 * noise) # possibility of going left
-                    self.transitions[s][LEFT][fwd_state] = noise # possibility of moving forward
-                    self.transitions[s][LEFT][right_state] = noise # possibility of going right
-                elif s % 3 == 2: # right lanes
-                    self.transitions[s][LEFT][left_state] = 1.0 - noise # possibility of going left
-                    self.transitions[s][LEFT][fwd_state] = noise # possibility of moving forward
+                # move to correct location and speed and account for wraparound
+                if 0 <= s < shift:
+                    if not lb(s):
+                        left_state = (s - 1) % self.num_cols if (s - 1) in all_road_ends else s - 1
+                    else:
+                        left_state = s % self.num_cols if s in all_road_ends else s
+                    straight_state = s % self.num_cols if s in all_road_ends else s
+                    if not rb(s):
+                        right_state = (s + 1) % self.num_cols if (s + 1) in all_road_ends else s + 1
+                    else:
+                        right_state = s % self.num_cols if s in all_road_ends else s
+                elif shift <= s < shift * 2:
+                    if not lb(s):
+                        left_state = ((s + 4) % self.num_cols if (s + 4) in all_road_ends else s + 4)
+                    else:
+                        left_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5)
+                    straight_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5)
+                    if not rb(s):
+                        right_state = ((s + 6) % self.num_cols if (s + 6) in all_road_ends else s + 6)
+                    else:
+                        right_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5)
+                else:
+                    if not lb(s):
+                        left_state = ((s + 9) % self.num_cols if (s + 9) in all_road_ends or (s + 9) >= shift * 3 else s + 9)
+                    else:
+                        left_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                    straight_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                    if not rb(s):
+                        right_state = ((s + 11) % self.num_cols if (s + 11) in all_road_ends or (s + 11) >= shift * 3 else s + 11)
+                    else:
+                        right_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                # transitions for each lane
+                if s % self.num_cols == 0: # left border
+                    self.transitions[s][LEFT_CRUISE][left_state] = 0.0
+                    self.transitions[s][LEFT_CRUISE][straight_state] = 0.5
+                    self.transitions[s][LEFT_CRUISE][right_state] = 0.5
+                elif s % self.num_cols == self.num_cols - 1: # right border
+                    self.transitions[s][LEFT_CRUISE][left_state] = 1.0 - noise
+                    self.transitions[s][LEFT_CRUISE][straight_state] = noise
+                    self.transitions[s][LEFT_CRUISE][right_state] = 0.0
+                else: # main lanes
+                    self.transitions[s][LEFT_CRUISE][left_state] = 1.0 - (2 * noise)
+                    self.transitions[s][LEFT_CRUISE][straight_state] = noise
+                    self.transitions[s][LEFT_CRUISE][right_state] = noise
             
-            # moving RIGHT
+            # LEFT, ACCEL
             for s in range(self.num_states):
-                fwd_state = s + 3 if s < 3 * (self.num_rows - 1) else s % 3
-                left_state = s + 2 if s < 3 * (self.num_rows - 1) else (s - 1) % 3
-                right_state = s + 4 if s < 3 * (self.num_rows - 1) else (s + 1) % 3
-                if s % 3 == 0: # left lanes
-                    self.transitions[s][RIGHT][right_state] = 1.0 - noise # possibility of going right
-                    self.transitions[s][RIGHT][fwd_state] = noise # possibility of moving forward
-                elif s % 3 == 1: # middle lanes
-                    self.transitions[s][RIGHT][right_state] = 1.0 - (2 * noise) # possibility of going right
-                    self.transitions[s][RIGHT][fwd_state] = noise # possibility of moving forward
-                    self.transitions[s][RIGHT][left_state] = noise # possibility of going left
-                elif s % 3 == 2: # right lanes
-                    self.transitions[s][RIGHT][s] = 1.0 - noise # possibility of going right (not possible)
-                    self.transitions[s][RIGHT][fwd_state] = noise # possibility of moving forward
+                # move to correct location and speed and account for wraparound
+                if 0 <= s < shift:
+                    if not lb(s):
+                        left_state = ((s + 4) % self.num_cols if (s + 4) in all_road_ends else s + 4) + shift
+                    else:
+                        left_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) + shift
+                    straight_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) + shift
+                    if not rb(s):
+                        right_state = ((s + 6) % self.num_cols if (s + 6) in all_road_ends else s + 6) + shift
+                    else:
+                        right_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) + shift
+                elif shift <= s < shift * 2:
+                    if not lb(s):
+                        left_state = ((s + 9) % self.num_cols if (s + 9) in all_road_ends else s + 9) + shift
+                    else:
+                        left_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends else s + 10) + shift
+                    if left_state >= shift * 3:
+                            left_state %= self.num_cols
+                    straight_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends else s + 10) + shift
+                    if straight_state >= shift * 3:
+                            straight_state %= self.num_cols
+                    if not rb(s):
+                        right_state = ((s + 11) % self.num_cols if (s + 11) in all_road_ends else s + 11) + shift
+                    else:
+                        right_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends else s + 10) + shift
+                    if right_state >= shift * 3:
+                            right_state %= self.num_cols
+                else:
+                    if not lb(s):
+                        left_state = ((s + 9) % self.num_cols if (s + 9) in all_road_ends or (s + 9) >= shift * 3 else s + 9)
+                    else:
+                        left_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                    straight_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                    if not rb(s):
+                        right_state = ((s + 11) % self.num_cols if (s + 11) in all_road_ends or (s + 11) >= shift * 3 else s + 11)
+                    else:
+                        right_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                # transitions for each lane
+                if s % self.num_cols == 0: # left border
+                    self.transitions[s][LEFT_ACCEL][left_state] = 0.0
+                    self.transitions[s][LEFT_ACCEL][straight_state] = 0.5
+                    self.transitions[s][LEFT_ACCEL][right_state] = 0.5
+                elif s % self.num_cols == self.num_cols - 1: # right border
+                    self.transitions[s][LEFT_ACCEL][left_state] = 1.0 - noise
+                    self.transitions[s][LEFT_ACCEL][straight_state] = noise
+                    self.transitions[s][LEFT_ACCEL][right_state] = 0.0
+                else: # main lanes
+                    self.transitions[s][LEFT_ACCEL][left_state] = 1.0 - (2 * noise)
+                    self.transitions[s][LEFT_ACCEL][straight_state] = noise
+                    self.transitions[s][LEFT_ACCEL][right_state] = noise
+
+            # STRAIGHT, DECEL
+            for s in range(self.num_states):
+                # move to correct location and speed and account for wraparound
+                if 0 <= s < shift:
+                    if not lb(s):
+                        left_state = (s - 1) % self.num_cols if (s - 1) in all_road_ends else s - 1
+                    else:
+                        left_state = s % self.num_cols if s in all_road_ends else s
+                    straight_state = s % self.num_cols if s in all_road_ends else s
+                    if not rb(s):
+                        right_state = (s + 1) % self.num_cols if (s + 1) in all_road_ends else s + 1
+                    else:
+                        right_state = s % self.num_cols if s in all_road_ends else s
+                elif shift <= s < shift * 2:
+                    if not lb(s):
+                        left_state = ((s - 1) % self.num_cols if (s - 1) in all_road_ends else s - 1) - shift
+                    else:
+                        left_state = (s % self.num_cols if s in all_road_ends else s) - shift
+                    straight_state = (s % self.num_cols if s in all_road_ends else s) - shift
+                    if not rb(s):
+                        right_state = ((s + 1) % self.num_cols if (s + 1) in all_road_ends else s + 1) - shift
+                    else:
+                        right_state = (s % self.num_cols if s in all_road_ends else s) - shift
+                else:
+                    if not lb(s):
+                        left_state = ((s + 4) % self.num_cols if (s + 4) in all_road_ends else s + 4) - shift
+                    else:
+                        left_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) - shift
+                    straight_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) - shift
+                    if not rb(s):
+                        right_state = ((s + 6) % self.num_cols if (s + 6) in all_road_ends else s + 6) - shift
+                    else:
+                        right_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) - shift
+                # transitions for each lane
+                if s % self.num_cols == 0: # left border
+                    self.transitions[s][STRAIGHT_DECEL][left_state] = 0.0
+                    self.transitions[s][STRAIGHT_DECEL][straight_state] = 1.0 - noise
+                    self.transitions[s][STRAIGHT_DECEL][right_state] = noise
+                elif s % self.num_cols == self.num_cols - 1: # right border
+                    self.transitions[s][STRAIGHT_DECEL][left_state] = noise
+                    self.transitions[s][STRAIGHT_DECEL][straight_state] = 1.0 - noise
+                    self.transitions[s][STRAIGHT_DECEL][right_state] = 0.0
+                else: # main lanes
+                    self.transitions[s][STRAIGHT_DECEL][left_state] = noise
+                    self.transitions[s][STRAIGHT_DECEL][straight_state] = 1.0 - (2 * noise)
+                    self.transitions[s][STRAIGHT_DECEL][right_state] = noise
+
+            # STRAIGHT, CRUISE
+            for s in range(self.num_states):
+                # move to correct location and speed and account for wraparound
+                if 0 <= s < shift:
+                    if not lb(s):
+                        left_state = (s - 1) % self.num_cols if (s - 1) in all_road_ends else s - 1
+                    else:
+                        left_state = s % self.num_cols if s in all_road_ends else s
+                    straight_state = s % self.num_cols if s in all_road_ends else s
+                    if not rb(s):
+                        right_state = (s + 1) % self.num_cols if (s + 1) in all_road_ends else s + 1
+                    else:
+                        right_state = s % self.num_cols if s in all_road_ends else s
+                elif shift <= s < shift * 2:
+                    if not lb(s):
+                        left_state = ((s + 4) % self.num_cols if (s + 4) in all_road_ends else s + 4)
+                    else:
+                        left_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5)
+                    straight_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5)
+                    if not rb(s):
+                        right_state = ((s + 6) % self.num_cols if (s + 6) in all_road_ends else s + 6)
+                    else:
+                        right_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5)
+                else:
+                    if not lb(s):
+                        left_state = ((s + 9) % self.num_cols if (s + 9) in all_road_ends or (s + 9) >= shift * 3 else s + 9)
+                    else:
+                        left_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                    straight_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                    if not rb(s):
+                        right_state = ((s + 11) % self.num_cols if (s + 11) in all_road_ends or (s + 11) >= shift * 3 else s + 11)
+                    else:
+                        right_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                # transitions for each lane
+                if s % self.num_cols == 0: # left border
+                    self.transitions[s][STRAIGHT_CRUISE][left_state] = 0.0
+                    self.transitions[s][STRAIGHT_CRUISE][straight_state] = 1.0 - noise
+                    self.transitions[s][STRAIGHT_CRUISE][right_state] = noise
+                elif s % self.num_cols == self.num_cols - 1: # right border
+                    self.transitions[s][STRAIGHT_CRUISE][left_state] = noise
+                    self.transitions[s][STRAIGHT_CRUISE][straight_state] = 1.0 - noise
+                    self.transitions[s][STRAIGHT_CRUISE][right_state] = 0.0
+                else: # main lanes
+                    self.transitions[s][STRAIGHT_CRUISE][left_state] = noise
+                    self.transitions[s][STRAIGHT_CRUISE][straight_state] = 1.0 - (2 * noise)
+                    self.transitions[s][STRAIGHT_CRUISE][right_state] = noise
+
+            # STRAIGHT, ACCEL
+            for s in range(self.num_states):
+                # move to correct location and speed and account for wraparound
+                if 0 <= s < shift:
+                    if not lb(s):
+                        left_state = ((s + 4) % self.num_cols if (s + 4) in all_road_ends else s + 4) + shift
+                    else:
+                        left_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) + shift
+                    straight_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) + shift
+                    if not rb(s):
+                        right_state = ((s + 6) % self.num_cols if (s + 6) in all_road_ends else s + 6) + shift
+                    else:
+                        right_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) + shift
+                elif shift <= s < shift * 2:
+                    if not lb(s):
+                        left_state = ((s + 9) % self.num_cols if (s + 9) in all_road_ends or (s + 9) >= shift * 3 else s + 9) + shift
+                    else:
+                        left_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10) + shift
+                    if left_state >= shift * 3:
+                        left_state %= self.num_cols
+                    straight_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10) + shift
+                    if straight_state >= shift * 3:
+                        straight_state %= self.num_cols
+                    if not rb(s):
+                        right_state = ((s + 11) % self.num_cols if (s + 11) in all_road_ends or (s + 11) >= shift * 3 else s + 11) + shift
+                    else:
+                        right_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10) + shift
+                    if right_state >= shift * 3:
+                        right_state %= self.num_cols
+                else:
+                    if not lb(s):
+                        left_state = ((s + 9) % self.num_cols if (s + 9) in all_road_ends or (s + 9) >= shift * 3 else s + 9)
+                    else:
+                        left_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                    straight_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                    if not rb(s):
+                        right_state = ((s + 11) % self.num_cols if (s + 11) in all_road_ends or (s + 11) >= shift * 3 else s + 11)
+                    else:
+                        right_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                # transitions for each lane
+                if s % self.num_cols == 0: # left border
+                    self.transitions[s][STRAIGHT_ACCEL][left_state] = 0.0
+                    self.transitions[s][STRAIGHT_ACCEL][straight_state] = 1.0 - noise
+                    self.transitions[s][STRAIGHT_ACCEL][right_state] = noise
+                elif s % self.num_cols == self.num_cols - 1: # right border
+                    self.transitions[s][STRAIGHT_ACCEL][left_state] = noise
+                    self.transitions[s][STRAIGHT_ACCEL][straight_state] = 1.0 - noise
+                    self.transitions[s][STRAIGHT_ACCEL][right_state] = 0.0
+                else: # main lanes
+                    self.transitions[s][STRAIGHT_ACCEL][left_state] = noise
+                    self.transitions[s][STRAIGHT_ACCEL][straight_state] = 1.0 - (2 * noise)
+                    self.transitions[s][STRAIGHT_ACCEL][right_state] = noise
+            
+            # RIGHT, DECEL
+            for s in range(self.num_states):
+                # move to correct location and speed and account for wraparound
+                if 0 <= s < shift:
+                    if not lb(s):
+                        left_state = (s - 1) % self.num_cols if (s - 1) in all_road_ends else s - 1
+                    else:
+                        left_state = s % self.num_cols if s in all_road_ends else s
+                    straight_state = s % self.num_cols if s in all_road_ends else s
+                    if not rb(s):
+                        right_state = (s + 1) % self.num_cols if (s + 1) in all_road_ends else s + 1
+                    else:
+                        right_state = s % self.num_cols if s in all_road_ends else s
+                elif shift <= s < shift * 2:
+                    if not lb(s):
+                        left_state = ((s - 1) % self.num_cols if (s - 1) in all_road_ends else s - 1) - shift
+                    else:
+                        left_state = (s % self.num_cols if s in all_road_ends else s) - shift
+                    straight_state = (s % self.num_cols if s in all_road_ends else s) - shift
+                    if not rb(s):
+                        right_state = ((s + 1) % self.num_cols if (s + 1) in all_road_ends else s + 1) - shift
+                    else:
+                        right_state = (s % self.num_cols if s in all_road_ends else s) - shift
+                else:
+                    if not lb(s):
+                        left_state = ((s + 4) % self.num_cols if (s + 4) in all_road_ends else s + 4) - shift
+                    else:
+                        left_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) - shift
+                    straight_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) - shift
+                    if not rb(s):
+                        right_state = ((s + 6) % self.num_cols if (s + 6) in all_road_ends else s + 6) - shift
+                    else:
+                        right_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) - shift
+                # transitions for each lane
+                if s % self.num_cols == 0: # left border
+                    self.transitions[s][RIGHT_DECEL][left_state] = 0.0
+                    self.transitions[s][RIGHT_DECEL][straight_state] = noise
+                    self.transitions[s][RIGHT_DECEL][right_state] = 1.0 - noise
+                elif s % self.num_cols == self.num_cols - 1: # right border
+                    self.transitions[s][RIGHT_DECEL][left_state] = 0.5
+                    self.transitions[s][RIGHT_DECEL][straight_state] = 0.5
+                    self.transitions[s][RIGHT_DECEL][right_state] = 0.0
+                else: # main lanes
+                    self.transitions[s][RIGHT_DECEL][left_state] = noise
+                    self.transitions[s][RIGHT_DECEL][straight_state] = noise
+                    self.transitions[s][RIGHT_DECEL][right_state] = 1.0 - (2 * noise)
+
+            # RIGHT, CRUISE
+            for s in range(self.num_states):
+                # move to correct location and speed and account for wraparound
+                if 0 <= s < shift:
+                    if not lb(s):
+                        left_state = (s - 1) % self.num_cols if (s - 1) in all_road_ends else s - 1
+                    else:
+                        left_state = s % self.num_cols if s in all_road_ends else s
+                    straight_state = s % self.num_cols if s in all_road_ends else s
+                    if not rb(s):
+                        right_state = (s + 1) % self.num_cols if (s + 1) in all_road_ends else s + 1
+                    else:
+                        right_state = s % self.num_cols if s in all_road_ends else s
+                elif shift <= s < shift * 2:
+                    if not lb(s):
+                        left_state = ((s + 4) % self.num_cols if (s + 4) in all_road_ends else s + 4)
+                    else:
+                        left_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5)
+                    straight_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5)
+                    if not rb(s):
+                        right_state = ((s + 6) % self.num_cols if (s + 6) in all_road_ends else s + 6)
+                    else:
+                        right_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5)
+                else:
+                    if not lb(s):
+                        left_state = ((s + 9) % self.num_cols if (s + 9) in all_road_ends or (s + 9) >= shift * 3 else s + 9)
+                    else:
+                        left_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                    straight_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                    if not rb(s):
+                        right_state = ((s + 11) % self.num_cols if (s + 11) in all_road_ends or (s + 11) >= shift * 3 else s + 11)
+                    else:
+                        right_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                # transitions for each lane
+                if s % self.num_cols == 0: # left border
+                    self.transitions[s][RIGHT_CRUISE][left_state] = 0.0
+                    self.transitions[s][RIGHT_CRUISE][straight_state] = noise
+                    self.transitions[s][RIGHT_CRUISE][right_state] = 1.0 - noise
+                elif s % self.num_cols == self.num_cols - 1: # right border
+                    self.transitions[s][RIGHT_CRUISE][left_state] = 0.5
+                    self.transitions[s][RIGHT_CRUISE][straight_state] = 0.5
+                    self.transitions[s][RIGHT_CRUISE][right_state] = 0.0
+                else: # main lanes
+                    self.transitions[s][RIGHT_CRUISE][left_state] = noise
+                    self.transitions[s][RIGHT_CRUISE][straight_state] = noise
+                    self.transitions[s][RIGHT_CRUISE][right_state] = 1.0 - (2 * noise)
+
+            # RIGHT, ACCEL
+            for s in range(self.num_states):
+                # move to correct location and speed and account for wraparound
+                if 0 <= s < shift:
+                    if not lb(s):
+                        left_state = ((s + 4) % self.num_cols if (s + 4) in all_road_ends else s + 4) + shift
+                    else:
+                        left_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) + shift
+                    straight_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) + shift
+                    if not rb(s):
+                        right_state = ((s + 6) % self.num_cols if (s + 6) in all_road_ends else s + 6) + shift
+                    else:
+                        right_state = ((s + 5) % self.num_cols if (s + 5) in all_road_ends else s + 5) + shift
+                elif shift <= s < shift * 2:
+                    if not lb(s):
+                        left_state = ((s + 9) % self.num_cols if (s + 9) in all_road_ends or (s + 9) >= shift * 3 else s + 9) + shift
+                    else:
+                        left_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10) + shift
+                    if left_state >= shift * 3:
+                        left_state %= self.num_cols
+                    straight_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10) + shift
+                    if straight_state >= shift * 3:
+                        straight_state %= self.num_cols
+                    if not rb(s):
+                        right_state = ((s + 11) % self.num_cols if (s + 11) in all_road_ends or (s + 11) >= shift * 3 else s + 11) + shift
+                    else:
+                        right_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10) + shift
+                    if right_state >= shift * 3:
+                        right_state %= self.num_cols
+                else:
+                    if not lb(s):
+                        left_state = ((s + 9) % self.num_cols if (s + 9) in all_road_ends or (s + 9) >= shift * 3 else s + 9)
+                    else:
+                        left_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                    straight_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 10) >= shift * 3 else s + 10)
+                    if not rb(s):
+                        right_state = ((s + 11) % self.num_cols if (s + 11) in all_road_ends or (s + 11) >= shift * 3 else s + 11)
+                    else:
+                        right_state = ((s + 10) % self.num_cols if (s + 10) in all_road_ends or (s + 11) >= shift * 3 else s + 10)
+                # transitions for each lane
+                if s % self.num_cols == 0: # left border
+                    self.transitions[s][RIGHT_ACCEL][left_state] = 0.0
+                    self.transitions[s][RIGHT_ACCEL][straight_state] = noise
+                    self.transitions[s][RIGHT_ACCEL][right_state] = 1.0 - noise
+                elif s % self.num_cols == self.num_cols - 1: # right border
+                    self.transitions[s][RIGHT_ACCEL][left_state] = 0.5
+                    self.transitions[s][RIGHT_ACCEL][straight_state] = 0.5
+                    self.transitions[s][RIGHT_ACCEL][right_state] = 0.0
+                else: # main lanes
+                    self.transitions[s][RIGHT_ACCEL][left_state] = noise
+                    self.transitions[s][RIGHT_ACCEL][straight_state] = noise
+                    self.transitions[s][RIGHT_ACCEL][right_state] = 1.0 - (2 * noise)
 
             # deal with terminal states
             for s in range(self.num_states):
@@ -234,7 +649,7 @@ class FeatureMDP(MDP):
         
     def __init__(self, num_rows, num_cols, num_actions, terminals, feature_weights, state_features, gamma, noise = 0.0, driving = False):
 
-        assert(num_rows * num_cols == len(state_features))
+        assert(num_rows * num_cols == len(state_features) if not driving else num_rows * num_cols * 3 == len(state_features))
         assert(len(state_features[0]) == len(feature_weights))
 
         #rewards are linear combination of features
@@ -285,25 +700,32 @@ class DrivingSimulator(FeatureMDP):
     Actions include STAYing in the current lane, moving LEFT, and moving RIGHT.
     """
     def __init__(self, num_rows, terminals, feature_weights, motorists, police, gamma, noise = 0.0):
-        # feature_weights are weights for each of: normal, collision, tailgating, highspeed. Ex. [0, -10, -1, -5]
+        # feature_weights are weights for each of:
+        # normal, good speed, best speed, collision, tailgating
         # motorists and police are arrays of locations
-        n = np.array([1, 0, 0, 0])
-        c = np.array([0, 1, 0, 0])
-        t = np.array([0, 0, 1, 0])
-        hs = np.array([0, 0, 0, 1])
-        state_features = np.array()
-        for s in range(num_rows * 3):
-            if s in motorists:
-                state_features.append(c)
-            elif (s + 3) in motorists:
-                state_features.append(t)
-            elif (s + 1) in police or (s - 1) in police:
-                state_features.append(hs)
-            else:
-                state_features.append(n)
+        # TODO: add police cars (currently always passing in None)
+        normal = np.array([1, 0, 0, 0, 0])
+        good_speed = np.array([0, 1, 0, 0, 0])
+        best_speed = np.array([0, 0, 1, 0, 0])
+        collision = np.array([0, 0, 0, 1, 0])
+        tailgate = np.array([0, 0, 0, 0, 1])
+        state_features = []
         num_lanes = 3
-        num_actions = 3
-        super().__init__(self, num_rows, num_lanes, num_actions, terminals, feature_weights, state_features, gamma, noise, driving = True)
+        num_cols = num_lanes + 2
+        num_speeds = 3
+        num_actions = num_speeds * num_lanes
+        for s in range(num_rows * num_cols * 3):
+            if s in motorists or s % num_cols == 0 or s % num_cols == num_cols - 1: # crash into another car or the sides
+                state_features.append(collision)
+            elif s >= num_rows * num_cols * (num_speeds - 1) and (s + 5) in motorists: # tailgating
+                state_features.append(tailgate)
+            elif s >= num_rows * num_cols * (num_speeds - 1): # best (highest) speed
+                state_features.append(best_speed)
+            elif s >= num_rows * num_cols * (num_speeds - 2): # good (medium) speed
+                state_features.append(good_speed)
+            else: # nothing special
+                state_features.append(normal)
+        super().__init__(num_rows, num_cols, num_actions, terminals, feature_weights, np.array(state_features), gamma, noise, driving = True)
 
 
 
