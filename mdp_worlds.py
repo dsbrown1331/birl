@@ -17,7 +17,7 @@ def gen_simple_world():
     feature_weights = [-1.0, 1.0, 0.0] #red feature has weight -1 and blue feature has weight +1
     
     noise = 0.0 #no noise in transitions
-    env = FeatureMDP(3,3,[0],feature_weights, state_features, gamma, noise)
+    env = FeatureMDP(3,3,4,[0],feature_weights, state_features, gamma, noise)
     return env
 
 
@@ -25,7 +25,7 @@ def random_gridworld(rows, columns):
     """
     Randomly chooses rewards, no terminal, noisy transitions
     """
-    random_mdp = MDP(rows, columns, [], np.random.randn(rows * columns), gamma=0.95, noise = 0.1)
+    random_mdp = MDP(rows, columns, 4, [], np.random.randn(rows * columns), gamma=0.95, noise = 0.1)
     return random_mdp
 
 
@@ -60,20 +60,42 @@ def random_feature_mdp(rows, columns, num_features):
     return mdp
 
 
-def random_driving_simulator(rows):
-    # create random weight vector
-    weights = [] # normal, good speed, best speed, collision, tailgating
-    weights.append(np.random.randint(0, 3))
-    weights.append(np.random.randint(3, 6))
-    weights.append(np.random.randint(6, 9))
-    weights.append(np.random.randint(-10, -5))
-    weights.append(np.random.randint(-5, 0))
+def random_driving_simulator(rows, reward_function = None):
+    weights = [] # left lane, middle lane, right lane, collision, crashing
+    if reward_function is None or reward_function == "none":
+        # create random weight vector
+        weights.append(np.random.randint(1, 10))
+        weights.append(np.random.randint(1, 10))
+        weights.append(np.random.randint(1, 10))
+        weights.append(np.random.randint(-20, -10))
+        weights.append(np.random.randint(-10, 0))
+    else:
+        if reward_function == "nasty":
+            weights.append(np.random.randint(1, 5))
+            weights.append(np.random.randint(1, 5))
+            weights.append(np.random.randint(1, 5))
+            weights.append(np.random.randint(10, 20))
+            weights.append(np.random.randint(5, 10))
+        elif reward_function == "on road":
+            weights.append(np.random.randint(5, 10))
+            weights.append(np.random.randint(5, 10))
+            weights.append(np.random.randint(5, 10))
+            weights.append(np.random.randint(-2, 2))
+            weights.append(np.random.randint(-10, -5))
+        elif reward_function == "safe":
+            weights.append(np.random.randint(1, 5))
+            weights.append(np.random.randint(1, 5))
+            weights.append(np.random.randint(5, 10))
+            weights.append(np.random.randint(-10, -5))
+            weights.append(np.random.randint(-5, 0))
+        else:
+            return NotImplementedError
     weights /= np.linalg.norm(np.array(weights))
-    # disperse motorists randomly, assuming three lanes and three speeds
-    motorist_positions = np.random.choice([s for s in range(rows * 5) if s % 5 in [1, 2, 3]], size = math.floor(rows * 5/4))
-    motorists = np.concatenate((motorist_positions, motorist_positions + rows * 5, motorist_positions + rows * 5 * 2))
+    # disperse motorists randomly, assume three lanes
+    motorists = np.random.choice([s for s in range(rows * 5) if s % 5 in [1, 2, 3]], size = math.floor(rows * 5/4))
     mdp = DrivingSimulator(rows, [], weights, motorists, None, gamma = 0.95, noise = 0.0)
     return mdp
+
 
 
 

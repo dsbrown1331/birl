@@ -6,6 +6,7 @@ import copy
 from scipy.stats import norm
 import numpy as np
 import math
+import sys
 
 rseed = 168
 random.seed(rseed)
@@ -16,7 +17,7 @@ if __name__ == "__main__":
 
     # Hyperparameters
     max_num_demos = 9 # maximum number of demos to give agent, start with 1 demo and then work up to max_num_demos
-    alphas = [0.90, 0.95, 0.99]
+    alphas = [0.95]
     delta = 0.05
     num_rows = 5 # 4 normal, 5 driving
     num_cols = 4
@@ -24,15 +25,15 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0  # confidence for mcmc
-    N = 25
+    N = 50
     step_stdev = 0.3
     burn_rate = 0.05
     skip_rate = 1
     random_normalization = True # whether or not to normalize with random policy
-    num_worlds = 5
+    num_worlds = 20
 
     # envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
-    envs = [mdp_worlds.random_driving_simulator(num_rows) for _ in range(num_worlds)]
+    envs = [mdp_worlds.random_driving_simulator(num_rows, reward_function = str(sys.argv[1])) for _ in range(num_worlds)]
     policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
     policy_archive = [{} for _ in range(num_worlds)]
     demos = [[] for _ in range(num_worlds)]

@@ -65,7 +65,7 @@ if __name__ == "__main__":
     #-----------------------------------
     print()
     ## Quantitative metrics
-    print("policy loss", mdp_utils.calculate_expected_value_difference(learned_pi, env))
+    print("policy loss", mdp_utils.calculate_expected_value_difference(learned_pi, env, storage = birl.value_iters))
     print("policy action accuracy {}%".format(mdp_utils.calculate_percentage_optimal_actions(learned_pi, env) * 100))
 
 
@@ -102,7 +102,7 @@ if __name__ == "__main__":
     #-----------------------------------
     print()
     ## Quantitative metrics
-    print("policy loss", mdp_utils.calculate_expected_value_difference(learned_pi, env))
+    print("policy loss", mdp_utils.calculate_expected_value_difference(learned_pi, env, birl.value_iters))
     print("policy action accuracy {}%".format(mdp_utils.calculate_percentage_optimal_actions(learned_pi, env) * 100))
 
     #demo isn't super informative so it doesn't learn the true optimal policy but does learn that the red feature is probably negative

@@ -1,4 +1,5 @@
-from mdp import MDP, FeatureMDP
+from signal import SIG_DFL
+from mdp import FeatureMDP, DrivingSimulator
 from matplotlib import pyplot as plt
 import time
 import numpy as np
@@ -141,17 +142,53 @@ def calculate_q_values(env, storage = None, V = None, epsilon = 0.0001):
 
 
 
-def action_to_string(act, UP=0, DOWN=1, LEFT=2, RIGHT=3):
-    if act == UP:
-        return "^"
-    elif act == DOWN:
-        return "v"
-    elif act == LEFT:
-        return "<"
-    elif act == RIGHT:
-        return ">"
+def action_to_string(act, driving = False):
+    if not driving:
+        UP = 0
+        DOWN = 1
+        LEFT = 2
+        RIGHT = 3
+        if act == UP:
+            return "^"
+        elif act == DOWN:
+            return "v"
+        elif act == LEFT:
+            return "<"
+        elif act == RIGHT:
+            return ">"
     else:
-        return NotImplementedError
+        STAY = 0
+        LEFT = 1
+        RIGHT = 2
+        if act == STAY:
+            return "^"
+        elif act == LEFT:
+            return "<"
+        elif act == RIGHT:
+            return ">"
+    return NotImplementedError
+
+
+def reverse_states(env, states):
+    # TODO: make this better generalized,
+    # or figure out a better lexicographical numbering for driving simulation
+    # rows = env.num_rows
+    # cols = env.num_cols
+    rev = []
+    for i in range(len(states)):
+        if 0 <= i < 5:
+            rev.append(states[i + 20])
+        elif 5 <= i < 10:
+            rev.append(states[i + 10])
+        elif 10 <= i < 15:
+            rev.append(states[i])
+        elif 15 <= i < 20:
+            rev.append(states[i - 10])
+        elif 20 <= i < 25:
+            rev.append(states[i - 20])
+    else: # is just a list of states
+        pass
+    return rev
 
 
 def visualize_trajectory(trajectory, env):
@@ -168,7 +205,7 @@ def visualize_trajectory(trajectory, env):
                 if count in env.terminals:
                     policy_row += ".\t"    
                 else:    
-                    policy_row += action_to_string(actions[indx]) + "\t"
+                    policy_row += action_to_string(actions[indx], type(env) is DrivingSimulator) + "\t"
             else:
                 policy_row += " \t"
             count += 1
@@ -185,11 +222,30 @@ def visualize_policy(policy, env):
         policy_row = ""
         for c in range(env.num_cols):
             if count in env.terminals:
-                policy_row += ".\t"    
+                policy_row += ".\t"
             else:
-                policy_row += action_to_string(policy[count]) + "\t"
+                policy_row += action_to_string(policy[count], type(env) is DrivingSimulator) + "\t"
             count += 1
         print(policy_row)
+
+def visualize_env(env, reversed_motorists = None):
+    if type(env) is DrivingSimulator:
+        border = "-" * 8 * env.num_cols + "-"
+        print(border)
+        count = 0
+        for r in range(env.num_rows):
+            env_row = "|"
+            for c in range(env.num_cols):
+                if count in reversed_motorists:
+                    env_row += "   C   "
+                elif count % env.num_cols == 0 or count % env.num_cols == env.num_cols - 1:
+                    env_row += "   X   "
+                else:
+                    env_row += "\t"
+                env_row += "|"
+                count += 1
+            print(env_row)
+            print(border)
 
 
 def print_array_as_grid(array_values, env):
