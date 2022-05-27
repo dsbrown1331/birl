@@ -29,11 +29,11 @@ if __name__ == "__main__":
     random_normalization = True # whether or not to normalize with random policy
     num_worlds = 1
 
-    envs = [mdp_worlds.random_driving_simulator(5) for _ in range(num_worlds)]
+    envs = [mdp_worlds.random_driving_simulator(5, reward_function = "safe") for _ in range(num_worlds)]
     policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
     demos = [[] for _ in range(num_worlds)]
     # demo_order = [0, 6, 12, 18, 24] + [25, 31, 37, 43, 49] + [50, 56, 62, 68, 74]
-    demo_order = list(range(75))
+    demo_order = list(range(25))
     random.shuffle(demo_order)
 
     for M in range(len(demo_order)):

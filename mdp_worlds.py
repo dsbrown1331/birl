@@ -76,7 +76,7 @@ def random_driving_simulator(rows, reward_function = None):
             weights.append(np.random.randint(1, 5))
             weights.append(np.random.randint(10, 20))
             weights.append(np.random.randint(5, 10))
-        elif reward_function == "on road":
+        elif reward_function == "on_road":
             weights.append(np.random.randint(5, 10))
             weights.append(np.random.randint(5, 10))
             weights.append(np.random.randint(5, 10))
