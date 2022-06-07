@@ -16,15 +16,15 @@ if __name__ == "__main__":
     debug = False # set to False to suppress terminal outputs
 
     # Hyperparameters
-    max_num_demos = 15 # maximum number of demos to give agent, start with 1 demo and then work up to max_num_demos
-    alphas = [0.95]
+    alpha = 0.95
     delta = 0.05
     num_rows = 5 # 4 normal, 5 driving
     num_cols = 4
     num_features = 3
+    thresholds = [round(th, 1) for th in np.arange(start = 2.0, stop = -0.1, step = -0.2)] # thresholds on the a-VaR bounds
 
     # MCMC hyperparameters
-    beta = 10.0  # confidence for mcmc
+    beta = 10.0 # confidence for mcmc
     N = 450
     step_stdev = 0.3
     burn_rate = 0.05
@@ -32,23 +32,27 @@ if __name__ == "__main__":
     random_normalization = True # whether or not to normalize with random policy
     num_worlds = 20
 
-    # envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
-    envs = [mdp_worlds.random_driving_simulator(num_rows, reward_function = str(sys.argv[1])) for _ in range(num_worlds)]
+    # Experiment setup
+    envs = [mdp_worlds.random_driving_simulator(num_rows, reward_function = "safe") for _ in range(num_worlds)]
     policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
     policy_archive = [{} for _ in range(num_worlds)]
     demos = [[] for _ in range(num_worlds)]
     demo_order = list(range(num_rows * num_cols))
     random.shuffle(demo_order)
-    accuracies = {alpha: [] for alpha in alphas}
-    avg_bound_errors = {alpha: [] for alpha in alphas}
-    bounds = {alpha: [] for alpha in alphas}
-    evds = []
+
+    # Metrics to evaluate thresholds
+    accuracies = {threshold: 0 for threshold in thresholds}
+    avg_bound_errors = {threshold: [] for threshold in thresholds}
+    bounds = {threshold: [] for threshold in thresholds}
+    true_evds = {threshold: [] for threshold in thresholds}
+    num_demos = {threshold: 0 for threshold in thresholds}
+    start_comp = 0
     
-    for M in range(0, max_num_demos): # number of demonstrations
-        good_upper_bound = {alpha: 0 for alpha in alphas}
-        bound_error = {alpha: [] for alpha in alphas}
-        p_loss_bound = {alpha: [] for alpha in alphas}
-        norm_evd = []
+    for M in range(0, len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
+        curr_good_upper_bound = 0
+        curr_bound_error = []
+        curr_p_loss_bound = []
+        curr_norm_evd = []
         for i in range(num_worlds):
             env = envs[i]
             archive = policy_archive[i]
@@ -76,8 +80,6 @@ if __name__ == "__main__":
             map_policy = mdp_utils.get_optimal_policy(map_env)
             #debugging to visualize the learned policy
             if debug:
-                # print("feature map")
-                # mdp_utils.visualize_binary_features(env)
                 print("map policy")
                 print("MAP weights", map_env.feature_weights)
                 # mdp_utils.visualize_policy(map_policy, env)
@@ -99,40 +101,53 @@ if __name__ == "__main__":
 
             #calculate the ground-truth EVD for evaluation
             map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
-            norm_evd.append(map_evd)
+            curr_norm_evd.append(map_evd)
             policy_losses.sort()
             N_burned = len(samples)
-            for alpha in alphas:
-                #compute VaR bound
-                k = math.ceil(N_burned * alpha + norm.ppf(1 - delta) * np.sqrt(N_burned*alpha*(1 - alpha)) - 0.5)
-                if k >= len(policy_losses):
-                    k = len(policy_losses) - 1
-                avar_bound = policy_losses[k]
-                if debug:
-                    print("var bound", avar_bound)
-                p_loss_bound[alpha].append(avar_bound)
-                # accuracy: # of trials where upper bound > ground truth expected value difference / total # of trials
-                
-                #check if bound is actually upper bound  
-                good_upper_bound[alpha] += avar_bound >= map_evd
-                # bound error: upper bound - EVD(eval_policy with ground truth reward)
-                bound_error[alpha].append(avar_bound - map_evd)
-                #debug stuff to see if bounds are good or not
-                if debug:
-                    print("true evd", map_evd)
-                    print("good", avar_bound >= map_evd)
-                    print("bound error", avar_bound - map_evd)
-        for alpha in alphas:
-            accuracy = good_upper_bound[alpha] / num_worlds
-            accuracies[alpha].append(accuracy)
-            avg_bound_errors[alpha].append(bound_error[alpha])
-            bounds[alpha].append(p_loss_bound[alpha])
-        evds.append(norm_evd)
-        print("Done with {} demonstrations".format(M + 1))
-    for alpha in alphas:
-        print("Random Norm: " + str(random_normalization) + ", Alpha: " + str(alpha))
-        print("Accuracies:", accuracies[alpha])
-        print("Bound errors:", avg_bound_errors[alpha])
-        print("Policy loss bounds:", bounds[alpha])
-        print("True EVDs:", evds)
-        print("**************************************************")
+            #compute VaR bound
+            k = math.ceil(N_burned * alpha + norm.ppf(1 - delta) * np.sqrt(N_burned*alpha*(1 - alpha)) - 0.5)
+            if k >= len(policy_losses):
+                k = len(policy_losses) - 1
+            avar_bound = policy_losses[k]
+            if debug:
+                print("var bound", avar_bound)
+            curr_p_loss_bound.append(avar_bound)
+            # check if bound is actually upper bound  
+            curr_good_upper_bound += avar_bound >= map_evd
+            # bound error: upper bound - EVD(eval_policy with ground truth reward)
+            curr_bound_error.append(avar_bound - map_evd)
+            #debug stuff to see if bounds are good or not
+            if debug:
+                print("true evd", map_evd)
+                print("good", avar_bound >= map_evd)
+                print("bound error", avar_bound - map_evd)
+        for t in range(len(thresholds[start_comp:])):
+            threshold = thresholds[t + start_comp]
+            if avar_bound < threshold:
+                accuracy = curr_good_upper_bound / num_worlds
+                accuracies[threshold] = accuracy
+                avg_bound_errors[threshold].append(curr_bound_error)
+                bounds[threshold].append(curr_p_loss_bound)
+                true_evds[threshold].append(curr_norm_evd)
+                num_demos[threshold] = M + 1
+            else:
+                start_comp += t
+                break
+    
+    # Output results for plotting
+    for threshold in thresholds:
+        print("NEW THRESHOLD ", threshold)
+        print("Accuracy")
+        print(accuracies[threshold])
+        print("Bound errors")
+        for abe in avg_bound_errors[threshold]:
+            print(abe)
+        print("Policy loss bounds")
+        for apl in bounds[threshold]:
+            print(apl)
+        print("True EVDs")
+        for tevd in true_evds[threshold]:
+            print(tevd)
+        print("Num demos")
+        print(num_demos[threshold])
+    print("**************************************************")

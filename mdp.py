@@ -338,7 +338,6 @@ class DrivingSimulator(FeatureMDP):
 
 
 
-
 if __name__ =="__main__":
 
     '''Here's a simple example of how to use the FeatureMDP class'''
