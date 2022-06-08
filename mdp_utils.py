@@ -290,6 +290,14 @@ def arg_max_set(values, eps=0.0001):
     return arg_maxes
 
 
+def calculate_policy_accuracy(opt_pi, eval_pi):
+    assert len(opt_pi) == len(eval_pi)
+    matches = 0
+    for i in range(len(opt_pi)):
+        matches += opt_pi[i] == eval_pi[i]
+    return matches / len(opt_pi)
+
+
 def calculate_percentage_optimal_actions(pi, env, epsilon=0.0001):
     # calculate how many actions under pi are optimal under the env
     accuracy = 0.0
@@ -312,6 +320,8 @@ def calculate_expected_value_difference(eval_policy, env, storage, epsilon = 0.0
     V_eval = policy_evaluation(eval_policy, env, epsilon)
     if rn:
         V_rand = policy_evaluation_stochastic(env, epsilon)
+        if (np.mean(V_opt) - np.mean(V_eval)) == 0:
+            return 0.0
         return (np.mean(V_opt) - np.mean(V_eval)) / (np.mean(V_opt) - np.mean(V_rand))
     return np.mean(V_opt) - np.mean(V_eval)
 
@@ -387,3 +397,79 @@ def sample_l2_ball(k):
     #sample a vector of dimension k with l2 norm of 1
     sample = np.random.randn(k)
     return sample / np.linalg.norm(sample)
+
+
+def calculate_empirical_expected_fc(env, trajectories):
+    """
+    env: the FeatureMDP
+    trajectories: list of lists of demonstrations
+    """
+    num_features = env.num_features
+    gamma = env.gamma
+    state_features = env.state_features
+    avg_feature_counts = np.zeros(num_features)
+    for traj in trajectories:
+        for d in range(len(traj)):
+            demo = traj[d]
+            for f in range(num_features):
+                avg_feature_counts[f] += gamma**d * state_features[demo[0]][f]
+    avg_feature_counts /= len(trajectories)
+    return avg_feature_counts
+
+
+def calculate_state_expected_fc(pi, env, epsilon = 0.0001):
+    num_states = env.num_states
+    num_features = env.num_features
+    state_features = env.state_features
+    gamma = env.gamma
+    transitions = env.transitions
+    feature_counts = np.zeros((num_states, num_features))
+    delta = 1
+
+    while delta > epsilon:
+        delta = 0
+        for s1 in range(num_states):
+            temp = np.zeros(num_features)
+            for f in range(num_features):
+                temp[f] += state_features[s1][f]
+            action = pi[s1]
+            transition_features = np.zeros(num_features)
+            for s2 in range(num_states):
+                if transitions[s1][action][s2] > 0:
+                    for f in range(num_features):
+                        transition_features[f] += transitions[s1][action][s2] * feature_counts[s2][f]
+            for f in range(num_features):
+                temp[f] += gamma * transition_features[f]
+                delta = max(delta, abs(temp[f] - feature_counts[s1][f]))
+                feature_counts[s1][f] = temp[f]
+    
+    return feature_counts
+
+
+def calculate_expected_fc(pi, env, epsilon = 0.0001):
+    """
+    pi: eval policy
+    env: the featureMDP
+    """
+    state_feature_counts = calculate_state_expected_fc(pi, env, epsilon = epsilon)
+    num_states = env.num_states
+    num_features = env.num_features
+
+    expected_fc = np.zeros(num_features)
+    for s in range(num_states):
+        for f in range(num_features):
+            expected_fc[f] += state_feature_counts[s][f]
+    expected_fc /= num_states # assuming any state can be an initial state
+    return expected_fc
+
+
+def calculate_wfcb(pi, env, trajectories, epsilon = 0.0001):
+    """
+    pi: eval policy
+    env: the FeatureMDP
+    trajectories: list of lists of demonstrations
+    """
+    mu_hat_star = calculate_empirical_expected_fc(env, trajectories)
+    mu_pi_eval = calculate_expected_fc(pi, env, epsilon = epsilon)
+    max_abs_diff = np.max(np.abs(mu_hat_star - mu_pi_eval))
+    return max_abs_diff

@@ -267,6 +267,7 @@ class FeatureMDP(MDP):
 
         self.feature_weights = feature_weights
         self.state_features = state_features
+        self.num_features = len(feature_weights)
 
     def set_rewards(self, _feature_weights):
         ''' set reward weights and update state rewards everywhere'''
