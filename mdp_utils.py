@@ -417,9 +417,10 @@ def calculate_empirical_expected_fc(env, trajectories):
     return avg_feature_counts
 
 
-def calculate_state_expected_fc(pi, env, epsilon = 0.0001):
+def calculate_state_expected_fc(pi, env, epsilon = 0.0001, random = False):
     num_states = env.num_states
     num_features = env.num_features
+    num_actions = env.num_actions
     state_features = env.state_features
     gamma = env.gamma
     transitions = env.transitions
@@ -432,26 +433,33 @@ def calculate_state_expected_fc(pi, env, epsilon = 0.0001):
             temp = np.zeros(num_features)
             for f in range(num_features):
                 temp[f] += state_features[s1][f]
-            action = pi[s1]
-            transition_features = np.zeros(num_features)
-            for s2 in range(num_states):
-                if transitions[s1][action][s2] > 0:
-                    for f in range(num_features):
-                        transition_features[f] += transitions[s1][action][s2] * feature_counts[s2][f]
+            if not random:
+                actions = [pi[s1]]
+            else:
+                actions = range(num_actions)
+            for action in actions:
+                transition_features = np.zeros(num_features)
+                for s2 in range(num_states):
+                    if transitions[s1][action][s2] > 0:
+                        for f in range(num_features):
+                            transition_features[f] += transitions[s1][action][s2] * feature_counts[s2][f]
             for f in range(num_features):
-                temp[f] += gamma * transition_features[f]
+                temp[f] += gamma * transition_features[f] * 1/num_actions
                 delta = max(delta, abs(temp[f] - feature_counts[s1][f]))
                 feature_counts[s1][f] = temp[f]
     
     return feature_counts
 
 
-def calculate_expected_fc(pi, env, epsilon = 0.0001):
+def calculate_expected_fc(pi, env, epsilon = 0.0001, random = False):
     """
     pi: eval policy
     env: the featureMDP
     """
-    state_feature_counts = calculate_state_expected_fc(pi, env, epsilon = epsilon)
+    if not random:
+        state_feature_counts = calculate_state_expected_fc(pi, env, epsilon = epsilon)
+    else:
+        state_feature_counts = calculate_state_expected_fc(pi, env, epsilon = epsilon, random = True)
     num_states = env.num_states
     num_features = env.num_features
 
@@ -471,5 +479,6 @@ def calculate_wfcb(pi, env, trajectories, epsilon = 0.0001):
     """
     mu_hat_star = calculate_empirical_expected_fc(env, trajectories)
     mu_pi_eval = calculate_expected_fc(pi, env, epsilon = epsilon)
-    max_abs_diff = np.max(np.abs(mu_hat_star - mu_pi_eval))
+    mu_pi_rand = calculate_expected_fc(pi, env, epsilon = epsilon, random = True)
+    max_abs_diff = np.max(np.abs(mu_hat_star - mu_pi_eval)) / np.max(np.abs(mu_hat_star - mu_pi_rand))
     return max_abs_diff

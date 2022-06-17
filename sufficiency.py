@@ -13,13 +13,14 @@ random.seed(rseed)
 np.random.seed(rseed)
 
 if __name__ == "__main__":
-    stopping_condition = sys.argv[1]
+    stopping_condition = sys.argv[1] # options: avar, wfcb, wfcb_threshold, map_pi
 
     debug = False # set to False to suppress terminal outputs
 
     # Hyperparameters
     alpha = 0.95
     delta = 0.05
+    gamma = 0.95
     num_rows = 5 # 4 normal, 5 driving
     num_cols = 5 # 4 normal, 5 driving
     num_features = 3
@@ -278,12 +279,12 @@ if __name__ == "__main__":
             env = envs[i]
             start_comp = 0
             for M in range(0, len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
-                D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
+                D = mdp_utils.generate_optimal_demo(env, demo_order[M])[:int(1/(1 - gamma))]
                 demos[i].append(D)
                 if debug:
                     print("running BIRL with demos")
                     print("demos", demos[i])
-                birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
+                birl = bayesian_irl.BIRL(env, [pair for traj in demos[i] for pair in traj], beta) # create BIRL environment
                 # use MCMC to generate sequence of sampled rewards
                 birl.run_mcmc(N, step_stdev)
                 #burn initial samples and skip every skip_rate for efficiency
@@ -313,7 +314,7 @@ if __name__ == "__main__":
                     print("policy accuracy", policy_accuracy)
 
                 # compute WFCB bound
-                wfcb = mdp_utils.calculate_wfcb(map_policy, env, [demos[i]])
+                wfcb = mdp_utils.calculate_wfcb(map_policy, env, demos[i])
 
                 # evaluate thresholds
                 for t in range(len(thresholds[start_comp:])):
