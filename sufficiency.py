@@ -13,7 +13,7 @@ random.seed(rseed)
 np.random.seed(rseed)
 
 if __name__ == "__main__":
-    stopping_condition = sys.argv[1] # options: avar, wfcb, wfcb_threshold, map_pi
+    stopping_condition = sys.argv[1] # options: avar, wfcb, wfcb_threshold, map_pi, baseline_pi
 
     debug = False # set to False to suppress terminal outputs
 
@@ -27,12 +27,12 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 450
+    N = 5
     step_stdev = 0.3
-    burn_rate = 0.05
-    skip_rate = 2
+    burn_rate = 0.0
+    skip_rate = 1
     random_normalization = True # whether or not to normalize with random policy
-    num_worlds = 20
+    num_worlds = 5
 
     if stopping_condition == "avar": # stop learning after passing a-VaR threshold
         # Experiment setup
@@ -232,7 +232,7 @@ if __name__ == "__main__":
                     true_evds.append(map_evd)
                     num_demos.append(M + 1)
                     pct_states.append((M + 1) / (num_rows * num_cols))
-                    policy_accuracies.append(mdp_utils.calculate_policy_accuracy(policies[i], map_policy))
+                    policy_accuracies.append(mdp_utils.calculate_percentage_optimal_actions(map_policy, env))
                     break
         
         # Output results for plotting
@@ -259,7 +259,7 @@ if __name__ == "__main__":
         print("**************************************************")
     elif stopping_condition == "wfcb_threshold": # stop learning after passing WFCB threshold
         # Experiment setup
-        thresholds = np.arange(start = 10, stop = -1, step = -1) # thresholds on the WFCB bounds
+        thresholds = np.arange(start = 1.0, stop = -0.1, step = -0.1) # thresholds on the WFCB bounds
         envs = [mdp_worlds.random_driving_simulator(num_rows, reward_function = "safe") for _ in range(num_worlds)]
         policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
         demos = [[] for _ in range(num_worlds)]
@@ -284,7 +284,7 @@ if __name__ == "__main__":
                 if debug:
                     print("running BIRL with demos")
                     print("demos", demos[i])
-                birl = bayesian_irl.BIRL(env, [pair for traj in demos[i] for pair in traj], beta) # create BIRL environment
+                birl = bayesian_irl.BIRL(env, list(set([pair for traj in demos[i] for pair in traj])), beta) # create BIRL environment
                 # use MCMC to generate sequence of sampled rewards
                 birl.run_mcmc(N, step_stdev)
                 #burn initial samples and skip every skip_rate for efficiency
@@ -441,7 +441,7 @@ if __name__ == "__main__":
                     true_evds.append(map_evd)
                     num_demos.append(M + 1)
                     pct_states.append((M + 1) / (num_rows * num_cols))
-                    policy_accuracies.append(mdp_utils.calculate_policy_accuracy(policies[i], map_policy))
+                    policy_accuracies.append(mdp_utils.calculate_percentage_optimal_actions(map_policy, env))
                     break
                 else:
                     curr_map_pi = map_policy
@@ -467,4 +467,98 @@ if __name__ == "__main__":
         print("Policy accuracies")
         for pa in policy_accuracies:
             print(pa)
+        print("**************************************************")
+    elif stopping_condition == "baseline_pi": # stop learning once learned policy is some degree better than baseline policy
+        # Experiment setup
+        thresholds = [round(t, 1) for t in np.arange(start = 0.0, stop = 1.1, step = 0.1)] # thresholds on the percent improvement
+        envs = [mdp_worlds.random_driving_simulator(num_rows, reward_function = "on_road") for _ in range(num_worlds)]
+        policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
+        demos = [[] for _ in range(num_worlds)]
+        demo_order = list(range(num_rows * num_cols))
+        random.shuffle(demo_order)
+
+        # Metrics to evaluate thresholds
+        pct_improvements = {threshold: [] for threshold in thresholds}
+        true_evds = {threshold: [] for threshold in thresholds}
+        num_demos = {threshold: [] for threshold in thresholds}
+        pct_states = {threshold: [] for threshold in thresholds}
+        policy_accuracies = {threshold: [] for threshold in thresholds}
+        confidence = {threshold: 0 for threshold in thresholds}
+
+        for i in range(num_worlds):
+            env = envs[i]
+            baseline_env = mdp_worlds.random_driving_simulator(num_rows, reward_function = "safe", reference_world = env)
+            baseline_pi = mdp_utils.get_optimal_policy(baseline_env)
+            start_comp = 0
+            for M in range(0, len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
+                D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
+                demos[i].append(D)
+                if debug:
+                    print("running BIRL with demos")
+                    print("demos", demos[i])
+                birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
+                # use MCMC to generate sequence of sampled rewards
+                birl.run_mcmc(N, step_stdev)
+                #burn initial samples and skip every skip_rate for efficiency
+                burn_indx = int(len(birl.chain) * burn_rate)
+                samples = birl.chain[burn_indx::skip_rate]
+                #check if MCMC seems to be mixing properly
+                if debug:
+                    print("accept rate for MCMC", birl.accept_rate) #good to tune number of samples and stepsize to have this around 50%
+                    if birl.accept_rate > 0.7:
+                        print("too high, probably need to increase standard deviation")
+                    elif birl.accept_rate < 0.2:
+                        print("too low, probably need to decrease standard dev")
+                #generate evaluation policy from running BIRL
+                map_env = copy.deepcopy(env)
+                map_env.set_rewards(birl.get_map_solution())
+                map_policy = mdp_utils.get_optimal_policy(map_env)
+                #debugging to visualize the learned policy
+                if debug:
+                    print("map policy")
+                    print("MAP weights", map_env.feature_weights)
+                    # mdp_utils.visualize_policy(map_policy, env)
+                    print("optimal policy")
+                    print("true weights", env.feature_weights)
+                    opt_policy = mdp_utils.get_optimal_policy(env)
+                    # mdp_utils.visualize_policy(opt_policy, env)
+                    policy_accuracy = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
+                    print("policy accuracy", policy_accuracy)
+
+                # get percent improvement
+                improvement = mdp_utils.calculate_percent_improvement(env, baseline_pi, map_policy)
+                
+                # evaluate thresholds
+                for t in range(len(thresholds)):
+                    threshold = thresholds[t]
+                    if improvement > threshold:
+                        map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
+                        # store threshold metrics
+                        pct_improvements[threshold].append(improvement)
+                        true_evds[threshold].append(map_evd)
+                        num_demos[threshold].append(M + 1)
+                        pct_states[threshold].append((M + 1) / (num_rows * num_cols))
+                        policy_accuracies[threshold].append(mdp_utils.calculate_percentage_optimal_actions(map_policy, env))
+                        confidence[threshold] += 1
+        
+        # Output results for plotting
+        for threshold in thresholds:
+            print("NEW THRESHOLD", threshold)
+            print("Percent Improvements")
+            for pi in pct_improvements[threshold]:
+                print(pi)
+            print("Confidence")
+            print(confidence[threshold] / (num_worlds * len(thresholds)))
+            print("True EVDs")
+            for tevd in true_evds[threshold]:
+                print(tevd)
+            print("Num demos")
+            for nd in num_demos[threshold]:
+                print(nd)
+            print("Percent states")
+            for ps in pct_states[threshold]:
+                print(ps)
+            print("Policy accuracies")
+            for pa in policy_accuracies[threshold]:
+                print(pa)
         print("**************************************************")

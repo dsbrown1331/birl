@@ -326,6 +326,12 @@ def calculate_expected_value_difference(eval_policy, env, storage, epsilon = 0.0
     return np.mean(V_opt) - np.mean(V_eval)
 
 
+def calculate_percent_improvement(env, base_policy, eval_policy, epsilon = 0.0001):
+    V_base = policy_evaluation(base_policy, env, epsilon)
+    V_eval = policy_evaluation(eval_policy, env, epsilon)
+    return (np.mean(V_eval) - np.mean(V_base)) / np.mean(V_base)
+
+
 def generate_optimal_demo(env, start_state):
     """
     Genarates a single optimal demonstration consisting of state action pairs(s,a)

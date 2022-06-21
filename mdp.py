@@ -305,8 +305,7 @@ class DrivingSimulator(FeatureMDP):
     """
     An "continuous"-state MDP that simulates driving on a three-lane highway.
     Visually, states are arranged in rows of three: |  i  | i+1 | i+2 |
-    The purpose is to avoid obstacles on the road i.e. other cars and motorists,
-    as well as avoid getting ticketed, all represented by features.
+    The purpose is to avoid obstacles on the road i.e. other motorists and medians.
     Actions include STAYing in the current lane, moving LEFT, and moving RIGHT.
     """
     def __init__(self, num_rows, terminals, feature_weights, motorists, police, gamma, noise = 0.0):
@@ -335,6 +334,55 @@ class DrivingSimulator(FeatureMDP):
             else: # crash into the sides
                 state_features.append(crash)
         self.motorists = motorists
+        super().__init__(num_rows, num_cols, num_actions, terminals, feature_weights, np.array(state_features), gamma, noise, driving = True)
+
+
+
+class DrivingSimulatorAdvanced(FeatureMDP):
+    """
+    An "continuous"-state MDP that simulates driving on a three-lane highway but with multiple speeds.
+    Visually, states are arranged in rows of three: |  i  | i+1 | i+2 |
+    The purpose is to avoid obstacles on the road i.e. other motorists, pedestrians,
+    as well as avoid getting ticketed.
+    Actions include STAYing in the current lane, moving LEFT, and moving RIGHT, cross-joined
+    with DECELerating, .
+    """
+    def __init__(self, num_rows, terminals, feature_weights, motorists, police, pedestrians, gamma, noise = 0.0):
+        # features:
+        # left, middle, and right lanes
+        # collision with car, crash into border
+        # slow, medium, and fast speeds
+        # too fast when police is on the road, too fast when pedestrian is on the sidewalk
+        left_lane = np.array([1, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        middle_lane = np.array([0, 1, 0, 0, 0, 0, 0, 0, 0, 0])
+        right_lane = np.array([0, 0, 1, 0, 0, 0, 0, 0, 0, 0])
+        collision = np.array([0, 0, 0, 1, 0, 0, 0, 0, 0, 0])
+        crash = np.array([0, 0, 0, 0, 1, 0, 0, 0, 0, 0])
+        slow_speed = np.array([0, 0, 0, 0, 0, 1, 0, 0, 0, 0])
+        med_speed = np.array([0, 0, 0, 0, 0, 0, 1, 0, 0, 0])
+        fast_speed = np.array([0, 0, 0, 0, 0, 0, 0, 1, 0, 0])
+        ticket = np.array([0, 0, 0, 0, 0, 0, 0, 0, 1, 0])
+        pedestrian = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
+        # duplicate to account for different speeds # TODO: left off here
+        self.motorists = motorists
+        self.police = police
+        self.pedestrians = pedestrians
+        state_features = []
+        num_lanes = 3
+        num_cols = num_lanes + 2
+        num_speeds = 3
+        num_actions = num_speeds * num_lanes
+        for s in range(num_rows * num_cols * num_speeds):
+            if s in motorists: # collide with another car
+                state_features.append(collision)
+            elif s % num_cols == 1: # left lane
+                state_features.append(left_lane)
+            elif s % num_cols == 2: # middle lane
+                state_features.append(middle_lane)
+            elif s % num_cols == 3: # right lane
+                state_features.append(right_lane)
+            else: # crash into the sides
+                state_features.append(crash)
         super().__init__(num_rows, num_cols, num_actions, terminals, feature_weights, np.array(state_features), gamma, noise, driving = True)
 
 
