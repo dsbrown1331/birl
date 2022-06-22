@@ -97,6 +97,33 @@ def get_optimal_policy(env, epsilon=0.0001, V=None):
     return optimal_policy
 
 
+def get_suboptimal_policy(env, epsilon=0.0001, V=None):
+    #runs value iteration if not supplied as input
+    if not V:
+        V = value_iteration(env, epsilon)
+    n = env.num_states
+    suboptimal_policy = []  # our game plan where we need to
+
+    for s in range(n):
+        max_action_value = -math.inf + 1
+        second_best_action_value = -math.inf
+        best_action = 0
+
+        for a in range(env.num_actions):
+            action_value = 0.0
+            for s2 in range(n):  # look at all possible next states
+                action_value += env.transitions[s][a][s2] * V[s2]
+                # check if a is max
+            if action_value > max_action_value:
+                second_best_action_value = max_action_value
+                max_action_value = action_value
+            elif second_best_action_value < action_value < max_action_value:
+                second_best_action_value = action_value
+                best_action = a  # direction to take
+        suboptimal_policy.append(best_action)
+    return suboptimal_policy
+
+
 def logsumexp(x):
     max_x = np.max(x)
     sum_exp = 0.0

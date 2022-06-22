@@ -21,9 +21,9 @@ if __name__ == "__main__":
     alpha = 0.95
     delta = 0.05
     gamma = 0.95
-    num_rows = 5 # 4 normal, 5 driving
-    num_cols = 5 # 4 normal, 5 driving
-    num_features = 3
+    num_rows = 4 # 4 normal, 5 driving
+    num_cols = 4 # 4 normal, 5 driving
+    num_features = 4
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
@@ -471,7 +471,7 @@ if __name__ == "__main__":
     elif stopping_condition == "baseline_pi": # stop learning once learned policy is some degree better than baseline policy
         # Experiment setup
         thresholds = [round(t, 1) for t in np.arange(start = 0.0, stop = 1.1, step = 0.1)] # thresholds on the percent improvement
-        envs = [mdp_worlds.random_driving_simulator(num_rows, reward_function = "on_road") for _ in range(num_worlds)]
+        envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
         policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
         demos = [[] for _ in range(num_worlds)]
         demo_order = list(range(num_rows * num_cols))
@@ -487,8 +487,7 @@ if __name__ == "__main__":
 
         for i in range(num_worlds):
             env = envs[i]
-            baseline_env = mdp_worlds.random_driving_simulator(num_rows, reward_function = "safe", reference_world = env)
-            baseline_pi = mdp_utils.get_optimal_policy(baseline_env)
+            baseline_pi = mdp_utils.get_suboptimal_policy(env)
             start_comp = 0
             done_with_demos = False
             for M in range(0, len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
