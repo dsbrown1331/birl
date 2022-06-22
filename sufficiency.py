@@ -27,12 +27,12 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 5
+    N = 450
     step_stdev = 0.3
-    burn_rate = 0.0
-    skip_rate = 1
+    burn_rate = 0.05
+    skip_rate = 2
     random_normalization = True # whether or not to normalize with random policy
-    num_worlds = 5
+    num_worlds = 20
 
     if stopping_condition == "avar": # stop learning after passing a-VaR threshold
         # Experiment setup
@@ -490,6 +490,7 @@ if __name__ == "__main__":
             baseline_env = mdp_worlds.random_driving_simulator(num_rows, reward_function = "safe", reference_world = env)
             baseline_pi = mdp_utils.get_optimal_policy(baseline_env)
             start_comp = 0
+            done_with_demos = False
             for M in range(0, len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
                 D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
                 demos[i].append(D)
@@ -529,8 +530,8 @@ if __name__ == "__main__":
                 improvement = mdp_utils.calculate_percent_improvement(env, baseline_pi, map_policy)
                 
                 # evaluate thresholds
-                for t in range(len(thresholds)):
-                    threshold = thresholds[t]
+                for t in range(len(thresholds[start_comp:])):
+                    threshold = thresholds[t + start_comp]
                     if improvement > threshold:
                         map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
                         # store threshold metrics
@@ -540,6 +541,13 @@ if __name__ == "__main__":
                         pct_states[threshold].append((M + 1) / (num_rows * num_cols))
                         policy_accuracies[threshold].append(mdp_utils.calculate_percentage_optimal_actions(map_policy, env))
                         confidence[threshold] += 1
+                        if threshold == 1.0:
+                            done_with_demos = True
+                    else:
+                        start_comp += t
+                        break
+                if done_with_demos:
+                    break
         
         # Output results for plotting
         for threshold in thresholds:
