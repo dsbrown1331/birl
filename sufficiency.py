@@ -556,7 +556,7 @@ if __name__ == "__main__":
             for pi in pct_improvements[threshold]:
                 print(pi)
             print("Confidence")
-            print(confidence[threshold] / (num_worlds * len(thresholds)))
+            print(confidence[threshold] / (num_worlds))
             print("True EVDs")
             for tevd in true_evds[threshold]:
                 print(tevd)
