@@ -487,7 +487,7 @@ if __name__ == "__main__":
 
         for i in range(num_worlds):
             env = envs[i]
-            baseline_pi = mdp_utils.get_suboptimal_policy(env)
+            baseline_pi = mdp_utils.get_nonpessimal_policy(env)
             start_comp = 0
             done_with_demos = False
             for M in range(0, len(demo_order)): # number of demonstrations; we want good policy without needing to see all states

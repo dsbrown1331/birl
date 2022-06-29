@@ -96,13 +96,24 @@ def get_optimal_policy(env, epsilon=0.0001, V=None):
         optimal_policy.append(best_action)
     return optimal_policy
 
+def get_nonpessimal_policy(env, epsilon = 0.0001, V = None):
+    if not V:
+        q_values = calculate_q_values(env)
+    else:
+        q_values = calculate_q_values(env, V = V)
+    n = env.num_states
+    nonpessimal_policy = []
+    for s in range(n):
+        possible_actions = [i for i in range(len(q_values[s])) if q_values[s][i] != min(q_values[s])]
+        nonpessimal_policy.append(np.random.choice(np.array(possible_actions)))
+    return nonpessimal_policy
+
 
 def get_suboptimal_policy(env, epsilon=0.0001, V=None):
-    #runs value iteration if not supplied as input
     if not V:
         V = value_iteration(env, epsilon)
     n = env.num_states
-    suboptimal_policy = []  # our game plan where we need to
+    suboptimal_policy = []
 
     for s in range(n):
         max_action_value = -math.inf + 1
