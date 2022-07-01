@@ -105,6 +105,8 @@ def get_nonpessimal_policy(env, epsilon = 0.0001, V = None):
     nonpessimal_policy = []
     for s in range(n):
         possible_actions = [i for i in range(len(q_values[s])) if q_values[s][i] != min(q_values[s])]
+        if len(possible_actions) == 0:
+            possible_actions.append(np.random.choice(np.array(range(env.num_actions))))
         nonpessimal_policy.append(np.random.choice(np.array(possible_actions)))
     return nonpessimal_policy
 
