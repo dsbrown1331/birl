@@ -21,18 +21,18 @@ if __name__ == "__main__":
     alpha = 0.95
     delta = 0.05
     gamma = 0.95
-    num_rows = 4 # 4 normal, 5 driving
+    num_rows = 5 # 4 normal, 5 driving
     num_cols = 4 # 4 normal, 5 driving
     num_features = 4
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 450
+    N = 5
     step_stdev = 0.3
-    burn_rate = 0.05
-    skip_rate = 2
+    burn_rate = 0.0
+    skip_rate = 1
     random_normalization = True # whether or not to normalize with random policy
-    num_worlds = 20
+    num_worlds = 5
 
     if stopping_condition == "avar": # stop learning after passing a-VaR threshold
         # Experiment setup
@@ -471,7 +471,7 @@ if __name__ == "__main__":
     elif stopping_condition == "baseline_pi": # stop learning once learned policy is some degree better than baseline policy
         # Experiment setup
         thresholds = [round(t, 1) for t in np.arange(start = 0.0, stop = 1.1, step = 0.1)] # thresholds on the percent improvement
-        envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
+        envs = [mdp_worlds.random_driving_simulator(num_rows, reward_function = "safe") for _ in range(num_worlds)]
         policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
         demos = [[] for _ in range(num_worlds)]
         demo_order = list(range(num_rows * num_cols))
