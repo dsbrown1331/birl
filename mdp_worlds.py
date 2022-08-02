@@ -29,7 +29,7 @@ def random_gridworld(rows, columns):
     return random_mdp
 
 
-def random_feature_mdp(rows, columns, num_features):
+def random_feature_mdp(rows, columns, num_features, reference_world = None):
     """
     e.g. if each cell in a 3x3 non-terminal grid world has a color: red or white, and red states have as reward of -1
     and white states have a reward of +1, then this could be created by having
@@ -43,20 +43,16 @@ def random_feature_mdp(rows, columns, num_features):
 
     (self, num_rows, num_cols, terminals, feature_weights, state_features, gamma, noise = 0.0)
     """
-    # weights = [-1.0, -0.8, -0.6, -0.4, -0.2, 0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
-    # feature_weights = np.random.choice(weights, size = 3, replace = True)
-    feature_weights = mdp_utils.sample_l2_ball(num_features)
-    # r = np.array([1, 0, 0])
-    # y = np.array([0, 1, 0])
-    # b = np.array([0, 0, 1])
-    # g = np.array([0, 0, 0, 1])
-    # features = [r, y, b]
-    #create one-hot binary feature vectors
-    f_vecs = np.eye(num_features)
-    features = [tuple(f) for f in f_vecs]
-    #randomly select features for each state in mdp
-    state_features = [features[np.random.randint(num_features)] for _ in range(rows * columns)]
-    mdp = FeatureMDP(rows, columns, 4, [], feature_weights, state_features, gamma = 0.95)
+    if not reference_world:
+        feature_weights = mdp_utils.sample_l2_ball(num_features)
+        #create one-hot binary feature vectors
+        f_vecs = np.eye(num_features)
+        features = [tuple(f) for f in f_vecs]
+        #randomly select features for each state in mdp
+        state_features = [features[np.random.randint(num_features)] for _ in range(rows * columns)]
+        mdp = FeatureMDP(rows, columns, 4, [], feature_weights, state_features, gamma = 0.95)
+    else:
+        mdp = FeatureMDP(rows, columns, 4, [], reference_world.feature_weights, reference_world.state_features, gamma = 0.95)
     return mdp
 
 

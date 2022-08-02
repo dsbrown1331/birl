@@ -369,7 +369,11 @@ def calculate_expected_value_difference(eval_policy, env, storage, epsilon = 0.0
 def calculate_percent_improvement(env, base_policy, eval_policy, epsilon = 0.0001):
     V_base = policy_evaluation(base_policy, env, epsilon)
     V_eval = policy_evaluation(eval_policy, env, epsilon)
-    return (np.mean(V_eval) - np.mean(V_base)) / np.mean(V_base)
+    return np.mean(V_base), np.mean(V_eval), (np.mean(V_eval) - np.mean(V_base)) / np.abs(np.mean(V_base))
+
+    # V_base = calculate_percentage_optimal_actions(base_policy, env)
+    # V_eval = calculate_percentage_optimal_actions(eval_policy, env)
+    # return (V_eval - V_base) / abs(V_base)
 
 
 def generate_optimal_demo(env, start_state):
@@ -473,26 +477,40 @@ def calculate_state_expected_fc(pi, env, epsilon = 0.0001, random = False):
     feature_counts = np.zeros((num_states, num_features))
     delta = 1
 
-    while delta > epsilon:
-        delta = 0
-        for s1 in range(num_states):
-            temp = np.zeros(num_features)
-            for f in range(num_features):
-                temp[f] += state_features[s1][f]
-            if not random:
-                actions = [pi[s1]]
-            else:
-                actions = range(num_actions)
-            for action in actions:
+    if not random:
+        while delta > epsilon:
+            delta = 0
+            for s1 in range(num_states):
+                temp = np.zeros(num_features)
+                for f in range(num_features):
+                    temp[f] += state_features[s1][f]
+                action = pi[s1]
                 transition_features = np.zeros(num_features)
                 for s2 in range(num_states):
                     if transitions[s1][action][s2] > 0:
                         for f in range(num_features):
                             transition_features[f] += transitions[s1][action][s2] * feature_counts[s2][f]
-            for f in range(num_features):
-                temp[f] += gamma * transition_features[f] * 1/num_actions
-                delta = max(delta, abs(temp[f] - feature_counts[s1][f]))
-                feature_counts[s1][f] = temp[f]
+                for f in range(num_features):
+                    temp[f] += gamma * transition_features[f]
+                    delta = max(delta, abs(temp[f] - feature_counts[s1][f]))
+                    feature_counts[s1][f] = temp[f]
+    else:
+        while delta > epsilon:
+            delta = 0
+            for s1 in range(num_states):
+                temp = np.zeros(num_features)
+                for f in range(num_features):
+                    temp[f] += state_features[s1][f]
+                transition_features = np.zeros(num_features)                
+                for s2 in range(num_states):
+                    for action in range(num_actions):
+                        if transitions[s1][action][s2] > 0:
+                            for f in range(num_features):
+                                transition_features[f] += (1/num_actions) * transitions[s1][action][s2] * feature_counts[s2][f]
+                for f in range(num_features):
+                    temp[f] += gamma * transition_features[f]
+                    delta = max(delta, abs(temp[f] - feature_counts[s1][f]))
+                    feature_counts[s1][f] = temp[f]
     
     return feature_counts
 
