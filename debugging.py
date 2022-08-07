@@ -3,65 +3,97 @@ import mdp_utils
 import mdp_worlds
 import bayesian_irl
 import copy
-from scipy.stats import norm
 import numpy as np
-import math
-
-rseed = 168
-random.seed(rseed)
-np.random.seed(rseed)
+from mdp import FeatureMDP
 
 if __name__ == "__main__":
+    rseed = 168
+    random.seed(rseed)
+    np.random.seed(rseed)
+
+    debug = False # set to False to suppress terminal outputs
+
     # Hyperparameters
-    max_num_demos = 9 # maximum number of demos to give agent, start with 1 demo and then work up to max_num_demos
-    alphas = [0.90, 0.95, 0.99]
+    alpha = 0.95
     delta = 0.05
-    num_rows = 5 # 4 normal, 5 driving
+    gamma = 0.95
+    num_rows = 4 # 4 normal, 5 driving
     num_cols = 4
     num_features = 3
 
     # MCMC hyperparameters
     beta = 10.0  # confidence for mcmc
-    N = 10
-    step_stdev = 0.3
-    burn_rate = 0.05
+    N = 50
+    step_stdev = 0.4
+    burn_rate = 0.0
     skip_rate = 1
     random_normalization = True # whether or not to normalize with random policy
-    num_worlds = 1
 
-    envs = [mdp_worlds.random_driving_simulator(5, reward_function = "safe") for _ in range(num_worlds)]
-    policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
-    demos = [[] for _ in range(num_worlds)]
-    # demo_order = [0, 6, 12, 18, 24] + [25, 31, 37, 43, 49] + [50, 56, 62, 68, 74]
-    demo_order = list(range(25))
+    # Experiment setup
+    threshold = 0.0
+    demo_order = list(range(num_rows * num_cols))
     random.shuffle(demo_order)
 
+    all_accept_rates = 0
+    accept_rate_counts = 0
+
+    # env = FeatureMDP(num_rows, num_cols, 4, [], np.array([-0.1699364,  -0.86117737, -0.47905652]), np.array([(0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (0.0, 0.0, 1.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0)]), gamma)
+    env = mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features)
+    opt_policy = mdp_utils.get_optimal_policy(env)
+    if debug:
+        print("PROBLEM WORLD")
+        mdp_utils.visualize_binary_features(env)
+    baseline_pi = mdp_utils.get_nonpessimal_policy(env)
+    if debug:
+        print("Baseline policy")
+        mdp_utils.visualize_policy(baseline_pi, env)
+        policy_optimality = mdp_utils.calculate_percentage_optimal_actions(baseline_pi, env)
+        print("Baseline policy optimality:", policy_optimality)
+        policy_accuracy = mdp_utils.calculate_policy_accuracy(opt_policy, baseline_pi)
+        print("Baseline policy accuracy:", policy_accuracy)
+    demos = []
     for M in range(len(demo_order)):
-        print("Using {} demo{}:".format(M + 1, "" if M == 0 else "s"))
-        for i in range(num_worlds):
-            env = envs[i]
-            opt_pi = policies[i]
+        D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
+        demos.append(D)
+        if debug:
+            print("Running BIRL with {} demos:".format(M), demos)
+        birl = bayesian_irl.BIRL(env, demos, beta) # create BIRL environment
+        # use MCMC to generate sequence of sampled rewards
+        birl.run_mcmc(N, step_stdev, adaptive=True)
+        #burn initial samples and skip every skip_rate for efficiency
+        burn_indx = int(len(birl.chain) * burn_rate)
+        samples = birl.chain[burn_indx::skip_rate]
+        #check if MCMC seems to be mixing properly
+        all_accept_rates += birl.accept_rate
+        accept_rate_counts += 1
+        if debug:
+            avg_accept_rate = all_accept_rates / accept_rate_counts
+            if avg_accept_rate > 0.7:
+                msg = ", too high, probably need to increase stdev"
+            elif avg_accept_rate < 0.2:
+                msg = ", too low, probably need to decrease stdev"
+            else:
+                msg = ""
+            print("accept rate: " + str(birl.accept_rate) + "; avg accept rate: " + str(avg_accept_rate) + msg) #good to tune number of samples and stepsize to have this around 50%
+        #generate evaluation policy from running BIRL
+        map_env = copy.deepcopy(env)
+        map_env.set_rewards(birl.get_map_solution())
+        map_policy = mdp_utils.get_optimal_policy(map_env)
+        #debugging to visualize the learned policy
+        if debug:
+            print("True weights", env.feature_weights)
             print("True policy")
-            # mdp_utils.visualize_policy(opt_pi, env)
-            print(opt_pi)
+            mdp_utils.visualize_policy(opt_policy, env)
+            print("MAP weights", map_env.feature_weights)
+            print("MAP policy")
+            mdp_utils.visualize_policy(map_policy, map_env)
+            policy_optimality = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
+            print("Policy optimality:", policy_optimality)
+            policy_accuracy = mdp_utils.calculate_policy_accuracy(opt_policy, map_policy)
+            print("Policy accuracy:", policy_accuracy)
 
-            D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
-            demos[i].append(D)
-            print("Available demos:", demos[i])
-            birl = bayesian_irl.BIRL(env, demos[i], beta)
-            samples = birl.generate_samples_with_mcmc(N, step_stdev)
-
-            map_env = copy.deepcopy(env)
-            map_env.set_rewards(birl.get_map_solution())
-            map_policy = mdp_utils.get_optimal_policy(map_env)
-            map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
-            print("Learned policy")
-            # mdp_utils.visualize_policy(map_policy, map_env)
-            print(map_policy)
-
-            sames = 0
-            for j in range(len(opt_pi)):
-                if opt_pi[j] == map_policy[j]:
-                    sames += 1
-            print("Policy accuracy:", round(sames / len(opt_pi) * 100, 2))            
-        print()
+        # get percent improvement
+        V_base, V_eval, improvement = mdp_utils.calculate_percent_improvement(env, baseline_pi, map_policy)
+        if debug:
+            print(V_base, "==>", V_eval)
+            print("Improvement over baseline:", improvement)

@@ -61,39 +61,43 @@ class BIRL:
         # initialize problem solution for MCMC to all zeros, maybe not best initialization but it works in most cases
         return np.zeros(self.num_mcmc_dims)  
 
-    def run_mcmc(self, samples, stepsize, normalize=True):
+    def run_mcmc(self, samples, stepsize, normalize=True, adaptive=False):
         '''
             run metropolis hastings MCMC with Gaussian symmetric proposal and uniform prior
             samples: how many reward functions to sample from posterior
             stepsize: standard deviation for proposal distribution
             normalize: if true then it will normalize the rewards (reward weights) to be unit l2 norm, otherwise the rewards will be unbounded
         '''
-        
         num_samples = samples  # number of MCMC samples
         stdev = stepsize  # initial guess for standard deviation, doesn't matter too much
+        accept_cnt = 0  # keep track of how often MCMC accepts
 
-        accept_cnt = 0  #keep track of how often MCMC accepts, ideally around 40% of the steps accept
-        #if accept count is too high, increase stdev, if too low reduce
+        # For adaptive step sizing
+        accept_target = 0.4 # ideally around 40% of the steps accept; if accept count is too high, increase stdev, if too low reduce
+        horizon = num_samples // 100 # how often to update stdev based on sliding window avg with window size horizon
+        learning_rate = 0.05 # how often to update the stdev
+        accept_cnt_list = [] # list of accepts and rejects for sliding window avg
+        stdev_list = [] # list of standard deviations for debugging purposes
+        accept_prob_list = [] # true cumulative accept probs for debugging purposes
 
         self.chain = np.zeros((num_samples, self.num_mcmc_dims)) #store rewards found via BIRL here, preallocate for speed
-        
         cur_sol = self.initial_solution() #initial guess for MCMC
-
-        
-
         cur_ll = self.calc_ll(cur_sol)  # log likelihood
         #keep track of MAP loglikelihood and solution
-        map_ll = cur_ll  
+        map_ll = cur_ll
         map_sol = cur_sol
+
         for i in range(num_samples):
             # sample from proposal distribution
-            prop_sol = self.generate_proposal(cur_sol, stepsize, normalize)
+            prop_sol = self.generate_proposal(cur_sol, stdev, normalize)
             # calculate likelihood ratio test
             prop_ll = self.calc_ll(prop_sol)
             if prop_ll > cur_ll:
                 # accept
-                self.chain[i,:] = prop_sol
+                self.chain[i, :] = prop_sol
                 accept_cnt += 1
+                if adaptive:
+                    accept_cnt_list.append(1)
                 cur_sol = prop_sol
                 cur_ll = prop_ll
                 if prop_ll > map_ll:  # maxiumum aposterioi
@@ -102,21 +106,30 @@ class BIRL:
             else:
                 # accept with prob exp(prop_ll - cur_ll)
                 if np.random.rand() < np.exp(prop_ll - cur_ll):
-                    self.chain[i,:] = prop_sol
+                    self.chain[i, :] = prop_sol
                     accept_cnt += 1
+                    if adaptive:
+                        accept_cnt_list.append(1)
                     cur_sol = prop_sol
                     cur_ll = prop_ll
-
                 else:
                     # reject
-                    self.chain[i,:] = cur_sol
-
-        # print("accept rate:", accept_cnt / num_samples)
+                    self.chain[i, :] = cur_sol
+                    if adaptive:
+                        accept_cnt_list.append(0)
+            # Check for step size adaptation
+            if adaptive:
+                if len(accept_cnt_list) >= horizon:
+                    accept_est = np.sum(accept_cnt_list[-horizon:]) / horizon
+                    stdev = max(0.00001, stdev + learning_rate/np.sqrt(i + 1) * (accept_est - accept_target))
+                stdev_list.append(stdev)
+                accept_prob_list.append(accept_cnt / len(self.chain))
         self.accept_rate = accept_cnt / num_samples
         self.map_sol = map_sol
-        # print("MAP Loglikelihood", map_ll)
-        # print("MAP reward")
-        # print_array_as_grid(map_sol, mdp)
+        if adaptive:
+            print("Stdev should converge", stdev_list)
+            print("Accept rate should converge", accept_prob_list)
+            print("\n\n\n\n\n")
 
     def generate_samples_with_mcmc(self, samples, stepsize, normalize=True):
         num_samples = samples

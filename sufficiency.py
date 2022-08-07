@@ -29,11 +29,12 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 210
-    step_stdev = 0.8
+    N = 1260 # gets around 600 after burn and skip
+    step_stdev = 0.5
     burn_rate = 0.05
     skip_rate = 2
     random_normalization = True # whether or not to normalize with random policy
+    adaptive = True # whether or not to use adaptive step size
     num_worlds = 20
 
     if stopping_condition == "avar": # stop learning after passing a-VaR threshold
@@ -70,7 +71,7 @@ if __name__ == "__main__":
                     print("demos", demos[i])
                 birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
                 # use MCMC to generate sequence of sampled rewards
-                birl.run_mcmc(N, step_stdev)
+                birl.run_mcmc(N, step_stdev, adaptive = adaptive)
                 #burn initial samples and skip every skip_rate for efficiency
                 burn_indx = int(len(birl.chain) * burn_rate)
                 samples = birl.chain[burn_indx::skip_rate]
@@ -276,7 +277,7 @@ if __name__ == "__main__":
         print("**************************************************")
     elif stopping_condition == "wfcb_threshold": # stop learning after passing WFCB threshold
         # Experiment setup
-        thresholds = np.arange(start = 2.0, stop = -0.1, step = -0.1) # thresholds on the WFCB bounds
+        thresholds = np.arange(start = 1.0, stop = -0.05, step = -0.05) # thresholds on the WFCB bounds
         if world == "feature":
             envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
         elif world == "driving":
@@ -308,7 +309,7 @@ if __name__ == "__main__":
                     print("demos", demos[i])
                 birl = bayesian_irl.BIRL(env, list(set([pair for traj in demos[i] for pair in traj])), beta) # create BIRL environment
                 # use MCMC to generate sequence of sampled rewards
-                birl.run_mcmc(N, step_stdev)
+                birl.run_mcmc(N, step_stdev, adaptive = adaptive)
                 #burn initial samples and skip every skip_rate for efficiency
                 burn_indx = int(len(birl.chain) * burn_rate)
                 samples = birl.chain[burn_indx::skip_rate]
@@ -379,10 +380,10 @@ if __name__ == "__main__":
                 print(tevd)
             print("Num demos")
             for nd in num_demos[threshold]:
-                print(nd)
+                print(nd * int(1/(1 - gamma)))
             print("Percent states")
             for ps in pct_states[threshold]:
-                print(ps)
+                print(ps * int(1/(1 - gamma)))
             print("Policy accuracies")
             for pa in policy_accuracies[threshold]:
                 print(pa)
@@ -418,7 +419,7 @@ if __name__ == "__main__":
                     print("demos", demos[i])
                 birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
                 # use MCMC to generate sequence of sampled rewards
-                birl.run_mcmc(N, step_stdev)
+                birl.run_mcmc(N, step_stdev, adaptive = adaptive)
                 #burn initial samples and skip every skip_rate for efficiency
                 burn_indx = int(len(birl.chain) * burn_rate)
                 samples = birl.chain[burn_indx::skip_rate]
@@ -538,7 +539,7 @@ if __name__ == "__main__":
                     print("Running BIRL with {} demos:".format(M + 1), demos[i])
                 birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
                 # use MCMC to generate sequence of sampled rewards
-                birl.run_mcmc(N, step_stdev)
+                birl.run_mcmc(N, step_stdev, adaptive = adaptive)
                 #burn initial samples and skip every skip_rate for efficiency
                 burn_indx = int(len(birl.chain) * burn_rate)
                 samples = birl.chain[burn_indx::skip_rate]
