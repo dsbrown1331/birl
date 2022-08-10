@@ -29,10 +29,10 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 1260 # gets around 600 after burn and skip
+    N = 555 # gets around 500 after burn and skip
     step_stdev = 0.5
-    burn_rate = 0.05
-    skip_rate = 2
+    burn_rate = 0.10
+    skip_rate = 1
     random_normalization = True # whether or not to normalize with random policy
     adaptive = True # whether or not to use adaptive step size
     num_worlds = 20
@@ -277,7 +277,7 @@ if __name__ == "__main__":
         print("**************************************************")
     elif stopping_condition == "wfcb_threshold": # stop learning after passing WFCB threshold
         # Experiment setup
-        thresholds = np.arange(start = 1.0, stop = -0.05, step = -0.05) # thresholds on the WFCB bounds
+        thresholds = [round(t, 2) for t in np.arange(start = 1.0, stop = -0.01, step = 0.79)] # thresholds on the WFCB bounds
         if world == "feature":
             envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
         elif world == "driving":

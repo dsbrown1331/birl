@@ -126,10 +126,6 @@ class BIRL:
                 accept_prob_list.append(accept_cnt / len(self.chain))
         self.accept_rate = accept_cnt / num_samples
         self.map_sol = map_sol
-        if adaptive:
-            print("Stdev should converge", stdev_list)
-            print("Accept rate should converge", accept_prob_list)
-            print("\n\n\n\n\n")
 
     def generate_samples_with_mcmc(self, samples, stepsize, normalize=True):
         num_samples = samples
