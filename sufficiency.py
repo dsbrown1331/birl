@@ -519,7 +519,8 @@ if __name__ == "__main__":
         pct_states = {threshold: [] for threshold in thresholds}
         policy_optimalities = {threshold: [] for threshold in thresholds}
         policy_accuracies = {threshold: [] for threshold in thresholds}
-        confidence = {threshold: 0 for threshold in thresholds}
+        confidence = {threshold: set() for threshold in thresholds}
+        confusion_matrices = {threshold: [[0, 0], [0, 0]] for threshold in thresholds} # predicted by true
 
         for i in range(num_worlds):
             # print("@@@ Evaluation world {} @@@".format(i))
@@ -529,8 +530,8 @@ if __name__ == "__main__":
             baseline_optimality = mdp_utils.calculate_percentage_optimal_actions(baseline_pi, env)
             baseline_accuracy = mdp_utils.calculate_policy_accuracy(policies[i], baseline_pi)
             print("BASELINE POLICY: evd {}, policy optimality {}, and policy accuracy {}".format(baseline_evd, baseline_optimality, baseline_accuracy))
-            start_comp = 0
-            done_with_demos = False
+            # start_comp = 0
+            # done_with_demos = False
             for M in range(len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
                 # print("Using {} demos".format(M + 1))
                 D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
@@ -596,8 +597,9 @@ if __name__ == "__main__":
                     print("VaR bound:", bound)
                 
                 # evaluate thresholds
-                for t in range(len(thresholds[start_comp:])):
-                    threshold = thresholds[t + start_comp]
+                for t in range(len(thresholds)):
+                    threshold = thresholds[t]
+                    _, _, actual = mdp_utils.calculate_percent_improvement(env, baseline_pi, map_policy)
                     if bound > threshold:
                         # print("Comparing {} with threshold {}, passed".format(improvement, threshold))
                         map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
@@ -608,15 +610,23 @@ if __name__ == "__main__":
                         pct_states[threshold].append((M + 1) / (num_rows * num_cols))
                         policy_optimalities[threshold].append(mdp_utils.calculate_percentage_optimal_actions(map_policy, env))
                         policy_accuracies[threshold].append(mdp_utils.calculate_policy_accuracy(policies[i], map_policy))
-                        confidence[threshold] += 1
-                        if threshold == max(thresholds):
-                            done_with_demos = True
+                        confidence[threshold].add(i)
+                        if actual > threshold:
+                            confusion_matrices[threshold][0][0] += 1
+                        else:
+                            confusion_matrices[threshold][0][1] += 1
+                        # if threshold == max(thresholds):
+                        #     done_with_demos = True
                     else:
-                        start_comp += t
+                        if actual > threshold:
+                            confusion_matrices[threshold][1][0] += 1
+                        else:
+                            confusion_matrices[threshold][1][1] += 1
+                        # start_comp += t
                         # print("Comparing {} with threshold {}, did not pass".format(improvement, threshold))
-                        break
-                if done_with_demos:
-                    break
+                        # break
+                # if done_with_demos:
+                    # break
             # print("\n\n\n")
         
         # Output results for plotting
@@ -626,7 +636,7 @@ if __name__ == "__main__":
             for pi in pct_improvements[threshold]:
                 print(pi)
             print("Confidence")
-            print(confidence[threshold] / (num_worlds))
+            print(len(confidence[threshold]) / (num_worlds))
             print("True EVDs")
             for tevd in true_evds[threshold]:
                 print(tevd)
@@ -642,4 +652,6 @@ if __name__ == "__main__":
             print("Policy accuracies")
             for pa in policy_accuracies[threshold]:
                 print(pa)
+            print("Confusion matrices")
+            print(confusion_matrices[threshold])
         print("**************************************************")
