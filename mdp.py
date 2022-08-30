@@ -282,7 +282,7 @@ class FeatureMDP(MDP):
 
 
 
-class ObjectWorld(MDP):
+class ObjectWorld(FeatureMDP):
     """
     Like an MDP, but agent must complete tasks before reaching the terminal state.
     Init with tasks: an array of task positions

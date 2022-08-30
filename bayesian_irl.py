@@ -75,7 +75,7 @@ class BIRL:
         # For adaptive step sizing
         accept_target = 0.4 # ideally around 40% of the steps accept; if accept count is too high, increase stdev, if too low reduce
         horizon = num_samples // 100 # how often to update stdev based on sliding window avg with window size horizon
-        learning_rate = 0.05 # how often to update the stdev
+        learning_rate = 0.05 # how much to update the stdev
         accept_cnt_list = [] # list of accepts and rejects for sliding window avg
         stdev_list = [] # list of standard deviations for debugging purposes
         accept_prob_list = [] # true cumulative accept probs for debugging purposes

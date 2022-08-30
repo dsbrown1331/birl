@@ -29,7 +29,7 @@ def random_gridworld(rows, columns):
     return random_mdp
 
 
-def random_feature_mdp(rows, columns, num_features, reference_world = None):
+def random_feature_mdp(rows, columns, num_features, reference_world = None, terminals = [], goal = False):
     """
     e.g. if each cell in a 3x3 non-terminal grid world has a color: red or white, and red states have as reward of -1
     and white states have a reward of +1, then this could be created by having
@@ -44,15 +44,24 @@ def random_feature_mdp(rows, columns, num_features, reference_world = None):
     (self, num_rows, num_cols, terminals, feature_weights, state_features, gamma, noise = 0.0)
     """
     if not reference_world:
-        feature_weights = mdp_utils.sample_l2_ball(num_features)
+        if goal:
+            feature_weights = sorted(mdp_utils.sample_l2_ball(num_features + 1))
+        else:
+            feature_weights = mdp_utils.sample_l2_ball(num_features)
         #create one-hot binary feature vectors
-        f_vecs = np.eye(num_features)
+        if goal:
+            f_vecs = np.eye(num_features + 1)
+        else:
+            f_vecs = np.eye(num_features)
         features = [tuple(f) for f in f_vecs]
         #randomly select features for each state in mdp
         state_features = [features[np.random.randint(num_features)] for _ in range(rows * columns)]
-        mdp = FeatureMDP(rows, columns, 4, [], feature_weights, state_features, gamma = 0.95)
+        if goal:
+            for terminal in terminals:
+                state_features[terminal] = features[num_features]
+        mdp = FeatureMDP(rows, columns, 4, terminals, feature_weights, state_features, gamma = 0.95)
     else:
-        mdp = FeatureMDP(rows, columns, 4, [], reference_world.feature_weights, reference_world.state_features, gamma = 0.95)
+        mdp = FeatureMDP(rows, columns, 4, terminals, reference_world.feature_weights, reference_world.state_features, gamma = 0.95)
     return mdp
 
 
@@ -89,7 +98,7 @@ def random_driving_simulator(rows, reward_function = None, reference_world = Non
     weights /= np.linalg.norm(np.array(weights))
     if reference_world is None:
         # disperse motorists randomly, assume three lanes
-        motorists = np.random.choice([s for s in range(rows * 5) if s % 5 in [1, 2, 3]], size = math.floor(rows * 5/4))
+        motorists = np.random.choice([s for s in range(rows * 5) if s % 5 in [1, 2, 3]], size = math.floor(rows))
     else:
         motorists = reference_world.motorists
     mdp = DrivingSimulator(rows, [], weights, motorists, None, gamma = 0.95, noise = 0.0)

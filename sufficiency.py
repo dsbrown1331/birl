@@ -2,6 +2,7 @@ import random
 import mdp_utils
 import mdp_worlds
 import bayesian_irl
+from mdp import FeatureMDP
 import copy
 from scipy.stats import norm
 import numpy as np
@@ -15,7 +16,8 @@ if __name__ == "__main__":
     np.random.seed(rseed)
 
     stopping_condition = sys.argv[1] # options: avar, wfcb, wfcb_threshold, map_pi, baseline_pi
-    world = sys.argv[2] # options: feature, driving
+    world = sys.argv[2] # options: feature, driving, goal
+    demo_type = sys.argv[3] # options: pairs, trajectories
 
     debug = False # set to False to suppress terminal outputs
 
@@ -29,47 +31,62 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 555 # gets around 500 after burn and skip
+    N = 1 # gets around 500 after burn and skip
     step_stdev = 0.5
-    burn_rate = 0.10
+    burn_rate = 0.00
     skip_rate = 1
     random_normalization = True # whether or not to normalize with random policy
     adaptive = True # whether or not to use adaptive step size
-    num_worlds = 20
+    num_worlds = 1
 
     if stopping_condition == "avar": # stop learning after passing a-VaR threshold
         # Experiment setup
-        thresholds = [round(th, 1) for th in np.arange(start = 2.0, stop = -0.1, step = -0.2)] # thresholds on the a-VaR bounds
+        thresholds = [0.01] # thresholds on the a-VaR bounds
         if world == "feature":
             envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
         elif world == "driving":
             envs = [mdp_worlds.random_driving_simulator(num_rows, reward_function = "safe") for _ in range(num_worlds)]
+        elif world == "goal":
+            envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features, terminals = [random.randint(0, num_rows * num_cols - 1)]) for _ in range(num_worlds)]
+            # envs = [FeatureMDP(num_rows, num_cols, 4, [], np.array([-0.2904114626557843, 0.19948602297642423, 0.9358774006220993]), np.array([(0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.0, 0.0, 1.0), (1.0, 0.0, 0.0)]), gamma)]
         policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
         demos = [[] for _ in range(num_worlds)]
         demo_order = list(range(num_rows * num_cols))
         random.shuffle(demo_order)
 
         # Metrics to evaluate thresholds
-        accuracies = {threshold: [] for threshold in thresholds}
-        avg_bound_errors = {threshold: [] for threshold in thresholds}
         bounds = {threshold: [] for threshold in thresholds}
-        true_evds = {threshold: [] for threshold in thresholds}
         num_demos = {threshold: [] for threshold in thresholds}
         pct_states = {threshold: [] for threshold in thresholds}
+        true_evds = {threshold: [] for threshold in thresholds}
+        avg_bound_errors = {threshold: [] for threshold in thresholds}
+        policy_optimalities = {threshold: [] for threshold in thresholds}
         policy_accuracies = {threshold: [] for threshold in thresholds}
-        confidence = {threshold: 0 for threshold in thresholds}
+        confidence = {threshold: set() for threshold in thresholds}
+        accuracies = {threshold: [] for threshold in thresholds}
+        confusion_matrices = {threshold: [[0, 0], [0, 0]] for threshold in thresholds} # predicted by true
 
         for i in range(num_worlds):
             env = envs[i]
-            start_comp = 0
-            done_with_demos = False
-            for M in range(0, len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
-                D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
-                demos[i].append(D)
-                if debug:
-                    print("running BIRL with demos")
-                    print("demos", demos[i])
-                birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
+            for M in range(len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
+                if demo_type == "pairs":
+                    try:
+                        D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
+                        demos[i].append(D)
+                        print("Demos:", demos[i])
+                    except IndexError:
+                        pass
+                    if debug:
+                        print("running BIRL with demos")
+                        print("demos", demos[i])
+                    birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
+                elif demo_type == "trajectories":
+                    D = mdp_utils.generate_optimal_demo(env, demo_order[M])[:int(1/(1 - gamma))]
+                    demos[i].append(D)
+                    if debug:
+                        print("running BIRL with demos")
+                        print("demos", demos[i])
+                    birl = bayesian_irl.BIRL(env, list(set([pair for traj in demos[i] for pair in traj])), beta)
                 # use MCMC to generate sequence of sampled rewards
                 birl.run_mcmc(N, step_stdev, adaptive = adaptive)
                 #burn initial samples and skip every skip_rate for efficiency
@@ -87,14 +104,12 @@ if __name__ == "__main__":
                 map_env.set_rewards(birl.get_map_solution())
                 map_policy = mdp_utils.get_optimal_policy(map_env)
                 #debugging to visualize the learned policy
-                if debug:
+                if not debug:
+                    print("environment")
+                    print("state features", env.state_features)
+                    print("feature weights", env.feature_weights)
                     print("map policy")
-                    print("MAP weights", map_env.feature_weights)
-                    # mdp_utils.visualize_policy(map_policy, env)
-                    print("optimal policy")
-                    print("true weights", env.feature_weights)
-                    opt_policy = mdp_utils.get_optimal_policy(env)
-                    # mdp_utils.visualize_policy(opt_policy, env)
+                    mdp_utils.visualize_policy(map_policy, env)
                     policy_accuracy = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
                     print("policy accuracy", policy_accuracy)
 
@@ -103,66 +118,81 @@ if __name__ == "__main__":
                 for sample in samples:
                     learned_env = copy.deepcopy(env)
                     learned_env.set_rewards(sample)
-                    # learned_policy = mdp_utils.get_optimal_policy(learned_env)
                     Zi = mdp_utils.calculate_expected_value_difference(map_policy, learned_env, birl.value_iters, rn = random_normalization) # compute policy loss
                     policy_losses.append(Zi)
 
                 # compute VaR bound
                 N_burned = len(samples)
                 k = math.ceil(N_burned * alpha + norm.ppf(1 - delta) * np.sqrt(N_burned*alpha*(1 - alpha)) - 0.5)
-                if k >= len(policy_losses):
-                    k = len(policy_losses) - 1
+                if k >= N_burned:
+                    k = N_burned - 1
                 policy_losses.sort()
                 avar_bound = policy_losses[k]
 
                 # evaluate thresholds
-                for t in range(len(thresholds[start_comp:])):
-                    threshold = thresholds[t + start_comp]
+                for t in range(len(thresholds)):
+                    threshold = thresholds[t]
+                    actual = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
                     if avar_bound < threshold:
-                        map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
+                        print("SUFFICIENT ({})".format(avar_bound))
+                        map_evd = actual
                         # store threshold metrics
-                        accuracies[threshold].append(avar_bound >= map_evd)
-                        avg_bound_errors[threshold].append(avar_bound - map_evd)
                         bounds[threshold].append(avar_bound)
-                        true_evds[threshold].append(map_evd)
                         num_demos[threshold].append(M + 1)
-                        pct_states[threshold].append((M + 1) / (num_rows * num_cols))
-                        policy_accuracies[threshold].append(mdp_utils.calculate_percentage_optimal_actions(map_policy, env))
-                        confidence[threshold] += 1
-                        if threshold == min(thresholds):
-                            done_with_demos = True
+                        if demo_type == "pairs":
+                            pct_states[threshold].append((M + 1) / (num_rows * num_cols))
+                        elif demo_type == "trajectories":
+                            pct_states[threshold].append((M + 1) * int(1/(1 - gamma)) / (num_rows * num_cols))
+                        true_evds[threshold].append(map_evd)
+                        avg_bound_errors[threshold].append(avar_bound - map_evd)
+                        policy_optimalities[threshold].append(mdp_utils.calculate_percentage_optimal_actions(map_policy, env))
+                        policy_accuracies[threshold].append(mdp_utils.calculate_policy_accuracy(policies[i], map_policy))
+                        confidence[threshold].add(i)
+                        accuracies[threshold].append(avar_bound >= map_evd)
+                        if actual < threshold:
+                            confusion_matrices[threshold][0][0] += 1
+                        else:
+                            confusion_matrices[threshold][0][1] += 1
                     else:
-                        start_comp += t
-                        break
-                if done_with_demos:
-                    break
-        
+                        print("INSUFFICIENT")
+                        if actual < threshold:
+                            confusion_matrices[threshold][1][0] += 1
+                        else:
+                            confusion_matrices[threshold][1][1] += 1
+
         # Output results for plotting
         for threshold in thresholds:
             print("NEW THRESHOLD", threshold)
-            print("Accuracy")
-            if len(accuracies[threshold]) != 0:
-                print(sum(accuracies[threshold]) / len(accuracies[threshold]))
-            print("Confidence")
-            print(confidence[threshold] / num_worlds)
-            print("Bound errors")
-            for abe in avg_bound_errors[threshold]:
-                print(abe)
             print("Policy loss bounds")
             for apl in bounds[threshold]:
                 print(apl)
-            print("True EVDs")
-            for tevd in true_evds[threshold]:
-                print(tevd)
             print("Num demos")
             for nd in num_demos[threshold]:
                 print(nd)
             print("Percent states")
             for ps in pct_states[threshold]:
                 print(ps)
+            print("True EVDs")
+            for tevd in true_evds[threshold]:
+                print(tevd)
+            print("Bound errors")
+            for abe in avg_bound_errors[threshold]:
+                print(abe)
+            print("Policy optimalities")
+            for po in policy_optimalities[threshold]:
+                print(po)
             print("Policy accuracies")
             for pa in policy_accuracies[threshold]:
                 print(pa)
+            print("Confidence")
+            print(len(confidence[threshold]) / num_worlds)
+            print("Accuracy")
+            if len(accuracies[threshold]) != 0:
+                print(sum(accuracies[threshold]) / len(accuracies[threshold]))
+            else:
+                print(0.0)
+            print("Confusion matrices")
+            print(confusion_matrices[threshold])
         print("**************************************************")
     elif stopping_condition == "wfcb": # stop learning after avar bound < worst-case feature-count bound
         # Experiment setup
@@ -390,34 +420,50 @@ if __name__ == "__main__":
         print("**************************************************")
     elif stopping_condition == "map_pi": # stop learning if additional demo does not change current learned policy
         # Experiment setup
+        thresholds = [1, 2, 3, 4, 5]
         if world == "feature":
             envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
         elif world == "driving":
             envs = [mdp_worlds.random_driving_simulator(num_rows, reward_function = "safe") for _ in range(num_worlds)]
+        elif world == "goal":
+            envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features, terminals = [random.randint(0, num_rows * num_cols - 1)]) for _ in range(num_worlds)]
         policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
         demos = [[] for _ in range(num_worlds)]
         demo_order = list(range(num_rows * num_cols))
         random.shuffle(demo_order)
 
         # Metrics to evaluate stopping condition
-        accuracy = 0
-        avg_bound_errors = []
-        bounds = []
-        true_evds = []
-        num_demos = []
-        pct_states = []
-        policy_accuracies = []
+        num_demos = {threshold: [] for threshold in thresholds}
+        pct_states = {threshold: [] for threshold in thresholds}
+        policy_optimalities = {threshold: [] for threshold in thresholds}
+        policy_accuracies = {threshold: [] for threshold in thresholds}
+        confidence = {threshold: set() for threshold in thresholds}
+        accuracies = {threshold: [] for threshold in thresholds}
 
         for i in range(num_worlds):
             env = envs[i]
             curr_map_pi = [-1 for _ in range(num_rows * num_cols)]
-            for M in range(0, len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
-                D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
-                demos[i].append(D)
-                if debug:
-                    print("running BIRL with demos")
-                    print("demos", demos[i])
-                birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
+            patience = 0
+            start_comp = 0
+            done_with_demos = False
+            for M in range(len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
+                if demo_type == "pairs":
+                    try:
+                        D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
+                        demos[i].append(D)
+                    except IndexError:
+                        pass
+                    if debug:
+                        print("running BIRL with demos")
+                        print("demos", demos[i])
+                    birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
+                elif demo_type == "trajectories":
+                    D = mdp_utils.generate_optimal_demo(env, demo_order[M])[:int(1/(1 - gamma))]
+                    demos[i].append(D)
+                    if debug:
+                        print("running BIRL with demos")
+                        print("demos", demos[i])
+                    birl = bayesian_irl.BIRL(env, list(set([pair for traj in demos[i] for pair in traj])), beta)
                 # use MCMC to generate sequence of sampled rewards
                 birl.run_mcmc(N, step_stdev, adaptive = adaptive)
                 #burn initial samples and skip every skip_rate for efficiency
@@ -449,64 +495,63 @@ if __name__ == "__main__":
                 # compare policies
                 policy_match = mdp_utils.calculate_policy_accuracy(curr_map_pi, map_policy)
                 if policy_match == 1.0:
-                    map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
-                    #run counterfactual policy loss calculations using eval policy
-                    policy_losses = []
-                    for sample in samples:
-                        learned_env = copy.deepcopy(env)
-                        learned_env.set_rewards(sample)
-                        # learned_policy = mdp_utils.get_optimal_policy(learned_env)
-                        Zi = mdp_utils.calculate_expected_value_difference(map_policy, learned_env, birl.value_iters, rn = random_normalization) # compute policy loss
-                        policy_losses.append(Zi)
-
-                    # compute VaR bound
-                    N_burned = len(samples)
-                    k = math.ceil(N_burned * alpha + norm.ppf(1 - delta) * np.sqrt(N_burned*alpha*(1 - alpha)) - 0.5)
-                    if k >= len(policy_losses):
-                        k = len(policy_losses) - 1
-                    policy_losses.sort()
-                    avar_bound = policy_losses[k]
-                    # store metrics
-                    accuracy += avar_bound >= map_evd
-                    avg_bound_errors.append(avar_bound - map_evd)
-                    bounds.append(avar_bound)
-                    true_evds.append(map_evd)
-                    num_demos.append(M + 1)
-                    pct_states.append((M + 1) / (num_rows * num_cols))
-                    policy_accuracies.append(mdp_utils.calculate_percentage_optimal_actions(map_policy, env))
-                    break
+                    patience += 1
+                    # evaluate thresholds
+                    for t in range(len(thresholds[start_comp:])):
+                        threshold = thresholds[t + start_comp]
+                        if patience == threshold:
+                            # store metrics
+                            num_demos[threshold].append(M + 1)
+                            if demo_type == "pairs":
+                                pct_states[threshold].append((M + 1) / (num_rows * num_cols))
+                            elif demo_type == "trajectories":
+                                pct_states[threshold].append((M + 1) * int(1/(1 - gamma)) / (num_rows * num_cols))
+                            optimality = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
+                            policy_optimalities[threshold].append(optimality)
+                            policy_accuracies[threshold].append(mdp_utils.calculate_policy_accuracy(policies[i], map_policy))
+                            confidence[threshold].add(i)
+                            accuracies[threshold].append(optimality >= 0.96)
+                            curr_map_pi = map_policy
+                            if threshold == max(thresholds):
+                                done_with_demos = True
+                        else:
+                            start_comp += t
+                            break
                 else:
+                    patience = 0
                     curr_map_pi = map_policy
+                if done_with_demos:
+                    break
         
         # Output results for plotting
-        print("Accuracy")
-        print(accuracy / num_worlds)
-        print("Bound errors")
-        for abe in avg_bound_errors:
-            print(abe)
-        print("Policy loss bounds")
-        for apl in bounds:
-            print(apl)
-        print("True EVDs")
-        for tevd in true_evds:
-            print(tevd)
-        print("Num demos")
-        for nd in num_demos:
-            print(nd)
-        print("Percent states")
-        for ps in pct_states:
-            print(ps)
-        print("Policy accuracies")
-        for pa in policy_accuracies:
-            print(pa)
-        print("**************************************************")
+        for threshold in thresholds:
+            print("NEW THRESHOLD", threshold)
+            print("Num demos")
+            for nd in num_demos[threshold]:
+                print(nd)
+            print("Percent states")
+            for ps in pct_states[threshold]:
+                print(ps)
+            print("Policy optimalities")
+            for po in policy_optimalities[threshold]:
+                print(po)
+            print("Policy accuracies")
+            for pa in policy_accuracies[threshold]:
+                print(pa)
+            print("Confidence")
+            print(len(confidence[threshold]) / num_worlds)
+            print("Accuracy")
+            print(sum(accuracies[threshold]) / num_worlds)
+            print("**************************************************")
     elif stopping_condition == "baseline_pi": # stop learning once learned policy is some degree better than baseline policy
         # Experiment setup
-        thresholds = [round(t, 1) for t in np.arange(start = 0.0, stop = 1.0, step = 0.1)] + [round(t, 1) for t in np.arange(start = 1.0, stop = 5.5, step = 0.5)] # thresholds on the percent improvement
+        thresholds = [round(t, 1) for t in np.arange(start = 0.0, stop = 1.1, step = 0.1)] # thresholds on the percent improvement
         if world == "feature":
             envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
         elif world == "driving":
             envs = [mdp_worlds.random_driving_simulator(num_rows, reward_function = "safe") for _ in range(num_worlds)]
+        elif world == "goal":
+            envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features, terminals = [random.randint(0, num_rows * num_cols - 1)]) for _ in range(num_worlds)]
         policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
         demos = [[] for _ in range(num_worlds)]
         demo_order = list(range(num_rows * num_cols))
@@ -514,12 +559,14 @@ if __name__ == "__main__":
 
         # Metrics to evaluate thresholds
         pct_improvements = {threshold: [] for threshold in thresholds}
-        true_evds = {threshold: [] for threshold in thresholds}
         num_demos = {threshold: [] for threshold in thresholds}
         pct_states = {threshold: [] for threshold in thresholds}
+        true_evds = {threshold: [] for threshold in thresholds}
+        avg_bound_errors = {threshold: [] for threshold in thresholds}
         policy_optimalities = {threshold: [] for threshold in thresholds}
         policy_accuracies = {threshold: [] for threshold in thresholds}
         confidence = {threshold: set() for threshold in thresholds}
+        accuracies = {threshold: [] for threshold in thresholds}
         confusion_matrices = {threshold: [[0, 0], [0, 0]] for threshold in thresholds} # predicted by true
 
         for i in range(num_worlds):
@@ -530,15 +577,25 @@ if __name__ == "__main__":
             baseline_optimality = mdp_utils.calculate_percentage_optimal_actions(baseline_pi, env)
             baseline_accuracy = mdp_utils.calculate_policy_accuracy(policies[i], baseline_pi)
             print("BASELINE POLICY: evd {}, policy optimality {}, and policy accuracy {}".format(baseline_evd, baseline_optimality, baseline_accuracy))
-            # start_comp = 0
-            # done_with_demos = False
             for M in range(len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
                 # print("Using {} demos".format(M + 1))
-                D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
-                demos[i].append(D)
-                if debug:
-                    print("Running BIRL with {} demos:".format(M + 1), demos[i])
-                birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
+                if demo_type == "pairs":
+                    try:
+                        D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
+                        demos[i].append(D)
+                    except IndexError:
+                        pass
+                    if debug:
+                        print("running BIRL with demos")
+                        print("demos", demos[i])
+                    birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
+                elif demo_type == "trajectories":
+                    D = mdp_utils.generate_optimal_demo(env, demo_order[M])[:int(1/(1 - gamma))]
+                    demos[i].append(D)
+                    if debug:
+                        print("running BIRL with demos")
+                        print("demos", demos[i])
+                    birl = bayesian_irl.BIRL(env, list(set([pair for traj in demos[i] for pair in traj])), beta)
                 # use MCMC to generate sequence of sampled rewards
                 birl.run_mcmc(N, step_stdev, adaptive = adaptive)
                 #burn initial samples and skip every skip_rate for efficiency
@@ -605,29 +662,26 @@ if __name__ == "__main__":
                         map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
                         # store threshold metrics
                         pct_improvements[threshold].append(bound)
-                        true_evds[threshold].append(map_evd)
                         num_demos[threshold].append(M + 1)
-                        pct_states[threshold].append((M + 1) / (num_rows * num_cols))
+                        if demo_type == "pairs":
+                            pct_states[threshold].append((M + 1) / (num_rows * num_cols))
+                        elif demo_type == "trajectories":
+                            pct_states[threshold].append((M + 1) * int(1/(1 - gamma)) / (num_rows * num_cols))
+                        true_evds[threshold].append(map_evd)
+                        avg_bound_errors[threshold].append(actual - bound)
                         policy_optimalities[threshold].append(mdp_utils.calculate_percentage_optimal_actions(map_policy, env))
                         policy_accuracies[threshold].append(mdp_utils.calculate_policy_accuracy(policies[i], map_policy))
                         confidence[threshold].add(i)
+                        accuracies[threshold].append(bound <= actual)
                         if actual > threshold:
                             confusion_matrices[threshold][0][0] += 1
                         else:
                             confusion_matrices[threshold][0][1] += 1
-                        # if threshold == max(thresholds):
-                        #     done_with_demos = True
                     else:
                         if actual > threshold:
                             confusion_matrices[threshold][1][0] += 1
                         else:
                             confusion_matrices[threshold][1][1] += 1
-                        # start_comp += t
-                        # print("Comparing {} with threshold {}, did not pass".format(improvement, threshold))
-                        # break
-                # if done_with_demos:
-                    # break
-            # print("\n\n\n")
         
         # Output results for plotting
         for threshold in thresholds:
@@ -635,23 +689,31 @@ if __name__ == "__main__":
             print("Percent Improvements")
             for pi in pct_improvements[threshold]:
                 print(pi)
-            print("Confidence")
-            print(len(confidence[threshold]) / (num_worlds))
-            print("True EVDs")
-            for tevd in true_evds[threshold]:
-                print(tevd)
             print("Num demos")
             for nd in num_demos[threshold]:
                 print(nd)
             print("Percent states")
             for ps in pct_states[threshold]:
                 print(ps)
+            print("True EVDs")
+            for tevd in true_evds[threshold]:
+                print(tevd)
+            print("Bound errors")
+            for abe in avg_bound_errors[threshold]:
+                print(abe)
             print("Policy optimalities")
             for po in policy_optimalities[threshold]:
                 print(po)
             print("Policy accuracies")
             for pa in policy_accuracies[threshold]:
                 print(pa)
+            print("Confidence")
+            print(len(confidence[threshold]) / (num_worlds))
+            print("Accuracy")
+            if len(accuracies[threshold]) != 0:
+                print(sum(accuracies[threshold]) / len(accuracies[threshold]))
+            else:
+                print(0.0)
             print("Confusion matrices")
             print(confusion_matrices[threshold])
         print("**************************************************")

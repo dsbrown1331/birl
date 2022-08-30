@@ -8,28 +8,29 @@ import numpy as np
 import math
 import sys
 
-rseed = 168
-random.seed(rseed)
-np.random.seed(rseed)
-
 if __name__ == "__main__":
+    rseed = 168
+    random.seed(rseed)
+    np.random.seed(rseed)
+    
     debug = False # set to False to suppress terminal outputs
 
     # Hyperparameters
-    max_num_demos = 15 # maximum number of demos to give agent, start with 1 demo and then work up to max_num_demos
-    alphas = [0.95]
+    max_num_demos = 9 # maximum number of demos to give agent, start with 1 demo and then work up to max_num_demos
+    alphas = [0.90, 0.95, 0.99]
     delta = 0.05
     num_rows = 5 # 4 normal, 5 driving
-    num_cols = 4
-    num_features = 3
+    num_cols = 5
+    num_features = 4
 
     # MCMC hyperparameters
     beta = 10.0  # confidence for mcmc
-    N = 450
-    step_stdev = 0.3
+    N = 530
+    step_stdev = 0.5
     burn_rate = 0.05
-    skip_rate = 2
+    skip_rate = 1
     random_normalization = True # whether or not to normalize with random policy
+    adaptive = True
     num_worlds = 20
 
     # envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
@@ -44,7 +45,7 @@ if __name__ == "__main__":
     bounds = {alpha: [] for alpha in alphas}
     evds = []
     
-    for M in range(0, max_num_demos): # number of demonstrations
+    for M in range(0, max_num_demos + 1): # number of demonstrations
         good_upper_bound = {alpha: 0 for alpha in alphas}
         bound_error = {alpha: [] for alpha in alphas}
         p_loss_bound = {alpha: [] for alpha in alphas}
@@ -59,7 +60,7 @@ if __name__ == "__main__":
                 print("demos", demos[i])
             birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
             # use MCMC to generate sequence of sampled rewards
-            birl.run_mcmc(N, step_stdev)
+            birl.run_mcmc(N, step_stdev, adaptive = adaptive)
             #burn initial samples and skip every skip_rate for efficiency
             burn_indx = int(len(birl.chain) * burn_rate)
             samples = birl.chain[burn_indx::skip_rate]
@@ -105,8 +106,8 @@ if __name__ == "__main__":
             for alpha in alphas:
                 #compute VaR bound
                 k = math.ceil(N_burned * alpha + norm.ppf(1 - delta) * np.sqrt(N_burned*alpha*(1 - alpha)) - 0.5)
-                if k >= len(policy_losses):
-                    k = len(policy_losses) - 1
+                if k >= N_burned:
+                    k = N_burned - 1
                 avar_bound = policy_losses[k]
                 if debug:
                     print("var bound", avar_bound)
