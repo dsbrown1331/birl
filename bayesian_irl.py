@@ -79,6 +79,8 @@ class BIRL:
         accept_cnt_list = [] # list of accepts and rejects for sliding window avg
         stdev_list = [] # list of standard deviations for debugging purposes
         accept_prob_list = [] # true cumulative accept probs for debugging purposes
+        all_lls = [] # all the likelihoods
+        map_sol_idx = 0 # index of where map sol's likelihood is in all the likelihoods
 
         self.chain = np.zeros((num_samples, self.num_mcmc_dims)) #store rewards found via BIRL here, preallocate for speed
         cur_sol = self.initial_solution() #initial guess for MCMC
@@ -92,6 +94,7 @@ class BIRL:
             prop_sol = self.generate_proposal(cur_sol, stdev, normalize)
             # calculate likelihood ratio test
             prop_ll = self.calc_ll(prop_sol)
+            all_lls.append(prop_ll)
             if prop_ll > cur_ll:
                 # accept
                 self.chain[i, :] = prop_sol
@@ -103,6 +106,7 @@ class BIRL:
                 if prop_ll > map_ll:  # maxiumum aposterioi
                     map_ll = prop_ll
                     map_sol = prop_sol
+                    map_sol_idx = i
             else:
                 # accept with prob exp(prop_ll - cur_ll)
                 if np.random.rand() < np.exp(prop_ll - cur_ll):
@@ -126,6 +130,8 @@ class BIRL:
                 accept_prob_list.append(accept_cnt / len(self.chain))
         self.accept_rate = accept_cnt / num_samples
         self.map_sol = map_sol
+        print("map sol idx =", map_sol_idx)
+        print(all_lls)
 
     def generate_samples_with_mcmc(self, samples, stepsize, normalize=True):
         num_samples = samples

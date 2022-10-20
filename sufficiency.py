@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 1 # gets around 500 after burn and skip
+    N = 50 # gets around 500 after burn and skip
     step_stdev = 0.5
     burn_rate = 0.00
     skip_rate = 1
@@ -68,7 +68,7 @@ if __name__ == "__main__":
 
         for i in range(num_worlds):
             env = envs[i]
-            for M in range(len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
+            for M in range(len(demo_order) - 1, len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
                 if demo_type == "pairs":
                     try:
                         D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]

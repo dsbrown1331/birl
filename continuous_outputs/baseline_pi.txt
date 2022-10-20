@@ -1,0 +1,109 @@
+BASELINE POLICY: evd 52975.95799201228, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 67297.48912539017, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 161221.9211214323, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 51939.27570822966, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 29120.133783029723, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 107632.6580931309, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 80856.14916495925, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 152671.7940736782, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 44504.64013165927, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 56806.472295530904, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 61220.63039513215, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 141788.7217859909, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 52917.39265635121, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 57112.838227959866, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 56491.29253038955, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 88903.81975529435, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 89797.20885065016, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 100516.1781113732, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 59081.90731125881, policy optimality 0.2, and policy accuracy 69
+BASELINE POLICY: evd 86988.33190259748, policy optimality 0.2, and policy accuracy 69
+NEW THRESHOLD 0.0
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [140, 260]]
+NEW THRESHOLD 0.1
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [140, 260]]
+NEW THRESHOLD 0.2
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [140, 260]]
+NEW THRESHOLD 0.3
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [140, 260]]
+NEW THRESHOLD 0.4
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [140, 260]]
+NEW THRESHOLD 0.5
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [140, 260]]
+NEW THRESHOLD 0.6
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [140, 260]]
+NEW THRESHOLD 0.7
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [140, 260]]
+NEW THRESHOLD 0.8
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [140, 260]]
+NEW THRESHOLD 0.9
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [140, 260]]
+NEW THRESHOLD 1.0
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [140, 260]]
+**************************************************

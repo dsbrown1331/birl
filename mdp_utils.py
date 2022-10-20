@@ -1,10 +1,6 @@
-from signal import SIG_DFL
 from mdp import FeatureMDP, DrivingSimulator
-from matplotlib import pyplot as plt
-import time
 import numpy as np
 import math
-import copy
 
 
 def value_iteration(env, epsilon=0.0001):
@@ -176,7 +172,6 @@ def calculate_q_values(env, storage = None, V = None, epsilon = 0.0001):
     for s in range(n):
         for a in range(env.num_actions):
             Q_values[s][a] = env.rewards[s] + env.gamma * np.dot(env.transitions[s][a], V)
-
     return Q_values
 
 

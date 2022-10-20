@@ -387,6 +387,21 @@ class DrivingSimulatorAdvanced(FeatureMDP):
 
 
 
+class LavaWorld:
+    def __init__(self, feature_weights, lava, gamma = 0.95):
+        self.gamma = gamma
+        self.num_actions = 4
+        self.feature_weights = feature_weights
+        self.state_features = None
+        self.num_features = 2 # smooth, avoid
+        self.lava = lava
+
+    def set_rewards(self, _feature_weights):
+        self.feature_weights = _feature_weights
+
+
+
+
 if __name__ =="__main__":
 
     '''Here's a simple example of how to use the FeatureMDP class'''
