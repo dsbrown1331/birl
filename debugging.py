@@ -34,7 +34,6 @@ if __name__ == "__main__":
     # possible_rewards = [[0, 0.5], [0, 1], [0.5, 0], [0.5, 0.5], [0.5, 1], [1, 0], [1, 0.5], [1, 1]]
     possible_rewards = np.linspace(0, 1, N)
     reward_range = continuous_utils.reward_range
-    # possible_rewards = [[sr, ar] for sr in reward_range for ar in reward_range]
     demos = [[] for _ in range(num_worlds)]
     max_demos = 1
     continuous_utils.generate_random_policies()
