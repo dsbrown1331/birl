@@ -14,15 +14,30 @@ class CONT_BIRL:
         return continuous_utils.trajreward(traj, theta, self.env.lava, traj.shape[0])
     
     def birl(self, demos):
+        debug = False
         probs = []
-        counters = [] # counterfactuals
+        # counterfactuals
+        # counters = self.possible_policies
+        counters = []
         for pr in self.possible_rewards:
             counters.append(continuous_utils.get_human(pr, self.env.lava, type = "regular"))
         choice_set = demos + counters
         for theta in self.possible_rewards:
             n = np.exp(-self.beta * sum([self.R(demo, theta) for demo in demos]))
-            d = sum([np.exp(-self.beta * self.R(demo, theta)) for demo in choice_set])**len(demos)
+            d = sum([np.exp(-self.beta * self.R(demo, theta)) for demo in counters])**len(demos)
             probs.append(n/d)
+        # for theta in self.possible_rewards:
+        #     demo_rewards = [self.R(demo, theta) for demo in demos]
+        #     n = np.exp(-self.beta * sum(demo_rewards))
+        #     counter_rewards = np.array([self.R(demo, theta) for demo in counters])
+        #     d = sum(np.exp(-self.beta * counter_rewards))**len(demos)
+        #     if debug:
+        #         print("For theta = {} and {} demos, ...".format(theta, len(demos)))
+        #         print("Cost for demo at true theta =", self.env.feature_weights, "is", demo_rewards, "& numerator is", n)
+        #         print("Costs for all policies is", counter_rewards, "& denominator is", d)
+        #         print("So probability for theta = {} is {}".format(theta, n/d))
+        #         print("-----")
+        #     probs.append(n/d)
         #normalize belief
         Z = sum(probs)
         b = np.asarray(probs) / Z

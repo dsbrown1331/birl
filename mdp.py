@@ -401,6 +401,15 @@ class LavaWorld:
 
 
 
+class Lander:
+    def __init__(self, feature_weights, gamma = 0.95):
+        self.gamma = gamma
+        self.feature_weights = feature_weights
+        
+    def set_rewards(self, _feature_weights):
+        self.feature_weights = _feature_weights
+
+
 
 if __name__ =="__main__":
 

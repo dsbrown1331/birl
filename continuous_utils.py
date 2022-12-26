@@ -8,19 +8,23 @@ rseed = 168
 random.seed(rseed)
 np.random.seed(rseed)
 
+# Lavaworld variables
 N = 6
+traj_length = 20
 rand_policies = []
-reward_range = np.array([0.1, 0.9])
 
-def generate_random_policies():
-    rand_policies
-    for _ in range(10):
-        rand_policy = [[0.0, 0.0]]
-        for __ in range(8):
-            rand_policy.append(list(np.random.random(2)))
-        rand_policy.append([1.0, 1.0])
-        rand_policy = np.array(sorted(rand_policy, key = lambda x: x[0])).reshape(10, 2)
-        rand_policies.append(rand_policy)
+# Cartpole variables
+
+def generate_random_policies(env = "lavaworld"):
+    if env == "lavaworld":
+        for _ in range(10):
+            rand_policy = [[0.0, 0.0]]
+            for __ in range(traj_length - 2):
+                rand_policy.append(list(np.random.random(2)))
+            rand_policy.append([1.0, 1.0])
+            rand_policy = np.array(sorted(rand_policy, key = lambda x: x[0])).reshape(traj_length, 2)
+            rand_policies.append(rand_policy)
+
 
 def random_lavaworld(tt = None):
     lava = np.asarray([np.random.random()*0.5 + 0.25, np.random.random()*0.5 + 0.25])
@@ -51,20 +55,20 @@ def trajreward(xi, theta, lava, n):
         smoothcost += np.linalg.norm(xi[idx+1, :] - xi[idx, :])**2 # higher means not as smooth
     avoidcost = 0
     for idx in range(n):
-        avoidcost -= np.linalg.norm(xi[idx, :] - lava) / n # more negative means farther from lava
-        # avoidcost += np.linalg.norm(xi[idx, :] - lava) / n # higher if closer to lava
+        # avoidcost -= np.linalg.norm(xi[idx, :] - lava) / n # more negative means farther from lava
+        avoidcost += np.linalg.norm(xi[idx, :] - lava) / n # higher if farther from lava
     
     # Exponential transformation
-    # smoothcost = 1 - np.exp(-smoothcost**2)
-    # avoidcost = np.exp(-avoidcost**2)
+    smoothcost = 1 - np.exp(-smoothcost**2)
+    avoidcost = np.exp(-avoidcost**2)
 
     # 1D vs 2D theta
     # return theta[0] * smoothcost + theta[1] * avoidcost
-    return smoothcost + theta * avoidcost
+    return (1 - theta) * smoothcost + theta * avoidcost
 
 def get_optimal_policy(theta, lava_position):
     # hyperparameters
-    n = 10
+    n = traj_length
     xi0 = np.zeros((n,2))
     xi0[:,0] = np.linspace(0, 1, n)
     xi0[:,1] = np.linspace(0, 1, n)
@@ -76,7 +80,7 @@ def get_optimal_policy(theta, lava_position):
     B[3,-1] = 1
     cons = LinearConstraint(B, [0, 0, 1, 1], [0, 0, 1, 1])
     res = minimize(trajreward, xi0, args=(theta, lava_position, n), method='SLSQP', constraints=cons)
-    return res.x.reshape(n,2)
+    return res.x.reshape(n, 2)
 
 def get_human(theta, lava, type):
     vision_radius = 0.3
@@ -86,7 +90,7 @@ def get_human(theta, lava, type):
     n = xi_star.shape[0]
     if type == "regular":
         stoptime_lb = n - 1
-        noise_variance = 0.001
+        noise_variance = 0.00001
     elif type == "noise":
         stoptime_lb = n - 1
         noise_variance = 100
@@ -171,12 +175,12 @@ def calculate_policy_accuracy(map_pi, opt_pi):
     return acc / n
 
 def calculate_expected_value_difference(eval_policy, env, opt_policy, rn = False):
-    V_opt = trajreward(opt_policy, env.feature_weights, env.lava, 10)
-    V_eval = trajreward(eval_policy, env.feature_weights, env.lava, 10)
+    V_opt = trajreward(opt_policy, env.feature_weights, env.lava, traj_length)
+    V_eval = trajreward(eval_policy, env.feature_weights, env.lava, traj_length)
     if rn:
         V_rand = 0
         for rand_policy in rand_policies:
-            V_rand += trajreward(rand_policy, env.feature_weights, env.lava, 10)
+            V_rand += trajreward(rand_policy, env.feature_weights, env.lava, traj_length)
         evd = (V_opt - V_eval) / (V_opt - V_rand/len(rand_policies))
         return evd
     else:
@@ -187,15 +191,15 @@ def comparison_grid(env, possible_rewards, possible_policies):
     values = [[0 for j in range(len(possible_rewards))] for i in range(len(possible_policies))]
     for i in range(len(possible_policies)):
         for j in range(len(possible_rewards)):
-            value = trajreward(possible_policies[i], possible_rewards[j], env.lava, 10)
+            value = trajreward(possible_policies[i], possible_rewards[j], env.lava, traj_length)
             # print("For theta_{} = {} and policy {}, cost is {}".format(j, possible_rewards[j], i, value))
             values[i][j] = value
     return np.array(values)
 
 def calculate_percent_improvement(env, base_policy, eval_policy, epsilon = 0.000001, actual = False):
-    # V_base = trajreward(base_policy, env.feature_weights, env.lava, 10)
+    # V_base = trajreward(base_policy, env.feature_weights, env.lava, traj_length)
     V_base = 1e-3
-    V_eval = trajreward(eval_policy, env.feature_weights, env.lava, 10)
+    V_eval = trajreward(eval_policy, env.feature_weights, env.lava, traj_length)
     improvement = (V_eval - V_base) / (np.abs(V_base) + epsilon)
     return (improvement + 1)/2
 

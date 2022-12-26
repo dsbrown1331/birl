@@ -29,13 +29,12 @@ if __name__ == "__main__":
 
     # Experiment setup
     # thresholds = [round(th, 1) for th in np.arange(start = 0.5, stop = -0.1, step = -0.1)] # thresholds on the a-VaR bounds
-    envs = [continuous_utils.random_lavaworld() for _ in range(num_worlds)]
+    envs = [continuous_utils.random_lavaworld(tt = 0.4) for _ in range(num_worlds)]
     policies = [continuous_utils.get_optimal_policy(envs[i].feature_weights, envs[i].lava) for i in range(num_worlds)]
     # possible_rewards = [[0, 0.5], [0, 1], [0.5, 0], [0.5, 0.5], [0.5, 1], [1, 0], [1, 0.5], [1, 1]]
     possible_rewards = np.linspace(0, 1, N)
-    reward_range = continuous_utils.reward_range
     demos = [[] for _ in range(num_worlds)]
-    max_demos = 1
+    max_demos = 10
     continuous_utils.generate_random_policies()
 
     # Metrics to evaluate thresholds
@@ -112,6 +111,11 @@ if __name__ == "__main__":
         print(env.feature_weights)
         print("True optimal policy")
         print(continuous_utils.listify(policies[i]))
+        print("Possible policies")
+        poss_pols = []
+        for pp in possible_policies:
+            poss_pols.append(continuous_utils.listify(pp))
+        print(poss_pols)
         for nd in range(max_demos):
             print("Num demos", nd + 1)
             print("EVDs")

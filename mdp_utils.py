@@ -541,3 +541,17 @@ def calculate_wfcb(pi, env, trajectories, epsilon = 0.0001):
     mu_pi_rand = calculate_expected_fc(pi, env, epsilon = epsilon, random = True)
     max_abs_diff = np.max(np.abs(mu_hat_star - mu_pi_eval)) / np.max(np.abs(mu_hat_star - mu_pi_rand))
     return max_abs_diff
+
+if __name__ == "__main__":
+    fw = np.array([0, 1, -100, -100000])
+    blank = np.array([1, 0, 0, 0])
+    one = np.array([0, 1, 0, 0])
+    hunnit = np.array([0, 0, 1, 0])
+    x = np.array([0, 0, 0, 1])
+    sf = np.array([
+        blank, blank, blank, one,
+        blank, x, blank, hunnit,
+        blank, blank, blank, blank
+    ])
+    test = FeatureMDP(3, 4, 4, [3, 7], fw, sf, 0.7, noise = 0.0, driving = False)
+    print(value_iteration(test))
