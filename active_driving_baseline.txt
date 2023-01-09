@@ -1,0 +1,138 @@
+BASELINE POLICY: evd 1.4007638024718927, policy optimality 0.0, and policy accuracy 0.0
+NEW THRESHOLD 0.1
+Percent Improvements
+0.36188181587779406
+0.23958616754171846
+Num demos
+3
+5
+Percent states
+0.6
+1.0
+Uncertain states
+4
+0
+2
+0
+0
+True EVDs
+0.0
+0.0
+Bound errors
+2.5489398142712187
+2.6712354626072945
+Policy optimalities
+1.0
+1.0
+Policy accuracies
+1.0
+1.0
+Confidence
+1.0
+Accuracy
+1.0
+Confusion matrices
+[[2, 0], [2, 1]]
+NEW THRESHOLD 0.2
+Percent Improvements
+0.36188181587779406
+0.23958616754171846
+Num demos
+3
+5
+Percent states
+0.6
+1.0
+Uncertain states
+4
+0
+2
+0
+0
+True EVDs
+0.0
+0.0
+Bound errors
+2.5489398142712187
+2.6712354626072945
+Policy optimalities
+1.0
+1.0
+Policy accuracies
+1.0
+1.0
+Confidence
+1.0
+Accuracy
+1.0
+Confusion matrices
+[[2, 0], [2, 1]]
+NEW THRESHOLD 0.3
+Percent Improvements
+0.36188181587779406
+Num demos
+3
+Percent states
+0.6
+Uncertain states
+4
+0
+2
+0
+0
+True EVDs
+0.0
+Bound errors
+2.5489398142712187
+Policy optimalities
+1.0
+Policy accuracies
+1.0
+Confidence
+1.0
+Accuracy
+1.0
+Confusion matrices
+[[1, 0], [3, 1]]
+NEW THRESHOLD 0.4
+Percent Improvements
+Num demos
+Percent states
+Uncertain states
+4
+0
+2
+0
+0
+True EVDs
+Bound errors
+Policy optimalities
+Policy accuracies
+Confidence
+0.0
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [4, 1]]
+NEW THRESHOLD 0.5
+Percent Improvements
+Num demos
+Percent states
+Uncertain states
+4
+0
+2
+0
+0
+True EVDs
+Bound errors
+Policy optimalities
+Policy accuracies
+Confidence
+0.0
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [4, 1]]
+**************************************************
+Total running minutes: 0.13832648197809855

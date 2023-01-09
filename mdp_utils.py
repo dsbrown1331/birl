@@ -106,31 +106,17 @@ def get_nonpessimal_policy(env, epsilon = 0.0001, V = None):
         nonpessimal_policy.append(np.random.choice(np.array(possible_actions)))
     return nonpessimal_policy
 
-
-def get_suboptimal_policy(env, epsilon=0.0001, V=None):
+def get_worst_policy(env, V = None):
     if not V:
-        V = value_iteration(env, epsilon)
+        q_values = calculate_q_values(env)
+    else:
+        q_values = calculate_q_values(env, V = V)
     n = env.num_states
-    suboptimal_policy = []
-
+    worst_policy = []
     for s in range(n):
-        max_action_value = -math.inf + 1
-        second_best_action_value = -math.inf
-        best_action = 0
-
-        for a in range(env.num_actions):
-            action_value = 0.0
-            for s2 in range(n):  # look at all possible next states
-                action_value += env.transitions[s][a][s2] * V[s2]
-                # check if a is max
-            if action_value > max_action_value:
-                second_best_action_value = max_action_value
-                max_action_value = action_value
-            elif second_best_action_value < action_value < max_action_value:
-                second_best_action_value = action_value
-                best_action = a  # direction to take
-        suboptimal_policy.append(best_action)
-    return suboptimal_policy
+        possible_actions = [i for i in range(len(q_values[s])) if q_values[s][i] == min(q_values[s])]
+        worst_policy.append(np.random.choice(np.array(possible_actions)))
+    return worst_policy
 
 
 def logsumexp(x):
@@ -327,13 +313,21 @@ def arg_max_set(values, eps=0.0001):
             arg_maxes.append(i)
     return arg_maxes
 
-def find_nonterminal_uncertainties(policy_loss, env):
-    state_losses = np.copy(policy_loss)
-    uncertain_state = np.argmax(state_losses)
-    while uncertain_state in env.terminals:
-        state_losses = np.delete(state_losses, uncertain_state)
+def find_nonterminal_uncertainties(metric, env, type):
+    if type == "nevd":
+        state_losses = np.copy(metric)
         uncertain_state = np.argmax(state_losses)
-    avar_bound = state_losses[uncertain_state]
+        while uncertain_state in env.terminals:
+            state_losses = np.delete(state_losses, uncertain_state)
+            uncertain_state = np.argmax(state_losses)
+        avar_bound = state_losses[uncertain_state]
+    elif type == "baseline":
+        improvements = np.copy(metric)
+        uncertain_state = np.argmin(improvements)
+        while uncertain_state in env.terminals:
+            improvements = np.delete(improvements, uncertain_state)
+            uncertain_state = np.argmin(improvements)
+        avar_bound = improvements[uncertain_state]
     return avar_bound, uncertain_state
 
 
@@ -385,22 +379,6 @@ def calculate_state_expected_value_difference(eval_policy, env, storage, epsilon
     else:
         return np.nan_to_num(np.array([V_opt - V_eval]))
 
-def calculate_max_state_expected_value_difference(eval_policy, env, storage, epsilon = 0.0001, rn = False):
-    if env in storage:
-        V_opt = storage[env]
-    else:
-        V_opt = np.array(value_iteration(env, epsilon))
-    V_eval = np.array(policy_evaluation(eval_policy, env, epsilon))
-    num_states = len(V_eval)
-    if (np.mean(V_opt) - np.mean(V_eval)) == 0:
-        state_evds = np.array([np.zeros(num_states)])
-    if rn:
-        V_rand = np.array(policy_evaluation_stochastic(env, epsilon))
-        state_evds = np.array([(V_opt - V_eval) / (V_opt - V_rand)])
-    else:
-        state_evds = np.array([V_opt - V_eval])
-    return np.max(state_evds)
-
 
 def calculate_percent_improvement(env, base_policy, eval_policy, epsilon = 0.0001):
     V_base = policy_evaluation(base_policy, env, epsilon)
@@ -410,6 +388,14 @@ def calculate_percent_improvement(env, base_policy, eval_policy, epsilon = 0.000
     # V_base = calculate_percentage_optimal_actions(base_policy, env)
     # V_eval = calculate_percentage_optimal_actions(eval_policy, env)
     # return (V_eval - V_base) / abs(V_base)
+
+
+def calculate_state_percent_improvement(env, base_policy, eval_policy, epsilon = 0.0001):
+    V_base = policy_evaluation(base_policy, env, epsilon)
+    V_eval = policy_evaluation(eval_policy, env, epsilon)
+    # print("MEAN METRICS")
+    # print(np.mean(V_base), np.mean(V_eval), (np.mean(V_eval) - np.mean(V_base)) / np.abs(np.mean(V_base)))
+    return np.nan_to_num(np.array([(V_eval - V_base) / np.abs(V_base)]))
 
 
 def generate_optimal_demo(env, start_state):

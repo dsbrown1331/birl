@@ -33,13 +33,13 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 100 # 530 gets around 500 after burn
+    N = 1050 # 1050 * 0.95 / 2 = 500 ish
     step_stdev = 0.5
     burn_rate = 0.05
     skip_rate = 2
     random_normalization = True # whether or not to normalize with random policy
     adaptive = True # whether or not to use adaptive step size
-    num_worlds = 1
+    num_worlds = 20
 
     if stopping_condition == "nevd": # stop learning after passing a-VaR threshold
         # Experiment setup
@@ -130,7 +130,7 @@ if __name__ == "__main__":
                 policy_losses = np.sort(policy_losses, axis = 0)
                 # print("POLICY LOSSES AAAAA")
                 # print(policy_losses)
-                avar_bound, uncertain_state = mdp_utils.find_nonterminal_uncertainties(policy_losses[k], env)
+                avar_bound, uncertain_state = mdp_utils.find_nonterminal_uncertainties(policy_losses[k], env, "nevd")
                 # print("Bound = {}, uncertain in state {}".format(avar_bound, uncertain_state))
 
                 # evaluate thresholds
@@ -175,12 +175,12 @@ if __name__ == "__main__":
             print("Num demos")
             for nd in num_demos[threshold]:
                 print(nd)
-            print("Uncertain states")
-            for us in uncertain_states[threshold]:
-                print(us)
             print("Percent states")
             for ps in pct_states[threshold]:
                 print(ps)
+            print("Uncertain states")
+            for us in uncertain_states[threshold]:
+                print(us)
             print("True EVDs")
             for tevd in true_evds[threshold]:
                 print(tevd)
@@ -330,7 +330,8 @@ if __name__ == "__main__":
             print("**************************************************")
     elif stopping_condition == "baseline": # stop learning once learned policy is some degree better than baseline policy
         # Experiment setup
-        thresholds = [round(t, 1) for t in np.arange(start = 0.0, stop = 1.1, step = 0.1)] # thresholds on the percent improvement
+        # thresholds = [round(t, 1) for t in np.arange(start = 0.0, stop = 1.1, step = 0.1)] # thresholds on the percent improvement
+        thresholds = [0.1, 0.2, 0.3, 0.4, 0.5]
         if world == "driving":
             envs = [mdp_worlds.random_driving_simulator(num_rows, reward_function = "safe") for _ in range(num_worlds)]
         elif world == "goal":
@@ -353,7 +354,7 @@ if __name__ == "__main__":
 
         for i in range(num_worlds):
             env = envs[i]
-            baseline_pi = mdp_utils.get_nonpessimal_policy(env)
+            baseline_pi = mdp_utils.get_worst_policy(env)
             baseline_evd = mdp_utils.calculate_expected_value_difference(baseline_pi, env, {}, rn = random_normalization)
             baseline_optimality = mdp_utils.calculate_percentage_optimal_actions(baseline_pi, env)
             baseline_accuracy = mdp_utils.calculate_policy_accuracy(policies[i], baseline_pi)
@@ -361,10 +362,10 @@ if __name__ == "__main__":
             valid_states = np.array(list(set(range(0, env.num_states)).difference(set(env.terminals))))
             uncertain_state = np.random.choice(valid_states)
             first_state = uncertain_state
-            # print("BASELINE POLICY: evd {}, policy optimality {}, and policy accuracy {}".format(baseline_evd, baseline_optimality, baseline_accuracy))
+            print("BASELINE POLICY: evd {}, policy optimality {}, and policy accuracy {}".format(baseline_evd, baseline_optimality, baseline_accuracy))
             while demos_so_far < env.num_states:
                 try:
-                    D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
+                    D = mdp_utils.generate_optimal_demo(env, uncertain_state)[0]
                     demos[i].append(D)
                 except IndexError: # uncertain state is a terminal state, randomly sample another state
                     print("THIS SHOULD NOT APPEAR")
@@ -412,40 +413,35 @@ if __name__ == "__main__":
                 for sample in samples:
                     learned_env = copy.deepcopy(env)
                     learned_env.set_rewards(sample)
-                    vb, ve, improvement = mdp_utils.calculate_percent_improvement(learned_env, baseline_pi, map_policy)
-                    # print("V base: {}, V evail: {}".format(vb, ve))
-                    improvements.append(improvement)
-                # print("Percent improvement: {}".format(improvement))
-                # print("Mean V_base: {}, mean V_eval: {}, percent improvement: {}".format(V_base, V_eval, improvement))
+                    improvements = np.append(improvements, mdp_utils.calculate_state_percent_improvement(learned_env, baseline_pi, map_policy), axis = 0)
 
                 # evaluate 95% confidence on lower bound of improvement
-                improvements = np.nan_to_num(improvements).tolist()
-                improvements.sort(reverse = True)
                 N_burned = len(samples)
-                # k = math.ceil(N_burned*(1 - alpha) + norm.ppf(1 - delta) * np.sqrt(N_burned*(1 - alpha)*alpha) - 0.5)
                 k = math.ceil(N_burned*alpha + norm.ppf(1 - delta) * np.sqrt(N_burned*alpha*(1 - alpha)) - 0.5)
-                # print("Improvements:", improvements)
-                # print("Bound {}: {} of {}".format(improvements[k], k, N_burned))
                 if k >= N_burned:
                     k = N_burned - 1
-                bound = improvements[k]
-                if debug:
-                    print("VaR bound:", bound)
+                improvements = np.delete(improvements, 0, axis = 0)
+                improvements = -np.sort(-improvements, axis = 0)
+                # print("IMPROVEMENTS AAAAA")
+                # print(improvements)
+                bound, uncertain_state = mdp_utils.find_nonterminal_uncertainties(improvements[k], env, "baseline")
+                # print("BOUND {} ON STATE {}".format(bound, uncertain_state))
                 
                 # evaluate thresholds
                 for t in range(len(thresholds)):
                     threshold = thresholds[t]
+                    if demos_so_far == 1:
+                        uncertain_states[threshold].append(first_state)
+                    else:
+                        uncertain_states[threshold].append(uncertain_state)
                     _, _, actual = mdp_utils.calculate_percent_improvement(env, baseline_pi, map_policy)
                     if bound > threshold:
                         # print("Comparing {} with threshold {}, passed".format(improvement, threshold))
                         map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
                         # store threshold metrics
                         pct_improvements[threshold].append(bound)
-                        num_demos[threshold].append(M + 1)
-                        if demo_type == "pairs":
-                            pct_states[threshold].append((M + 1) / (num_rows * num_cols))
-                        elif demo_type == "trajectories":
-                            pct_states[threshold].append((M + 1) * int(1/(1 - gamma)) / (num_rows * num_cols))
+                        num_demos[threshold].append(demos_so_far)
+                        pct_states[threshold].append(demos_so_far / env.num_states)
                         true_evds[threshold].append(map_evd)
                         avg_bound_errors[threshold].append(actual - bound)
                         policy_optimalities[threshold].append(mdp_utils.calculate_percentage_optimal_actions(map_policy, env))
@@ -474,6 +470,9 @@ if __name__ == "__main__":
             print("Percent states")
             for ps in pct_states[threshold]:
                 print(ps)
+            print("Uncertain states")
+            for us in uncertain_states[threshold]:
+                print(us)
             print("True EVDs")
             for tevd in true_evds[threshold]:
                 print(tevd)
@@ -496,3 +495,6 @@ if __name__ == "__main__":
             print("Confusion matrices")
             print(confusion_matrices[threshold])
         print("**************************************************")
+    
+    end_time = time.time()
+    print("Total running minutes: {}".format((end_time - start_time) / 60))
