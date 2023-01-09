@@ -334,6 +334,7 @@ class DrivingSimulator(FeatureMDP):
             else: # crash into the sides
                 state_features.append(crash)
         self.motorists = motorists
+        self.num_states = num_rows * num_cols
         super().__init__(num_rows, num_cols, num_actions, terminals, feature_weights, np.array(state_features), gamma, noise, driving = True)
 
 

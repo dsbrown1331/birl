@@ -130,8 +130,8 @@ class BIRL:
                 accept_prob_list.append(accept_cnt / len(self.chain))
         self.accept_rate = accept_cnt / num_samples
         self.map_sol = map_sol
-        print("map sol idx =", map_sol_idx)
-        print(all_lls)
+        # print("map sol idx =", map_sol_idx)
+        # print(all_lls)
 
     def generate_samples_with_mcmc(self, samples, stepsize, normalize=True):
         num_samples = samples

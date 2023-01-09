@@ -240,7 +240,8 @@ def visualize_trajectory(trajectory, env):
                 if count in env.terminals:
                     policy_row += ".\t"    
                 else:    
-                    policy_row += action_to_string(actions[indx], type(env) is DrivingSimulator) + "\t"
+                    # policy_row += action_to_string(actions[indx], type(env) is DrivingSimulator) + "\t"
+                    policy_row += action_to_string(actions[indx]) + "\t"
             else:
                 policy_row += " \t"
             count += 1
@@ -259,12 +260,14 @@ def visualize_policy(policy, env):
             if count in env.terminals:
                 policy_row += ".\t"
             else:
-                policy_row += action_to_string(policy[count], type(env) is DrivingSimulator) + "\t"
+                # policy_row += action_to_string(policy[count], type(env) is DrivingSimulator) + "\t"
+                policy_row += action_to_string(policy[count]) + "\t"
             count += 1
         print(policy_row)
 
-def visualize_env(env, reversed_motorists = None):
+def visualize_env(env):
     if type(env) is DrivingSimulator:
+        reversed_motorists = env.motorists[::-1]
         border = "-" * 8 * env.num_cols + "-"
         print(border)
         count = 0
@@ -276,7 +279,7 @@ def visualize_env(env, reversed_motorists = None):
                 elif count % env.num_cols == 0 or count % env.num_cols == env.num_cols - 1:
                     env_row += "   X   "
                 else:
-                    env_row += "\t"
+                    env_row += "       "
                 env_row += "|"
                 count += 1
             print(env_row)
@@ -324,6 +327,15 @@ def arg_max_set(values, eps=0.0001):
             arg_maxes.append(i)
     return arg_maxes
 
+def find_nonterminal_uncertainties(policy_loss, env):
+    state_losses = np.copy(policy_loss)
+    uncertain_state = np.argmax(state_losses)
+    while uncertain_state in env.terminals:
+        state_losses = np.delete(state_losses, uncertain_state)
+        uncertain_state = np.argmax(state_losses)
+    avar_bound = state_losses[uncertain_state]
+    return avar_bound, uncertain_state
+
 
 def calculate_policy_accuracy(opt_pi, eval_pi):
     assert len(opt_pi) == len(eval_pi)
@@ -359,6 +371,35 @@ def calculate_expected_value_difference(eval_policy, env, storage, epsilon = 0.0
             return 0.0
         return (np.mean(V_opt) - np.mean(V_eval)) / (np.mean(V_opt) - np.mean(V_rand))
     return np.mean(V_opt) - np.mean(V_eval)
+
+def calculate_state_expected_value_difference(eval_policy, env, storage, epsilon = 0.0001, rn = False):
+    if env in storage:
+        V_opt = np.array(storage[env])
+    else:
+        V_opt = np.array(value_iteration(env, epsilon))
+    V_eval = np.array(policy_evaluation(eval_policy, env, epsilon))
+    if rn:
+        V_rand = np.array(policy_evaluation_stochastic(env, epsilon))
+        # print("V_opt = {}, V_eval = {}, V_rand = {}; {} / {} = {}".format(V_opt, V_eval, V_rand, V_opt - V_eval, V_opt - V_rand, (V_opt - V_eval) / (V_opt - V_rand)))
+        return np.nan_to_num(np.array([(V_opt - V_eval) / (V_opt - V_rand)]))
+    else:
+        return np.nan_to_num(np.array([V_opt - V_eval]))
+
+def calculate_max_state_expected_value_difference(eval_policy, env, storage, epsilon = 0.0001, rn = False):
+    if env in storage:
+        V_opt = storage[env]
+    else:
+        V_opt = np.array(value_iteration(env, epsilon))
+    V_eval = np.array(policy_evaluation(eval_policy, env, epsilon))
+    num_states = len(V_eval)
+    if (np.mean(V_opt) - np.mean(V_eval)) == 0:
+        state_evds = np.array([np.zeros(num_states)])
+    if rn:
+        V_rand = np.array(policy_evaluation_stochastic(env, epsilon))
+        state_evds = np.array([(V_opt - V_eval) / (V_opt - V_rand)])
+    else:
+        state_evds = np.array([V_opt - V_eval])
+    return np.max(state_evds)
 
 
 def calculate_percent_improvement(env, base_policy, eval_policy, epsilon = 0.0001):
@@ -554,4 +595,16 @@ if __name__ == "__main__":
         blank, blank, blank, blank
     ])
     test = FeatureMDP(3, 4, 4, [3, 7], fw, sf, 0.7, noise = 0.0, driving = False)
-    print(value_iteration(test))
+    # print(value_iteration(test))
+    # state_evds = np.array([[0 for _ in range(12)]])
+    # for i in range(3):
+    #     test.set_rewards([i, i, i, i])
+    #     state_evds = np.append(state_evds, calculate_state_expected_value_difference([0 for _ in range(12)], test, [], epsilon = 0.0001, rn = False), axis = 0)
+    # k = 2
+    # print(state_evds)
+    # state_evds = np.delete(state_evds, 0, axis = 0)
+    # state_evds = np.sort(state_evds, axis = 0)
+    # avar_bound, uncertain_state = np.max(state_evds[k]), np.argmax(state_evds[k])
+    # print(state_evds)
+    # print(avar_bound)
+    # print(uncertain_state)
