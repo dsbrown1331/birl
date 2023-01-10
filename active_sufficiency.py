@@ -70,6 +70,7 @@ if __name__ == "__main__":
             # print("ENVIRONMENT")
             # mdp_utils.visualize_env(env)
             demos_so_far = 0
+            demo_states = set()
             valid_states = np.array(list(set(range(0, env.num_states)).difference(set(env.terminals))))
             uncertain_state = np.random.choice(valid_states)
             first_state = uncertain_state
@@ -77,11 +78,13 @@ if __name__ == "__main__":
                 try:
                     D = mdp_utils.generate_optimal_demo(env, uncertain_state)[0]
                     demos[i].append(D)
+                    demo_states.add(D)
                 except IndexError: # uncertain state is a terminal state, randomly sample another state
                     print("THIS SHOULD NOT APPEAR")
                     valid_states = np.array(list(set(valid_states).difference(set(demos[i]))))
                     D = mdp_utils.generate_optimal_demo(env, np.random.choice(valid_states))[0]
                     demos[i].append(D)
+                    demo_states.add(D)
                 demos_so_far += 1
                 # print("Using {} demos: {}".format(demos_so_far, demos[i]))
                 if debug:
@@ -136,10 +139,6 @@ if __name__ == "__main__":
                 # evaluate thresholds
                 for t in range(len(thresholds)):
                     threshold = thresholds[t]
-                    if demos_so_far == 1:
-                        uncertain_states[threshold].append(first_state)
-                    else:
-                        uncertain_states[threshold].append(uncertain_state)
                     actual = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
                     if avar_bound < threshold:
                         # print("SUFFICIENT ({})".format(avar_bound))
@@ -149,6 +148,7 @@ if __name__ == "__main__":
                         bounds[threshold].append(avar_bound)
                         num_demos[threshold].append(demos_so_far)
                         pct_states[threshold].append(demos_so_far / (env.num_states))
+                        uncertain_states[threshold].append(demo_states.copy())
                         true_evds[threshold].append(map_evd)
                         avg_bound_errors[threshold].append(avar_bound - map_evd)
                         policy_optimalities[threshold].append(mdp_utils.calculate_percentage_optimal_actions(map_policy, env))
@@ -180,7 +180,7 @@ if __name__ == "__main__":
                 print(ps)
             print("Uncertain states")
             for us in uncertain_states[threshold]:
-                print(us)
+                print(list(us))
             print("True EVDs")
             for tevd in true_evds[threshold]:
                 print(tevd)
@@ -330,8 +330,7 @@ if __name__ == "__main__":
             print("**************************************************")
     elif stopping_condition == "baseline": # stop learning once learned policy is some degree better than baseline policy
         # Experiment setup
-        # thresholds = [round(t, 1) for t in np.arange(start = 0.0, stop = 1.1, step = 0.1)] # thresholds on the percent improvement
-        thresholds = [0.1, 0.2, 0.3, 0.4, 0.5]
+        thresholds = [round(t, 1) for t in np.arange(start = 0.0, stop = 1.1, step = 0.1)] # thresholds on the percent improvement
         if world == "driving":
             envs = [mdp_worlds.random_driving_simulator(num_rows, reward_function = "safe") for _ in range(num_worlds)]
         elif world == "goal":
@@ -359,6 +358,7 @@ if __name__ == "__main__":
             baseline_optimality = mdp_utils.calculate_percentage_optimal_actions(baseline_pi, env)
             baseline_accuracy = mdp_utils.calculate_policy_accuracy(policies[i], baseline_pi)
             demos_so_far = 0
+            demo_states = set()
             valid_states = np.array(list(set(range(0, env.num_states)).difference(set(env.terminals))))
             uncertain_state = np.random.choice(valid_states)
             first_state = uncertain_state
@@ -367,11 +367,13 @@ if __name__ == "__main__":
                 try:
                     D = mdp_utils.generate_optimal_demo(env, uncertain_state)[0]
                     demos[i].append(D)
+                    demo_states.add(D)
                 except IndexError: # uncertain state is a terminal state, randomly sample another state
                     print("THIS SHOULD NOT APPEAR")
                     valid_states = np.array(list(set(valid_states).difference(set(demos[i]))))
                     D = mdp_utils.generate_optimal_demo(env, np.random.choice(valid_states))[0]
                     demos[i].append(D)
+                    demo_states.add(D)
                 demos_so_far += 1
                 if debug:
                     print("running BIRL with demos")
@@ -430,10 +432,6 @@ if __name__ == "__main__":
                 # evaluate thresholds
                 for t in range(len(thresholds)):
                     threshold = thresholds[t]
-                    if demos_so_far == 1:
-                        uncertain_states[threshold].append(first_state)
-                    else:
-                        uncertain_states[threshold].append(uncertain_state)
                     _, _, actual = mdp_utils.calculate_percent_improvement(env, baseline_pi, map_policy)
                     if bound > threshold:
                         # print("Comparing {} with threshold {}, passed".format(improvement, threshold))
@@ -442,6 +440,7 @@ if __name__ == "__main__":
                         pct_improvements[threshold].append(bound)
                         num_demos[threshold].append(demos_so_far)
                         pct_states[threshold].append(demos_so_far / env.num_states)
+                        uncertain_states[threshold].append(demo_states.copy())
                         true_evds[threshold].append(map_evd)
                         avg_bound_errors[threshold].append(actual - bound)
                         policy_optimalities[threshold].append(mdp_utils.calculate_percentage_optimal_actions(map_policy, env))
@@ -472,7 +471,7 @@ if __name__ == "__main__":
                 print(ps)
             print("Uncertain states")
             for us in uncertain_states[threshold]:
-                print(us)
+                print(list(us))
             print("True EVDs")
             for tevd in true_evds[threshold]:
                 print(tevd)
