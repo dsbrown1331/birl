@@ -135,7 +135,7 @@ if __name__ == "__main__":
                 if k >= N_burned:
                     k = N_burned - 1
                 state_metrics = np.delete(state_metrics, 0, axis = 0)
-                state_avar_bound, uncertain_state = mdp_utils.find_nonterminal_uncertainties(state_metrics, k, env, demo_states, "evd")
+                state_avar_bound, uncertain_state = mdp_utils.find_nonterminal_uncertainties(state_metrics, k, env, demo_states, "evd", repeats_allowed)
                 policy_metrics.sort()
                 avar_bound = policy_metrics[k]
                 # print("Bound = {}, uncertain in state {}, overall bound = {}, all policy bounds = {}".format(state_avar_bound, uncertain_state, avar_bound, policy_metrics))
@@ -432,7 +432,7 @@ if __name__ == "__main__":
                 state_metrics = np.delete(state_metrics, 0, axis = 0)
                 # print("IMPROVEMENTS AAAAA")
                 # print(improvements)
-                state_bound, uncertain_state = mdp_utils.find_nonterminal_uncertainties(state_metrics, k, env, demo_states, "evd")
+                state_bound, uncertain_state = mdp_utils.find_nonterminal_uncertainties(state_metrics, k, env, demo_states, "evd", repeats_allowed)
                 policy_metrics.sort()
                 bound = policy_metrics[k]
                 # print("BOUND {} ON STATE {}".format(bound, uncertain_state))
