@@ -1,6 +1,9 @@
 from mdp import FeatureMDP, DrivingSimulator
 import numpy as np
 import math
+import random
+
+repeats_allowed = False
 
 
 def value_iteration(env, epsilon=0.0001):
@@ -169,13 +172,13 @@ def action_to_string(act, driving = False):
         DOWN = 1
         LEFT = 2
         RIGHT = 3
-        if act == UP:
+        if act[1] == UP:
             return "^"
-        elif act == DOWN:
+        elif act[1] == DOWN:
             return "v"
-        elif act == LEFT:
+        elif act[1] == LEFT:
             return "<"
-        elif act == RIGHT:
+        elif act[1] == RIGHT:
             return ">"
     else:
         STAY = 0
@@ -313,21 +316,47 @@ def arg_max_set(values, eps=0.0001):
             arg_maxes.append(i)
     return arg_maxes
 
-def find_nonterminal_uncertainties(metric, env, type):
-    if type == "nevd":
-        state_losses = np.copy(metric)
-        uncertain_state = np.argmax(state_losses)
-        while uncertain_state in env.terminals:
-            state_losses = np.delete(state_losses, uncertain_state)
-            uncertain_state = np.argmax(state_losses)
-        avar_bound = state_losses[uncertain_state]
-    elif type == "baseline":
+def find_nonterminal_uncertainties(metrics, k, env, queried_states, query_type):
+    if query_type == "evd":
+        metrics = np.sort(metrics, axis = 0)
+        metric = metrics[k]
+        state_losses = sorted(list(enumerate(metric)), key = lambda s : s[1]) # (state, evd)
+        terminal_losses = set([(term, metric[term]) for term in env.terminals])
+        losses = np.copy(metric)
+        uncertain = state_losses[-1]
+        if repeats_allowed:
+            while uncertain[0] in env.terminals:
+                state_losses = state_losses[:-1]
+                losses = np.delete(losses, np.argwhere(losses == uncertain[1]))
+                if len(set(losses)) == 1:
+                    uncertain = random.choice(list(set(state_losses).difference(terminal_losses)))
+                    break
+                else:
+                    uncertain = state_losses[-1]
+        else:
+            while uncertain[0] in env.terminals or uncertain[0] in queried_states:
+                state_losses = state_losses[:-1]
+                losses = np.delete(losses, np.argwhere(losses == uncertain[1]))
+                if len(set(losses)) == 1:
+                    uncertain = random.choice(list(set(state_losses).difference(terminal_losses)))
+                    break
+                else:
+                    uncertain = state_losses[-1]
+        uncertain_state = uncertain[0]
+        avar_bound = metric[uncertain_state]
+    elif query_type == "improvement": ### not in use for now!!!
+        metrics = -np.sort(-metrics, axis = 0)
+        metric = metrics[k]
         improvements = np.copy(metric)
         uncertain_state = np.argmin(improvements)
-        while uncertain_state in env.terminals:
+        while uncertain_state in env.terminals or uncertain_state in queried_states:
             improvements = np.delete(improvements, uncertain_state)
-            uncertain_state = np.argmin(improvements)
-        avar_bound = improvements[uncertain_state]
+            if len(set(improvements)) == 1:
+                uncertain_state = np.random.choice(list(set(range(env.num_states)).difference(env.terminals).difference(queried_states)))
+                break
+            else:
+                uncertain_state = np.argmin(improvements)
+        avar_bound = metric[uncertain_state]
     return avar_bound, uncertain_state
 
 
@@ -366,28 +395,46 @@ def calculate_expected_value_difference(eval_policy, env, storage, epsilon = 0.0
         return (np.mean(V_opt) - np.mean(V_eval)) / (np.mean(V_opt) - np.mean(V_rand))
     return np.mean(V_opt) - np.mean(V_eval)
 
-def calculate_state_expected_value_difference(eval_policy, env, storage, epsilon = 0.0001, rn = False):
-    if env in storage:
-        V_opt = np.array(storage[env])
-    else:
-        V_opt = np.array(value_iteration(env, epsilon))
+def calculate_state_and_policy_metrics(eval_policy, env, storage, query_type, bound_type, base_policy = None, epsilon = 0.0001, rn = False):
+    """
+    `query_type` dictates the state metric: "evd" or % "improvement" (variance)
+    `bound_type` dictates the policy metric: "nevd" or "baseline"
+    `rn` is just for nEVD random normalization
+    """
     V_eval = np.array(policy_evaluation(eval_policy, env, epsilon))
-    if rn:
-        V_rand = np.array(policy_evaluation_stochastic(env, epsilon))
-        # print("V_opt = {}, V_eval = {}, V_rand = {}; {} / {} = {}".format(V_opt, V_eval, V_rand, V_opt - V_eval, V_opt - V_rand, (V_opt - V_eval) / (V_opt - V_rand)))
-        return np.nan_to_num(np.array([(V_opt - V_eval) / (V_opt - V_rand)]))
-    else:
-        return np.nan_to_num(np.array([V_opt - V_eval]))
+    if query_type == "evd" and bound_type == "nevd":
+        if env in storage:
+            V_opt = np.array(storage[env])
+        else:
+            V_opt = np.array(value_iteration(env, epsilon))
+        state_metric = np.nan_to_num(np.array([V_opt - V_eval]))
+        if rn:
+            V_rand = np.array(policy_evaluation_stochastic(env, epsilon))
+            # print("V_opt = {}, V_eval = {}, V_rand = {}; {} / {} = {}".format(V_opt, V_eval, V_rand, V_opt - V_eval, V_opt - V_rand, (V_opt - V_eval) / (V_opt - V_rand)))
+            policy_metric = np.nan_to_num((np.mean(V_opt) - np.mean(V_eval)) / (np.mean(V_opt) - np.mean(V_rand)))
+        else:
+            policy_metric = np.mean(V_opt) - np.mean(V_eval)
+    elif query_type == "evd" and bound_type == "baseline":
+        if env in storage:
+            V_opt = np.array(storage[env])
+        else:
+            V_opt = np.array(value_iteration(env, epsilon))
+        state_metric = np.nan_to_num(np.array([V_opt - V_eval]))
+        V_base = np.array(policy_evaluation(base_policy, env, epsilon))
+        policy_metric = (np.mean(V_eval) - np.mean(V_base)) / np.abs(np.mean(V_base))
+    elif query_type == "improvement" and bound_type == "nevd":
+        pass
+    elif query_type == "improvement" and bound_type == "baseline":
+        V_base = np.array(policy_evaluation(base_policy, env, epsilon))
+        state_metric = np.nan_to_num(np.array([(V_eval - V_base) / np.abs(V_base)]))
+        policy_metric = (np.mean(V_eval) - np.mean(V_base)) / np.abs(np.mean(V_base))
+    return state_metric, policy_metric
 
 
 def calculate_percent_improvement(env, base_policy, eval_policy, epsilon = 0.0001):
     V_base = policy_evaluation(base_policy, env, epsilon)
     V_eval = policy_evaluation(eval_policy, env, epsilon)
     return np.mean(V_base), np.mean(V_eval), (np.mean(V_eval) - np.mean(V_base)) / np.abs(np.mean(V_base))
-
-    # V_base = calculate_percentage_optimal_actions(base_policy, env)
-    # V_eval = calculate_percentage_optimal_actions(eval_policy, env)
-    # return (V_eval - V_base) / abs(V_base)
 
 
 def calculate_state_percent_improvement(env, base_policy, eval_policy, epsilon = 0.0001):

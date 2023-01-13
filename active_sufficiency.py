@@ -33,13 +33,13 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 1050 # 1050 * 0.95 / 2 = 500 ish
+    N = 10 # 1050 * 0.95 / 2 = 500 ish; 900 * 0.95 / 2 = 430 ish; 650 * 0.95 / 2 = 300 ish
     step_stdev = 0.5
-    burn_rate = 0.05
-    skip_rate = 2
+    burn_rate = 0.2
+    skip_rate = 1
     random_normalization = True # whether or not to normalize with random policy
-    adaptive = True # whether or not to use adaptive step size
-    num_worlds = 20
+    adaptive = False # whether or not to use adaptive step size
+    num_worlds = 1
 
     if stopping_condition == "nevd": # stop learning after passing a-VaR threshold
         # Experiment setup
@@ -65,10 +65,10 @@ if __name__ == "__main__":
         uncertain_states = {threshold: [] for threshold in thresholds}
         confusion_matrices = {threshold: [[0, 0], [0, 0]] for threshold in thresholds} # predicted by true, Pass by No Pass
 
-        for i in range(num_worlds):
+        for i in range(0, 1):
             env = envs[i]
             # print("ENVIRONMENT")
-            # mdp_utils.visualize_env(env)
+            # mdp_utils.visualize_policy(mdp_utils.demonstrate_entire_optimal_policy(env), env)
             demos_so_far = 0
             demo_states = set()
             valid_states = np.array(list(set(range(0, env.num_states)).difference(set(env.terminals))))
@@ -78,13 +78,13 @@ if __name__ == "__main__":
                 try:
                     D = mdp_utils.generate_optimal_demo(env, uncertain_state)[0]
                     demos[i].append(D)
-                    demo_states.add(D)
+                    demo_states.add(D[0])
                 except IndexError: # uncertain state is a terminal state, randomly sample another state
                     print("THIS SHOULD NOT APPEAR")
                     valid_states = np.array(list(set(valid_states).difference(set(demos[i]))))
                     D = mdp_utils.generate_optimal_demo(env, np.random.choice(valid_states))[0]
                     demos[i].append(D)
-                    demo_states.add(D)
+                    demo_states.add(D[0])
                 demos_so_far += 1
                 # print("Using {} demos: {}".format(demos_so_far, demos[i]))
                 if debug:
@@ -118,28 +118,30 @@ if __name__ == "__main__":
                     print("policy accuracy", policy_accuracy)
 
                 #run counterfactual policy loss calculations using eval policy
-                policy_losses = np.array([[0 for _ in range(env.num_states)]])
+                state_metrics = np.array([[0 for _ in range(env.num_states)]])
+                policy_metrics = []
                 for sample in samples:
                     learned_env = copy.deepcopy(env)
                     learned_env.set_rewards(sample)
-                    policy_losses = np.append(policy_losses, mdp_utils.calculate_state_expected_value_difference(map_policy, learned_env, birl.value_iters, rn = random_normalization), axis = 0) # compute policy loss
+                    state_metric, policy_metric = mdp_utils.calculate_state_and_policy_metrics(map_policy, learned_env, birl.value_iters, "evd", "nevd", rn = random_normalization)
+                    state_metrics = np.append(state_metrics, state_metric, axis = 0)
+                    policy_metrics.append(policy_metric)
 
                 # compute VaR bound
                 N_burned = len(samples)
                 k = math.ceil(N_burned * alpha + norm.ppf(1 - delta) * np.sqrt(N_burned*alpha*(1 - alpha)) - 0.5)
                 if k >= N_burned:
                     k = N_burned - 1
-                policy_losses = np.delete(policy_losses, 0, axis = 0)
-                policy_losses = np.sort(policy_losses, axis = 0)
-                # print("POLICY LOSSES AAAAA")
-                # print(policy_losses)
-                avar_bound, uncertain_state = mdp_utils.find_nonterminal_uncertainties(policy_losses[k], env, "nevd")
-                # print("Bound = {}, uncertain in state {}".format(avar_bound, uncertain_state))
+                state_metrics = np.delete(state_metrics, 0, axis = 0)
+                state_avar_bound, uncertain_state = mdp_utils.find_nonterminal_uncertainties(state_metrics, k, env, demo_states, "evd")
+                policy_metrics.sort()
+                avar_bound = policy_metrics[k]
+                # print("Bound = {}, uncertain in state {}, overall bound = {}, all policy bounds = {}".format(state_avar_bound, uncertain_state, avar_bound, policy_metrics))
 
                 # evaluate thresholds
+                actual = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
                 for t in range(len(thresholds)):
                     threshold = thresholds[t]
-                    actual = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
                     if avar_bound < threshold:
                         # print("SUFFICIENT ({})".format(avar_bound))
                         # print("DONE LEARNING FOR {}".format(threshold))
@@ -367,13 +369,13 @@ if __name__ == "__main__":
                 try:
                     D = mdp_utils.generate_optimal_demo(env, uncertain_state)[0]
                     demos[i].append(D)
-                    demo_states.add(D)
+                    demo_states.add(D[0])
                 except IndexError: # uncertain state is a terminal state, randomly sample another state
                     print("THIS SHOULD NOT APPEAR")
                     valid_states = np.array(list(set(valid_states).difference(set(demos[i]))))
                     D = mdp_utils.generate_optimal_demo(env, np.random.choice(valid_states))[0]
                     demos[i].append(D)
-                    demo_states.add(D)
+                    demo_states.add(D[0])
                 demos_so_far += 1
                 if debug:
                     print("running BIRL with demos")
@@ -411,28 +413,32 @@ if __name__ == "__main__":
                     print("Policy accuracy:", policy_accuracy)
 
                 # get percent improvements
-                improvements = np.array([[0 for _ in range(env.num_states)]])
+                state_metrics = np.array([[0 for _ in range(env.num_states)]])
+                policy_metrics = []
                 for sample in samples:
                     learned_env = copy.deepcopy(env)
                     learned_env.set_rewards(sample)
-                    improvements = np.append(improvements, mdp_utils.calculate_state_percent_improvement(learned_env, baseline_pi, map_policy), axis = 0)
+                    state_metric, policy_metric = mdp_utils.calculate_state_and_policy_metrics(map_policy, learned_env, birl.value_iters, "evd", "baseline", base_policy = baseline_pi)
+                    state_metrics = np.append(state_metrics, state_metric, axis = 0)
+                    policy_metrics.append(policy_metric)
 
                 # evaluate 95% confidence on lower bound of improvement
                 N_burned = len(samples)
                 k = math.ceil(N_burned*alpha + norm.ppf(1 - delta) * np.sqrt(N_burned*alpha*(1 - alpha)) - 0.5)
                 if k >= N_burned:
                     k = N_burned - 1
-                improvements = np.delete(improvements, 0, axis = 0)
-                improvements = -np.sort(-improvements, axis = 0)
+                state_metrics = np.delete(state_metrics, 0, axis = 0)
                 # print("IMPROVEMENTS AAAAA")
                 # print(improvements)
-                bound, uncertain_state = mdp_utils.find_nonterminal_uncertainties(improvements[k], env, "baseline")
+                state_bound, uncertain_state = mdp_utils.find_nonterminal_uncertainties(state_metrics, k, env, demo_states, "evd")
+                policy_metrics.sort()
+                bound = policy_metrics[k]
                 # print("BOUND {} ON STATE {}".format(bound, uncertain_state))
                 
                 # evaluate thresholds
+                _, _, actual = mdp_utils.calculate_percent_improvement(env, baseline_pi, map_policy)
                 for t in range(len(thresholds)):
                     threshold = thresholds[t]
-                    _, _, actual = mdp_utils.calculate_percent_improvement(env, baseline_pi, map_policy)
                     if bound > threshold:
                         # print("Comparing {} with threshold {}, passed".format(improvement, threshold))
                         map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
