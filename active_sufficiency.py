@@ -18,6 +18,8 @@ if __name__ == "__main__":
 
     stopping_condition = sys.argv[1] # options: nevd, baseline
     world = sys.argv[2] # options: goal, driving
+    repeats_allowed = sys.argv[3] # options: true, false
+    repeats_allowed = True if repeats_allowed == "true" else False
 
     debug = False # set to False to suppress terminal outputs
 
@@ -33,10 +35,10 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 630 # 1050 * 0.95 / 2 = 500 ish; 900 * 0.95 / 2 = 430 ish; 650 * 0.95 / 2 = 300 ish; 630 * 0.95 / 1 = 600 ish
+    N = 1050 # 1050 * 0.95 / 2 = 500 ish; 900 * 0.95 / 2 = 430 ish; 650 * 0.95 / 2 = 300 ish; 630 * 0.95 / 1 = 600 ish
     step_stdev = 0.5
     burn_rate = 0.05
-    skip_rate = 1
+    skip_rate = 2
     random_normalization = True # whether or not to normalize with random policy
     adaptive = True # whether or not to use adaptive step size
     num_worlds = 20

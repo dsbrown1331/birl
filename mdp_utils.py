@@ -3,8 +3,6 @@ import numpy as np
 import math
 import random
 
-repeats_allowed = True
-
 
 def value_iteration(env, epsilon=0.0001):
     """
@@ -316,7 +314,7 @@ def arg_max_set(values, eps=0.0001):
             arg_maxes.append(i)
     return arg_maxes
 
-def find_nonterminal_uncertainties(metrics, k, env, queried_states, query_type):
+def find_nonterminal_uncertainties(metrics, k, env, queried_states, query_type, repeats_allowed):
     if query_type == "evd":
         metrics = np.sort(metrics, axis = 0)
         metric = metrics[k]
