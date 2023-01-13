@@ -33,13 +33,13 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 10 # 1050 * 0.95 / 2 = 500 ish; 900 * 0.95 / 2 = 430 ish; 650 * 0.95 / 2 = 300 ish
+    N = 630 # 1050 * 0.95 / 2 = 500 ish; 900 * 0.95 / 2 = 430 ish; 650 * 0.95 / 2 = 300 ish; 630 * 0.95 / 1 = 600 ish
     step_stdev = 0.5
-    burn_rate = 0.2
+    burn_rate = 0.05
     skip_rate = 1
     random_normalization = True # whether or not to normalize with random policy
-    adaptive = False # whether or not to use adaptive step size
-    num_worlds = 1
+    adaptive = True # whether or not to use adaptive step size
+    num_worlds = 20
 
     if stopping_condition == "nevd": # stop learning after passing a-VaR threshold
         # Experiment setup

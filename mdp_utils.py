@@ -3,7 +3,7 @@ import numpy as np
 import math
 import random
 
-repeats_allowed = False
+repeats_allowed = True
 
 
 def value_iteration(env, epsilon=0.0001):
