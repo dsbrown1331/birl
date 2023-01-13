@@ -345,17 +345,8 @@ def find_nonterminal_uncertainties(metrics, k, env, queried_states, query_type):
         uncertain_state = uncertain[0]
         avar_bound = metric[uncertain_state]
     elif query_type == "improvement": ### not in use for now!!!
-        metrics = -np.sort(-metrics, axis = 0)
-        metric = metrics[k]
-        improvements = np.copy(metric)
-        uncertain_state = np.argmin(improvements)
-        while uncertain_state in env.terminals or uncertain_state in queried_states:
-            improvements = np.delete(improvements, uncertain_state)
-            if len(set(improvements)) == 1:
-                uncertain_state = np.random.choice(list(set(range(env.num_states)).difference(env.terminals).difference(queried_states)))
-                break
-            else:
-                uncertain_state = np.argmin(improvements)
+        metric = np.var(metrics, axis = 0)
+        uncertain_state = np.argmax(metric)
         avar_bound = metric[uncertain_state]
     return avar_bound, uncertain_state
 
