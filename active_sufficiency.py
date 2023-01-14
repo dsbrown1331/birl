@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 1050 # 1050 * 0.95 / 2 = 500 ish; 900 * 0.95 / 2 = 430 ish; 650 * 0.95 / 2 = 300 ish; 630 * 0.95 / 1 = 600 ish
+    N = 900 # 1050 * 0.95 / 2 = 500 ish; 900 * 0.95 / 2 = 430 ish; 650 * 0.95 / 2 = 300 ish; 630 * 0.95 / 1 = 600 ish
     step_stdev = 0.5
     burn_rate = 0.05
     skip_rate = 2
@@ -184,7 +184,7 @@ if __name__ == "__main__":
                 print(ps)
             print("Uncertain states")
             for us in uncertain_states[threshold]:
-                print(list(us))
+                print(us)
             print("True EVDs")
             for tevd in true_evds[threshold]:
                 print(tevd)
@@ -479,7 +479,7 @@ if __name__ == "__main__":
                 print(ps)
             print("Uncertain states")
             for us in uncertain_states[threshold]:
-                print(list(us))
+                print(us)
             print("True EVDs")
             for tevd in true_evds[threshold]:
                 print(tevd)
