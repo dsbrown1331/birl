@@ -330,7 +330,10 @@ def find_nonterminal_uncertainties(metrics, k, env, queried_states, query_type, 
                     uncertain = random.choice(list(set(state_losses).difference(terminal_losses)))
                     break
                 else:
-                    uncertain = state_losses[-1]
+                    try:
+                        uncertain = state_losses[-1]
+                    except:
+                        break
         else:
             while uncertain[0] in env.terminals or uncertain[0] in queried_states:
                 state_losses = state_losses[:-1]
@@ -339,7 +342,10 @@ def find_nonterminal_uncertainties(metrics, k, env, queried_states, query_type, 
                     uncertain = random.choice(list(set(state_losses).difference(terminal_losses)))
                     break
                 else:
-                    uncertain = state_losses[-1]
+                    try:
+                        uncertain = state_losses[-1]
+                    except:
+                        break
         uncertain_state = uncertain[0]
         avar_bound = metric[uncertain_state]
     elif query_type == "improvement": ### not in use for now!!!

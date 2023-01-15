@@ -35,13 +35,13 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 900 # 1050 * 0.95 / 2 = 500 ish; 900 * 0.95 / 2 = 430 ish; 650 * 0.95 / 2 = 300 ish; 630 * 0.95 / 1 = 600 ish
+    N = 500 # 1050 * 0.95 / 2 = 500 ish; 900 * 0.95 / 2 = 430 ish; 650 * 0.95 / 2 = 300 ish; 630 * 0.95 / 1 = 600 ish
     step_stdev = 0.5
     burn_rate = 0.05
-    skip_rate = 2
+    skip_rate = 1
     random_normalization = True # whether or not to normalize with random policy
     adaptive = True # whether or not to use adaptive step size
-    num_worlds = 20
+    num_worlds = 1
 
     if stopping_condition == "nevd": # stop learning after passing a-VaR threshold
         # Experiment setup
@@ -67,7 +67,7 @@ if __name__ == "__main__":
         uncertain_states = {threshold: [] for threshold in thresholds}
         confusion_matrices = {threshold: [[0, 0], [0, 0]] for threshold in thresholds} # predicted by true, Pass by No Pass
 
-        for i in range(0, 1):
+        for i in range(num_worlds):
             env = envs[i]
             # print("ENVIRONMENT")
             # mdp_utils.visualize_policy(mdp_utils.demonstrate_entire_optimal_policy(env), env)
@@ -334,7 +334,7 @@ if __name__ == "__main__":
             print("**************************************************")
     elif stopping_condition == "baseline": # stop learning once learned policy is some degree better than baseline policy
         # Experiment setup
-        thresholds = [round(t, 1) for t in np.arange(start = 0.0, stop = 1.1, step = 0.1)] # thresholds on the percent improvement
+        thresholds = [round(t, 1) for t in np.arange(start = 0.0, stop = 1.1, step = 0.1)] + [2, 3, 4, 5, 6, 7, 8, 9, 10] + [20, 30, 40, 50, 60, 70, 80, 90, 100] # thresholds on the percent improvement
         if world == "driving":
             envs = [mdp_worlds.random_driving_simulator(num_rows, reward_function = "safe") for _ in range(num_worlds)]
         elif world == "goal":
@@ -357,7 +357,7 @@ if __name__ == "__main__":
 
         for i in range(num_worlds):
             env = envs[i]
-            baseline_pi = mdp_utils.get_worst_policy(env)
+            baseline_pi = mdp_utils.get_nonpessimal_policy(env)
             baseline_evd = mdp_utils.calculate_expected_value_difference(baseline_pi, env, {}, rn = random_normalization)
             baseline_optimality = mdp_utils.calculate_percentage_optimal_actions(baseline_pi, env)
             baseline_accuracy = mdp_utils.calculate_policy_accuracy(policies[i], baseline_pi)
@@ -443,16 +443,16 @@ if __name__ == "__main__":
                     threshold = thresholds[t]
                     if bound > threshold:
                         # print("Comparing {} with threshold {}, passed".format(improvement, threshold))
-                        map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
+                        # map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
                         # store threshold metrics
                         pct_improvements[threshold].append(bound)
                         num_demos[threshold].append(demos_so_far)
                         pct_states[threshold].append(demos_so_far / env.num_states)
                         uncertain_states[threshold].append(len(demo_states.copy()) / env.num_states)
-                        true_evds[threshold].append(map_evd)
+                        true_evds[threshold].append(-69)
                         avg_bound_errors[threshold].append(actual - bound)
                         policy_optimalities[threshold].append(mdp_utils.calculate_percentage_optimal_actions(map_policy, env))
-                        policy_accuracies[threshold].append(mdp_utils.calculate_policy_accuracy(policies[i], map_policy))
+                        # policy_accuracies[threshold].append(mdp_utils.calculate_policy_accuracy(policies[i], map_policy))
                         confidence[threshold].add(i)
                         accuracies[threshold].append(bound <= actual)
                         if actual > threshold:
