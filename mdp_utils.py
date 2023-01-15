@@ -416,7 +416,7 @@ def calculate_state_and_policy_metrics(eval_policy, env, storage, query_type, bo
             V_opt = np.array(value_iteration(env, epsilon))
         state_metric = np.nan_to_num(np.array([V_opt - V_eval]))
         V_base = np.array(policy_evaluation(base_policy, env, epsilon))
-        policy_metric = (np.mean(V_eval) - np.mean(V_base)) / np.abs(np.mean(V_base))
+        policy_metric = np.nan_to_num((np.mean(V_eval) - np.mean(V_base)) / np.abs(np.mean(V_base)))
     elif query_type == "improvement" and bound_type == "nevd":
         pass
     elif query_type == "improvement" and bound_type == "baseline":

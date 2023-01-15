@@ -35,13 +35,13 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 500 # 1050 * 0.95 / 2 = 500 ish; 900 * 0.95 / 2 = 430 ish; 650 * 0.95 / 2 = 300 ish; 630 * 0.95 / 1 = 600 ish
+    N = 650 # 1050 * 0.95 / 2 = 500 ish; 900 * 0.95 / 2 = 430 ish; 650 * 0.95 / 2 = 300 ish; 630 * 0.95 / 1 = 600 ish
     step_stdev = 0.5
     burn_rate = 0.05
-    skip_rate = 1
+    skip_rate = 2
     random_normalization = True # whether or not to normalize with random policy
     adaptive = True # whether or not to use adaptive step size
-    num_worlds = 1
+    num_worlds = 20
 
     if stopping_condition == "nevd": # stop learning after passing a-VaR threshold
         # Experiment setup
@@ -138,6 +138,7 @@ if __name__ == "__main__":
                 state_avar_bound, uncertain_state = mdp_utils.find_nonterminal_uncertainties(state_metrics, k, env, demo_states, "evd", repeats_allowed)
                 policy_metrics.sort()
                 avar_bound = policy_metrics[k]
+                print("BOUND", avar_bound, "POLICY METRICS", policy_metrics)
                 # print("Bound = {}, uncertain in state {}, overall bound = {}, all policy bounds = {}".format(state_avar_bound, uncertain_state, avar_bound, policy_metrics))
 
                 # evaluate thresholds
@@ -335,6 +336,7 @@ if __name__ == "__main__":
     elif stopping_condition == "baseline": # stop learning once learned policy is some degree better than baseline policy
         # Experiment setup
         thresholds = [round(t, 1) for t in np.arange(start = 0.0, stop = 1.1, step = 0.1)] + [2, 3, 4, 5, 6, 7, 8, 9, 10] + [20, 30, 40, 50, 60, 70, 80, 90, 100] # thresholds on the percent improvement
+        # thresholds = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
         if world == "driving":
             envs = [mdp_worlds.random_driving_simulator(num_rows, reward_function = "safe") for _ in range(num_worlds)]
         elif world == "goal":
@@ -433,9 +435,8 @@ if __name__ == "__main__":
                 # print("IMPROVEMENTS AAAAA")
                 # print(improvements)
                 state_bound, uncertain_state = mdp_utils.find_nonterminal_uncertainties(state_metrics, k, env, demo_states, "evd", repeats_allowed)
-                policy_metrics.sort()
+                policy_metrics.sort(reverse = True)
                 bound = policy_metrics[k]
-                # print("BOUND {} ON STATE {}".format(bound, uncertain_state))
                 
                 # evaluate thresholds
                 _, _, actual = mdp_utils.calculate_percent_improvement(env, baseline_pi, map_policy)
