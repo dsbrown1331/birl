@@ -39,7 +39,7 @@ if __name__ == "__main__":
     adaptive = True # whether or not to use adaptive step size
     num_worlds = 1
 
-    if stopping_condition == "avar": # stop learning after passing a-VaR threshold
+    if stopping_condition == "nevd": # stop learning after passing a-VaR threshold
         # Experiment setup
         thresholds = [0.01] # thresholds on the a-VaR bounds
         if world == "feature":
