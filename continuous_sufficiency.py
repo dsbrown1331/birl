@@ -25,13 +25,13 @@ if __name__ == "__main__":
     beta = 10.0 # confidence for mcmc
     N = continuous_utils.N # gets around 500 after burn and skip
     random_normalization = True # whether or not to normalize with random policy
-    num_worlds = 20
+    num_worlds = 2
 
     # Experiment variables
     envs = [continuous_utils.random_lavaworld() for _ in range(num_worlds)]
     rewards = np.linspace(0, 1, N)
     demos = [[] for _ in range(num_worlds)]
-    max_demos = 20
+    max_demos = 5
     continuous_utils.generate_random_policies()
 
     if stopping_condition == "avar": # stop learning after passing a-VaR threshold
@@ -49,7 +49,7 @@ if __name__ == "__main__":
             env = envs[i]
             policies = [continuous_utils.get_optimal_policy(theta, env.lava) for theta in rewards]
             true_opt_policy = continuous_utils.get_optimal_policy(env.feature_weights, env.lava)
-            for M in range(1): # number of demonstrations; we want good policy without needing to see all states
+            for M in range(max_demos): # number of demonstrations; we want good policy without needing to see all states
                 D = continuous_utils.generate_optimal_demo(env)
                 demos[i].append(D)
                 if debug:
@@ -87,6 +87,7 @@ if __name__ == "__main__":
                     k = N_burned - 1
                 policy_losses.sort()
                 avar_bound = policy_losses[k]
+                print("World", i+1, M+1, "demos", "BOUND:", avar_bound)
 
                 # evaluate thresholds
                 for t in range(len(thresholds)):
