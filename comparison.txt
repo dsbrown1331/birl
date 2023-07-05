@@ -1,0 +1,16 @@
+Number of demos
+[1, 2, 3, 4, 5]
+Average number of unique demos across worlds for each amount of demos
+[1.0, 2.0, 3.0, 4.0, 4.0]
+Average bound across worlds for each number of demos
+[1.154014579107146, 0.4091395710318763, 0.34884583829661164, 0.17146929891969262, 0.34358021967206875]
+Average ground-truth nEVD across worlds for each number of demos
+[0.005960391440342889, 0.006858377687195504, 0.004073625447840433, 0.004107509553048617, 0.006858377687195504]
+Average bound error across worlds for each number of demos
+[1.1480541876668031, 0.4022811933446808, 0.3447722128487712, 0.167361789366644, 0.33672184198487326]
+Average policy optimality across worlds for each number of demos
+[0.88, 0.8, 0.88, 0.92, 0.8]
+---------------------
+Accuracy of each threshold at point of termination, taken over worlds
+{0.01: 'NO SUFFICIENCY', 0.02: 'NO SUFFICIENCY', 0.03: 'NO SUFFICIENCY', 0.04: 'NO SUFFICIENCY', 0.05: 'NO SUFFICIENCY'}
+**************************************************

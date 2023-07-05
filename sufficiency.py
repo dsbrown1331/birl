@@ -15,7 +15,7 @@ if __name__ == "__main__":
     random.seed(rseed)
     np.random.seed(rseed)
 
-    stopping_condition = sys.argv[1] # options: avar, wfcb, wfcb_threshold, map_pi, baseline_pi
+    stopping_condition = sys.argv[1] # options: nevd, wfcb, wfcb_threshold, map_pi, baseline_pi
     world = sys.argv[2] # options: feature, driving, goal
     demo_type = sys.argv[3] # options: pairs, trajectories
 

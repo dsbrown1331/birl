@@ -3,7 +3,9 @@ import numpy as np
 import math
 import random
 
-
+"""
+Bellman Functions
+"""
 def value_iteration(env, epsilon=0.0001):
     """
     TODO: speed up 
@@ -29,7 +31,6 @@ def value_iteration(env, epsilon=0.0001):
                 Delta = abs(V[s] - V_old[s])
 
     return V
-
 
 def policy_evaluation(policy, env, epsilon):
     """
@@ -70,7 +71,32 @@ def policy_evaluation_stochastic(env, epsilon):
             delta = max(delta, abs(V[s] - V_old[s]))
     return V
 
+def calculate_q_values(env, storage = None, V = None, epsilon = 0.0001):
+    """
+  gets q values for a markov decision process
 
+  :param env: markov decision process
+  :param epsilon: numerical precision
+  :return: reurn the q values which are
+  """
+
+    #runs value iteration if not supplied as input
+    if not V:
+        V = value_iteration(env, epsilon)
+        if storage:
+            storage[env] = V
+    n = env.num_states
+
+    Q_values = np.zeros((n, env.num_actions))
+    for s in range(n):
+        for a in range(env.num_actions):
+            Q_values[s][a] = env.rewards[s] + env.gamma * np.dot(env.transitions[s][a], V)
+    return Q_values
+
+
+"""
+Policy Functions
+"""
 def get_optimal_policy(env, epsilon=0.0001, V=None):
     #runs value iteration if not supplied as input
     if not V:
@@ -119,14 +145,69 @@ def get_worst_policy(env, V = None):
         worst_policy.append(np.random.choice(np.array(possible_actions)))
     return worst_policy
 
+def get_random_policy(env):
+    return np.random.choice(np.arange(0, env.num_actions, 1), env.num_states)
 
-def logsumexp(x):
-    max_x = np.max(x)
-    sum_exp = 0.0
-    for xi in x:
-        sum_exp += np.exp(xi - max_x)
-    return max(x) + np.log(sum_exp)
 
+"""
+Demonstration Generation Functions
+"""
+def generate_optimal_demo(env, start_state):
+    """
+    Genarates a single optimal demonstration consisting of state action pairs(s,a)
+    :param env: Markov decision process passed by main see (markov_decision_process.py)
+    :param beta: Beta is a rationality quantification
+    :param start_state: start state of demonstration
+    :return:
+    """
+    current_state = start_state
+    max_traj_length = env.num_states  #this should be sufficiently long, maybe too long...
+    optimal_trajectory = []
+    q_values = calculate_q_values(env)
+
+    while (
+        current_state not in env.terminals  #stop when we reach a terminal
+        and len(optimal_trajectory) < max_traj_length
+    ):  # need to add a trajectory length for infinite mdps
+
+        #generate an optimal action, break ties uniformly at random
+        act = np.random.choice(arg_max_set(q_values[current_state]))
+        optimal_trajectory.append((current_state, act))
+        probs = env.transitions[current_state][act]
+        next_state = np.random.choice(env.num_states, p=probs)
+        current_state = next_state
+
+    return optimal_trajectory
+
+def generate_boltzman_demo(env, beta, start_state):
+    """
+    Genarates a single boltzman rational demonstration consisting of state action pairs(s,a)
+    :param env: Markov decision process passed by main see (markov_decision_process.py)
+    :param beta: Beta is a rationality quantification
+    :param start_state: start state of demonstration
+    :return:
+    """
+    current_state = start_state
+    max_traj = env.num_states // 2  #this should be sufficiently long, maybe too long...
+    boltzman_rational_trajectory = []
+    q_values = calculate_q_values(env)
+
+    while (
+        current_state not in env.terminals  #stop when we reach a terminal
+        and len(boltzman_rational_trajectory) < max_traj
+    ):  # need to add a trajectory length for infinite envs
+
+        log_numerators = beta * np.array(q_values[current_state])
+        boltzman_log_probs = log_numerators - logsumexp(log_numerators)
+        boltzman_probability = np.exp(boltzman_log_probs)
+
+        bolts_act = np.random.choice([0, 1, 2, 3], p=boltzman_probability)
+        boltzman_rational_trajectory.append((current_state, bolts_act))
+        probs = env.transitions[current_state][bolts_act]
+        next_state = np.random.choice(env.num_states, p=probs)
+        current_state = next_state
+
+    return boltzman_rational_trajectory
 
 def demonstrate_entire_optimal_policy(env):
     opt_pi = get_optimal_policy(env)
@@ -138,32 +219,9 @@ def demonstrate_entire_optimal_policy(env):
     return demo
 
 
-
-def calculate_q_values(env, storage = None, V = None, epsilon = 0.0001):
-    """
-  gets q values for a markov decision process
-
-  :param env: markov decision process
-  :param epsilon: numerical precision
-  :return: reurn the q values which are
-  """
-
-    #runs value iteration if not supplied as input
-    if not V:
-        V = value_iteration(env, epsilon)
-        if storage:
-            storage[env] = V
-    n = env.num_states
-
-    Q_values = np.zeros((n, env.num_actions))
-    for s in range(n):
-        for a in range(env.num_actions):
-            Q_values[s][a] = env.rewards[s] + env.gamma * np.dot(env.transitions[s][a], V)
-    return Q_values
-
-
-
-
+"""
+Visualization Functions
+"""
 def action_to_string(act, driving = False):
     if not driving:
         UP = 0
@@ -190,7 +248,6 @@ def action_to_string(act, driving = False):
             return ">"
     return NotImplementedError
 
-
 def reverse_states(env, states):
     # TODO: make this better generalized,
     # or figure out a better lexicographical numbering for driving simulation
@@ -212,7 +269,6 @@ def reverse_states(env, states):
         pass
     return rev
 
-
 def visualize_trajectory(trajectory, env):
     """input: list of (s,a) tuples and mdp env
         ouput: prints to terminal string representation of trajectory"""
@@ -233,8 +289,6 @@ def visualize_trajectory(trajectory, env):
                 policy_row += " \t"
             count += 1
         print(policy_row)
-
-
 
 def visualize_policy(policy, env):
     """
@@ -272,6 +326,12 @@ def visualize_env(env):
             print(env_row)
             print(border)
 
+def visualize_binary_features(env):
+    #takes as input mdp_env and prints out a human readable grid of features numbered 0 to K-1, where K is number of reward
+    #features. Note this method assumes binary (one-hot) features
+    assert(type(env) is FeatureMDP)
+    feature_values = [list(f).index(1) for f in env.state_features]
+    print_array_as_grid_raw(feature_values, env)
 
 def print_array_as_grid(array_values, env):
     """
@@ -288,7 +348,6 @@ def print_array_as_grid(array_values, env):
             count += 1
         print(print_row)
 
-
 def print_array_as_grid_raw(array_values, env):
     """
   Prints array as a grid
@@ -304,6 +363,17 @@ def print_array_as_grid_raw(array_values, env):
             count += 1
         print(print_row)
 
+
+"""
+Math Helper Functions
+"""
+def logsumexp(x):
+    max_x = np.max(x)
+    sum_exp = 0.0
+    for xi in x:
+        sum_exp += np.exp(xi - max_x)
+    return max(x) + np.log(sum_exp)
+
 def arg_max_set(values, eps=0.0001):
     # return a set of the indices that correspond to the maximum element(s) in the set of values
     # input is a list or 1-d array and eps tolerance for determining equality
@@ -313,6 +383,36 @@ def arg_max_set(values, eps=0.0001):
         if abs(max_val - v) < eps:
             arg_maxes.append(i)
     return arg_maxes
+
+def sample_l2_ball(k):
+    #sample a vector of dimension k with l2 norm of 1
+    sample = np.random.randn(k)
+    return sample / np.linalg.norm(sample)
+
+def two_norm_diff(x, y, length):
+    sum_squares = 0
+    for i in range(length):
+        diff = x[i] - y[i]
+        sum_squares += diff**2
+    return sum_squares
+
+
+"""
+Stopping Condition Functions
+"""
+def calculate_expected_value_difference(eval_policy, env, storage, epsilon = 0.0001, rn = False):
+    '''calculates the difference in expected returns between an optimal policy for an mdp and the eval_policy'''
+    if env in storage:
+        V_opt = storage[env]
+    else:
+        V_opt = value_iteration(env, epsilon)
+    V_eval = policy_evaluation(eval_policy, env, epsilon)
+    if rn:
+        V_rand = policy_evaluation_stochastic(env, epsilon)
+        if (np.mean(V_opt) - np.mean(V_eval)) == 0:
+            return 0.0
+        return (np.mean(V_opt) - np.mean(V_eval)) / (np.mean(V_opt) - np.mean(V_rand))
+    return np.mean(V_opt) - np.mean(V_eval)
 
 def find_nonterminal_uncertainties(metrics, k, env, queried_states, query_type, repeats_allowed):
     if query_type == "evd":
@@ -354,42 +454,6 @@ def find_nonterminal_uncertainties(metrics, k, env, queried_states, query_type, 
         avar_bound = metric[uncertain_state]
     return avar_bound, uncertain_state
 
-
-def calculate_policy_accuracy(opt_pi, eval_pi):
-    assert len(opt_pi) == len(eval_pi)
-    matches = 0
-    for i in range(len(opt_pi)):
-        matches += opt_pi[i] == eval_pi[i]
-    return matches / len(opt_pi)
-
-
-def calculate_percentage_optimal_actions(pi, env, epsilon=0.0001):
-    # calculate how many actions under pi are optimal under the env
-    accuracy = 0.0
-    # first calculate the optimal q-values under env
-    q_values = calculate_q_values(env, epsilon=epsilon)
-    # then check if the actions under pi are maximizing the q-values
-    for state, action in enumerate(pi):
-        if action in arg_max_set(q_values[state], epsilon):
-            accuracy += 1  # policy action is an optimal action under env
-
-    return accuracy / env.num_states
-
-
-def calculate_expected_value_difference(eval_policy, env, storage, epsilon = 0.0001, rn = False):
-    '''calculates the difference in expected returns between an optimal policy for an mdp and the eval_policy'''
-    if env in storage:
-        V_opt = storage[env]
-    else:
-        V_opt = value_iteration(env, epsilon)
-    V_eval = policy_evaluation(eval_policy, env, epsilon)
-    if rn:
-        V_rand = policy_evaluation_stochastic(env, epsilon)
-        if (np.mean(V_opt) - np.mean(V_eval)) == 0:
-            return 0.0
-        return (np.mean(V_opt) - np.mean(V_eval)) / (np.mean(V_opt) - np.mean(V_rand))
-    return np.mean(V_opt) - np.mean(V_eval)
-
 def calculate_state_and_policy_metrics(eval_policy, env, storage, query_type, bound_type, base_policy = None, epsilon = 0.0001, rn = False):
     """
     `query_type` dictates the state metric: "evd" or % "improvement" (variance)
@@ -425,13 +489,6 @@ def calculate_state_and_policy_metrics(eval_policy, env, storage, query_type, bo
         policy_metric = (np.mean(V_eval) - np.mean(V_base)) / np.abs(np.mean(V_base))
     return state_metric, policy_metric
 
-
-def calculate_percent_improvement(env, base_policy, eval_policy, epsilon = 0.0001):
-    V_base = policy_evaluation(base_policy, env, epsilon)
-    V_eval = policy_evaluation(eval_policy, env, epsilon)
-    return np.mean(V_base), np.mean(V_eval), (np.mean(V_eval) - np.mean(V_base)) / np.abs(np.mean(V_base))
-
-
 def calculate_state_percent_improvement(env, base_policy, eval_policy, epsilon = 0.0001):
     V_base = policy_evaluation(base_policy, env, epsilon)
     V_eval = policy_evaluation(eval_policy, env, epsilon)
@@ -439,80 +496,34 @@ def calculate_state_percent_improvement(env, base_policy, eval_policy, epsilon =
     # print(np.mean(V_base), np.mean(V_eval), (np.mean(V_eval) - np.mean(V_base)) / np.abs(np.mean(V_base)))
     return np.nan_to_num(np.array([(V_eval - V_base) / np.abs(V_base)]))
 
+def calculate_policy_accuracy(opt_pi, eval_pi):
+    assert len(opt_pi) == len(eval_pi)
+    matches = 0
+    for i in range(len(opt_pi)):
+        matches += opt_pi[i] == eval_pi[i]
+    return matches / len(opt_pi)
 
-def generate_optimal_demo(env, start_state):
-    """
-    Genarates a single optimal demonstration consisting of state action pairs(s,a)
-    :param env: Markov decision process passed by main see (markov_decision_process.py)
-    :param beta: Beta is a rationality quantification
-    :param start_state: start state of demonstration
-    :return:
-    """
-    current_state = start_state
-    max_traj_length = env.num_states  #this should be sufficiently long, maybe too long...
-    optimal_trajectory = []
-    q_values = calculate_q_values(env)
+def calculate_percentage_optimal_actions(pi, env, epsilon=0.0001):
+    # calculate how many actions under pi are optimal under the env
+    accuracy = 0.0
+    # first calculate the optimal q-values under env
+    q_values = calculate_q_values(env, epsilon=epsilon)
+    # then check if the actions under pi are maximizing the q-values
+    for state, action in enumerate(pi):
+        if action in arg_max_set(q_values[state], epsilon):
+            accuracy += 1  # policy action is an optimal action under env
 
-    while (
-        current_state not in env.terminals  #stop when we reach a terminal
-        and len(optimal_trajectory) < max_traj_length
-    ):  # need to add a trajectory length for infinite mdps
+    return accuracy / env.num_states
 
-        #generate an optimal action, break ties uniformly at random
-        act = np.random.choice(arg_max_set(q_values[current_state]))
-        optimal_trajectory.append((current_state, act))
-        probs = env.transitions[current_state][act]
-        next_state = np.random.choice(env.num_states, p=probs)
-        current_state = next_state
-
-    return optimal_trajectory
+def calculate_percent_improvement(env, base_policy, eval_policy, epsilon = 0.0001):
+    V_base = policy_evaluation(base_policy, env, epsilon)
+    V_eval = policy_evaluation(eval_policy, env, epsilon)
+    return np.mean(V_base), np.mean(V_eval), (np.mean(V_eval) - np.mean(V_base)) / np.abs(np.mean(V_base))
 
 
-def generate_boltzman_demo(env, beta, start_state):
-    """
-    Genarates a single boltzman rational demonstration consisting of state action pairs(s,a)
-    :param env: Markov decision process passed by main see (markov_decision_process.py)
-    :param beta: Beta is a rationality quantification
-    :param start_state: start state of demonstration
-    :return:
-    """
-    current_state = start_state
-    max_traj = env.num_states // 2  #this should be sufficiently long, maybe too long...
-    boltzman_rational_trajectory = []
-    q_values = calculate_q_values(env)
-
-    while (
-        current_state not in env.terminals  #stop when we reach a terminal
-        and len(boltzman_rational_trajectory) < max_traj
-    ):  # need to add a trajectory length for infinite envs
-
-        log_numerators = beta * np.array(q_values[current_state])
-        boltzman_log_probs = log_numerators - logsumexp(log_numerators)
-        boltzman_probability = np.exp(boltzman_log_probs)
-
-        bolts_act = np.random.choice([0, 1, 2, 3], p=boltzman_probability)
-        boltzman_rational_trajectory.append((current_state, bolts_act))
-        probs = env.transitions[current_state][bolts_act]
-        next_state = np.random.choice(env.num_states, p=probs)
-        current_state = next_state
-
-    return boltzman_rational_trajectory
-
-
-def visualize_binary_features(env):
-    #takes as input mdp_env and prints out a human readable grid of features numbered 0 to K-1, where K is number of reward
-    #features. Note this method assumes binary (one-hot) features
-    assert(type(env) is FeatureMDP)
-    feature_values = [list(f).index(1) for f in env.state_features]
-    print_array_as_grid_raw(feature_values, env)
-
-
-def sample_l2_ball(k):
-    #sample a vector of dimension k with l2 norm of 1
-    sample = np.random.randn(k)
-    return sample / np.linalg.norm(sample)
-
-
+"""
+Feature Count Bound and Other Bounds Functions
+"""
 def calculate_empirical_expected_fc(env, trajectories):
     """
     env: the FeatureMDP
@@ -529,7 +540,6 @@ def calculate_empirical_expected_fc(env, trajectories):
                 avg_feature_counts[f] += gamma**d * state_features[demo[0]][f]
     avg_feature_counts /= len(trajectories)
     return avg_feature_counts
-
 
 def calculate_state_expected_fc(pi, env, epsilon = 0.0001, random = False):
     num_states = env.num_states
@@ -578,7 +588,6 @@ def calculate_state_expected_fc(pi, env, epsilon = 0.0001, random = False):
     
     return feature_counts
 
-
 def calculate_expected_fc(pi, env, epsilon = 0.0001, random = False):
     """
     pi: eval policy
@@ -598,7 +607,6 @@ def calculate_expected_fc(pi, env, epsilon = 0.0001, random = False):
     expected_fc /= num_states # assuming any state can be an initial state
     return expected_fc
 
-
 def calculate_wfcb(pi, env, trajectories, epsilon = 0.0001):
     """
     pi: eval policy
@@ -610,6 +618,13 @@ def calculate_wfcb(pi, env, trajectories, epsilon = 0.0001):
     mu_pi_rand = calculate_expected_fc(pi, env, epsilon = epsilon, random = True)
     max_abs_diff = np.max(np.abs(mu_hat_star - mu_pi_eval)) / np.max(np.abs(mu_hat_star - mu_pi_rand))
     return max_abs_diff
+
+def syed_schapire_bound(num_demos, gamma, num_features, delta):
+    return 3/(1 - gamma) * np.sqrt(2/num_demos * np.log(2*num_features / delta))
+
+def abbeel_bound(num_demos, gamma, num_features, delta):
+    return 1/(1 - gamma) * np.sqrt(2*num_features / num_demos * np.log(2*num_features / delta))
+
 
 if __name__ == "__main__":
     fw = np.array([0, 1, -100, -100000])
