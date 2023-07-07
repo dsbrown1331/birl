@@ -70,6 +70,7 @@ if __name__ == "__main__":
                 print("True reward:", env.feature_weights)
             thresholds = [0.01, 0.02, 0.03, 0.04, 0.05]
             if repeat_style == "focused":
+                demo_states = [ds for ds in demo_states if ds not in env.terminals]
                 available_demos = [mdp_utils.generate_optimal_demo(env, demo_state)[0] for demo_state in demo_states]
             for M in range(max_demos): # number of demonstrations; we want good policy without needing to see all states
                 try:
