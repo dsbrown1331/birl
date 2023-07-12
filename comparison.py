@@ -18,7 +18,7 @@ if __name__ == "__main__":
     stopping_condition = "nevd"
     world = "goal"
     demo_type = "pairs" # options: pairs, trajectories
-    repeat_style = sys.argv[1] # options: iid, focused
+    repeat_style = sys.argv[1] # options: iid, focused, very_focused, trajectory
 
     debug = False # set to False to suppress terminal outputs
 
@@ -47,10 +47,6 @@ if __name__ == "__main__":
         envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features, terminals = [random.randint(0, num_rows * num_cols - 1)]) for _ in range(num_worlds)]
         policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
         demos = [[] for _ in range(num_worlds)]
-        if repeat_style == "iid": # repeats attained via simple randomness
-            demo_states = list(range(0, num_rows * num_cols))
-        elif repeat_style == "focused": # repeats attained via consistently bad demos in the corners
-            demo_states = [0, num_cols - 1, num_cols * (num_rows - 1), num_cols * num_rows - 1]
 
         # Metrics to evaluate performance after each demo
         bounds = {i: [] for i in range(num_worlds)}
@@ -69,16 +65,26 @@ if __name__ == "__main__":
             if debug:
                 print("True reward:", env.feature_weights)
             thresholds = [0.01, 0.02, 0.03, 0.04, 0.05]
-            if repeat_style == "focused":
+            if repeat_style == "iid": # repeats attained via simple randomness
+                demo_states = list(range(0, num_rows * num_cols))
+                available_demos = [mdp_utils.generate_optimal_demo(env, demo_state)[0] for demo_state in demo_states]
+            elif repeat_style == "focused": # repeats attained via consistently bad demos in the corners
+                demo_states = [0, num_cols - 1, num_cols * (num_rows - 1), num_cols * num_rows - 1]
                 demo_states = [ds for ds in demo_states if ds not in env.terminals]
                 available_demos = [mdp_utils.generate_optimal_demo(env, demo_state)[0] for demo_state in demo_states]
+            elif repeat_style == "very_focused": # repeats attained via consistently bad demos in ONE state
+                demo_states = np.random.choice(list(set(range(num_rows * num_cols)) - set(env.terminals)), 1)
+                available_demos = [mdp_utils.generate_optimal_demo(env, demo_states[0])[0]]
+            elif repeat_style == "trajectory": # repeats attained via one repeated trajectory
+                demo_states = np.random.choice(list(set(range(num_rows * num_cols)) - set(env.terminals)), 1)
+                available_demos = mdp_utils.generate_optimal_demo(env, demo_states[0])
             for M in range(max_demos): # number of demonstrations; we want good policy without needing to see all states
                 try:
-                    if repeat_style == "iid":
-                        D = mdp_utils.generate_optimal_demo(env, random.choice(demo_states))[0]
-                    else:
+                    if repeat_style != "trajectory":
                         D = random.choice(available_demos)
-                    demos[i].append(D)
+                        demos[i].append(D)
+                    else:
+                        demos[i].extend(available_demos)
                 except IndexError:
                     pass
                 if debug:
