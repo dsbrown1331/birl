@@ -12,11 +12,12 @@ np.random.seed(rseed)
 N = 6
 traj_length = 20
 rand_policies = []
+rewards = np.array([round(t, 1) for t in np.linspace(0, 1, N)])
 
 def generate_random_policies(env = "lavaworld"):
     if env == "lavaworld":
-        for _ in range(10):
-            rand_policy = [[0.0, 0.0]]
+        for _ in range(20):
+            rand_policy = [[np.random.uniform(0, 1), np.random.uniform(0, 1)]]
             for __ in range(traj_length - 2):
                 rand_policy.append(list(np.random.random(2)))
             rand_policy.append([1.0, 1.0])
@@ -27,7 +28,7 @@ def generate_random_policies(env = "lavaworld"):
 def random_lavaworld(tt = None):
     lava = np.asarray([np.random.random()*0.5 + 0.25, np.random.random()*0.5 + 0.25])
     if not tt:
-        theta = np.random.choice(np.linspace(0, 1, N))
+        theta = np.random.choice(rewards)
         # theta_idx = np.random.choice(np.array(range(8)))
         # theta = np.array([[0, 0.5], [0, 1], [0.5, 0], [0.5, 0.5], [0.5, 1], [1, 0], [1, 0.5], [1, 1]])[theta_idx]
     else:
@@ -49,10 +50,10 @@ def trajreward(xi, theta, lava, traj_length):
     ## Cost ##
     xi = xi.reshape(traj_length, 2)
     smoothcost = 0
-    for idx in range(traj_length - 1):
+    for idx in range(1, traj_length - 1):
         smoothcost += np.linalg.norm(xi[idx+1, :] - xi[idx, :])**2 # higher means not as smooth
     avoidcost = 0
-    for idx in range(traj_length):
+    for idx in range(1, traj_length):
         # avoidcost -= np.linalg.norm(xi[idx, :] - lava) / n # more negative means farther from lava
         avoidcost += 1 / np.linalg.norm(xi[idx, :] - lava) # higher if closer to lava
     avoidcost /= traj_length
@@ -66,24 +67,33 @@ def trajreward(xi, theta, lava, traj_length):
     # return (1 - theta) * smoothcost + theta * avoidcost
     return smoothcost + theta * avoidcost
 
-def get_optimal_policy(theta, lava_position):
+def get_optimal_policy(theta, lava_position, generating_demo = False, start_pos = None):
     # hyperparameters
-    xi0 = np.zeros((traj_length,2))
-    xi0[:,0] = np.linspace(0, 1, traj_length)
-    xi0[:,1] = np.linspace(0, 1, traj_length)
+    if start_pos is None:
+        dist_from_lava = np.linalg.norm(np.array([0, 0]) - np.array([lava_position]))
+        start_x = np.random.uniform(0, 1)
+        start_y = np.random.uniform(0, 1)
+    else:
+        start_x = start_pos[0]
+        start_y = start_pos[1]
+    xi0 = np.zeros((traj_length, 2))
+    xi0[:, 0] = np.linspace(start_x, 1, traj_length)
+    xi0[:, 1] = np.linspace(start_y, 1, traj_length)
+    if generating_demo:
+        print("This demo is starting from", start_x, start_y)
     xi0 = xi0.reshape(-1)
     B = np.zeros((4, traj_length * 2))
     B[0, 0] = 1
     B[1, 1] = 1
     B[2, -2] = 1
     B[3, -1] = 1
-    cons = LinearConstraint(B, [0, 0, 1, 1], [0, 0, 1, 1])
+    cons = LinearConstraint(B, [start_x, start_y, 1, 1], [start_x, start_y, 1, 1])
     res = minimize(trajreward, xi0, args=(theta, lava_position, traj_length), method='SLSQP', constraints=cons)
     return res.x.reshape(traj_length, 2)
 
-def get_human(theta, lava, type):
+def get_human(theta, lava, type, generating_demo = False):
     vision_radius = 0.3
-    xi_star = get_optimal_policy(theta, lava)
+    xi_star = get_optimal_policy(theta, lava, generating_demo)
     if type == "optimal":
         return xi_star
     n = xi_star.shape[0]
@@ -120,10 +130,10 @@ def get_human(theta, lava, type):
     xi[-1,:] = [1,1]
     return xi
 
-def generate_optimal_demo(env):
+def generate_optimal_demo(env, generating_demo = False):
     theta_star = env.feature_weights # true reward function
     lava = env.lava
-    demo = get_human(theta_star, lava, type = "regular")
+    demo = get_human(theta_star, lava, type = "optimal", generating_demo = generating_demo)
     return demo
 
 def generate_random_demo(env, n):
@@ -166,15 +176,21 @@ def calculate_q_values(env, storage = None, V = None, epsilon = 0.0001):
 def arg_max_set(values, eps = 0.0001):
     return
 
-def calculate_policy_accuracy(map_pi, opt_pi):
+def calculate_policy_accuracy(env, map_pi, opt_pi = None):
     n = len(map_pi)
     acc = 0
+    print("Map policy starts from", (map_pi[0][0], map_pi[0][1]))
+    if opt_pi is None:
+        opt_pi = get_optimal_policy(env.feature_weights, env.lava, start_pos = (map_pi[0][0], map_pi[0][1]))
+        print("Optimal policy starts from", (opt_pi[0][0], opt_pi[0][1]))
     for i in range(n):
-        acc += np.linalg.norm(np.array(map_pi)[i, :] - np.array(opt_pi)[i, :]) <= 0.05
+        acc += np.linalg.norm(np.array(map_pi)[i, :] - np.array(opt_pi)[i, :]) <= 0.1
         # acc += map_pi[i][0] == opt_pi[i][0] or map_pi[i][1] == opt_pi[i][1]
     return acc / n
 
-def calculate_expected_value_difference(eval_policy, env, opt_policy, rn = False):
+def calculate_expected_value_difference(eval_policy, env, opt_policy = None, rn = False):
+    if opt_policy is None:
+        opt_policy = get_optimal_policy(env.feature_weights, env.lava, start_pos = (eval_policy[0][0], eval_policy[0][1]))
     V_opt = trajreward(opt_policy, env.feature_weights, env.lava, traj_length)
     V_eval = trajreward(eval_policy, env.feature_weights, env.lava, traj_length)
     if rn:

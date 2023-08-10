@@ -13,7 +13,7 @@ if __name__ == "__main__":
     random.seed(rseed)
     np.random.seed(rseed)
 
-    stopping_condition = sys.argv[1] # options: nevd, map_pi, baseline_pi
+    stopping_condition = "nevd" # options: nevd, map_pi, baseline_pi
     debug = False # set to False to suppress terminal outputs
 
     # Hyperparameters
@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     # Experiment variables
     envs = [continuous_utils.random_lavaworld() for _ in range(num_worlds)]
-    rewards = np.linspace(0, 1, N)
+    rewards = continuous_utils.rewards
     demos = [[] for _ in range(num_worlds)]
     max_demos = 5
     continuous_utils.generate_random_policies()
@@ -47,10 +47,16 @@ if __name__ == "__main__":
 
         for i in range(num_worlds):
             env = envs[i]
+            print("Ground truth theta:", env.feature_weights)
+            print("Lava is at", env.lava)
             policies = [continuous_utils.get_optimal_policy(theta, env.lava) for theta in rewards]
-            true_opt_policy = continuous_utils.get_optimal_policy(env.feature_weights, env.lava)
+            print("The optimal policies start from:")
+            for p in range(len(policies)):
+                print(rewards[p], ":", (policies[p][0][0], policies[p][0][1]))
+            true_opt_policy = policies[np.where(rewards == env.feature_weights)[0][0]]
+            print("This optimal policy starts from:", (true_opt_policy[0][0], true_opt_policy[0][1]))
             for M in range(max_demos): # number of demonstrations; we want good policy without needing to see all states
-                D = continuous_utils.generate_optimal_demo(env)
+                D = continuous_utils.generate_optimal_demo(env, generating_demo = True)
                 demos[i].append(D)
                 if debug:
                     print("running BIRL with demos")
@@ -87,17 +93,21 @@ if __name__ == "__main__":
                     k = N_burned - 1
                 policy_losses.sort()
                 avar_bound = policy_losses[k]
-                print("World", i+1, M+1, "demos", "BOUND:", avar_bound)
+                print("World", i+1, ",", M+1, "demos")
+                print([d[0] for d in demos[i]])
+                print("BOUND:", avar_bound)
+                print("\n")
 
                 # evaluate thresholds
                 for t in range(len(thresholds)):
                     threshold = thresholds[t]
                     actual = continuous_utils.calculate_expected_value_difference(map_policy, env, true_opt_policy, rn = random_normalization)
                     if avar_bound < threshold:
+                        print("Good for bound {}; learned theta was {}".format(threshold, birl.get_map_solution()))
                         map_evd = actual
                         # store threshold metrics
                         avg_bound_errors[threshold].append(avar_bound - map_evd)
-                        policy_optimalities[threshold].append(continuous_utils.calculate_policy_accuracy(map_policy, true_opt_policy))
+                        policy_optimalities[threshold].append(continuous_utils.calculate_policy_accuracy(env, map_policy, opt_pi = true_opt_policy))
                         accuracies[threshold].append(avar_bound >= map_evd)
                         num_demos[threshold].append(M + 1)
                         if actual < threshold:
