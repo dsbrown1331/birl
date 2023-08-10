@@ -64,7 +64,7 @@ if __name__ == "__main__":
             env = envs[i]
             if debug:
                 print("True reward:", env.feature_weights)
-            thresholds = [0.01, 0.02, 0.03, 0.04, 0.05]
+            thresholds = base_thresholds[:]
             if repeat_style == "iid": # repeats attained via simple randomness
                 demo_states = list(range(0, num_rows * num_cols))
                 available_demos = [mdp_utils.generate_optimal_demo(env, demo_state)[0] for demo_state in demo_states]
@@ -120,22 +120,20 @@ if __name__ == "__main__":
                     print("Sample losses:", policy_losses)
                     print("a-VaR bound:", avar_bound)
 
-                # evaluate performance
-                bounds[i].append(avar_bound)
-                num_demos[i].append(M + 1)
-                num_unique_demos[i].append(len(set(demos[i])))
-                actual = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
-                true_evds[i].append(actual)
-                avg_bound_errors[i].append(avar_bound - actual)
-                policy_optimality = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
-                policy_optimalities[i].append(policy_optimality)
-
                 # get threshold and accuracy information (at point of termination)
                 # to_remove = []
                 for threshold in thresholds:
                     if avar_bound < threshold:
                         if debug:
                             print("Passed", threshold, "threshold and actual nEVD is", actual)
+                        bounds[i].append(avar_bound)
+                        num_demos[i].append(M + 1)
+                        num_unique_demos[i].append(len(set(demos[i])))
+                        actual = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
+                        true_evds[i].append(actual)
+                        avg_bound_errors[i].append(avar_bound - actual)
+                        policy_optimality = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
+                        policy_optimalities[i].append(policy_optimality)
                         # to_remove.append(threshold)
                         # termination_metrics[threshold] = {
                         #     "bound": avar_bound,
@@ -151,6 +149,7 @@ if __name__ == "__main__":
                 #         thresholds.remove(threshold)
 
         # Output results for plotting
+        print("Results at the point of termination")
         print("Number of demos")
         print(num_demos[0])
         print("Average number of unique demos across worlds for each amount of demos")
@@ -169,8 +168,7 @@ if __name__ == "__main__":
         policy_optimalities_matrix = np.array([policy_optimalities[i] for i in range(num_worlds)])
         print(list(policy_optimalities_matrix.mean(axis = 0)))
         print("---------------------")
-        print("Accuracy of each threshold at point of termination, taken over worlds")
-        thresholds = [0.01, 0.02, 0.03, 0.04, 0.05]
+        print("Average accuracy at each threshold taken over worlds")
         for threshold in base_thresholds:
             accuracies[threshold] = np.mean(accuracies[threshold])
             if np.isnan(accuracies[threshold]):

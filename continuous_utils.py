@@ -13,8 +13,6 @@ N = 6
 traj_length = 20
 rand_policies = []
 
-# Cartpole variables
-
 def generate_random_policies(env = "lavaworld"):
     if env == "lavaworld":
         for _ in range(10):
@@ -37,7 +35,7 @@ def random_lavaworld(tt = None):
     lavaworld = LavaWorld(theta, lava)
     return lavaworld
 
-def trajreward(xi, theta, lava, n):
+def trajreward(xi, theta, lava, traj_length):
     ## Reward ##
     # xi = xi.reshape(n,2)
     # smoothcost = 0
@@ -49,38 +47,39 @@ def trajreward(xi, theta, lava, n):
     # return -(np.exp(-smoothcost**2) + (1 - np.exp(-(theta * avoidreward)**2)))
 
     ## Cost ##
-    xi = xi.reshape(n,2)
+    xi = xi.reshape(traj_length, 2)
     smoothcost = 0
-    for idx in range(n-1):
+    for idx in range(traj_length - 1):
         smoothcost += np.linalg.norm(xi[idx+1, :] - xi[idx, :])**2 # higher means not as smooth
     avoidcost = 0
-    for idx in range(n):
+    for idx in range(traj_length):
         # avoidcost -= np.linalg.norm(xi[idx, :] - lava) / n # more negative means farther from lava
-        avoidcost += np.linalg.norm(xi[idx, :] - lava) / n # higher if farther from lava
+        avoidcost += 1 / np.linalg.norm(xi[idx, :] - lava) # higher if closer to lava
+    avoidcost /= traj_length
     
     # Exponential transformation
-    smoothcost = 1 - np.exp(-smoothcost**2)
-    avoidcost = np.exp(-avoidcost**2)
+    # smoothcost = 1 - np.exp(-smoothcost**2)
+    # avoidcost = np.exp(-avoidcost**2)
 
     # 1D vs 2D theta
     # return theta[0] * smoothcost + theta[1] * avoidcost
-    return (1 - theta) * smoothcost + theta * avoidcost
+    # return (1 - theta) * smoothcost + theta * avoidcost
+    return smoothcost + theta * avoidcost
 
 def get_optimal_policy(theta, lava_position):
     # hyperparameters
-    n = traj_length
-    xi0 = np.zeros((n,2))
-    xi0[:,0] = np.linspace(0, 1, n)
-    xi0[:,1] = np.linspace(0, 1, n)
+    xi0 = np.zeros((traj_length,2))
+    xi0[:,0] = np.linspace(0, 1, traj_length)
+    xi0[:,1] = np.linspace(0, 1, traj_length)
     xi0 = xi0.reshape(-1)
-    B = np.zeros((4, n*2))
-    B[0,0] = 1
-    B[1,1] = 1
-    B[2,-2] = 1
-    B[3,-1] = 1
+    B = np.zeros((4, traj_length * 2))
+    B[0, 0] = 1
+    B[1, 1] = 1
+    B[2, -2] = 1
+    B[3, -1] = 1
     cons = LinearConstraint(B, [0, 0, 1, 1], [0, 0, 1, 1])
-    res = minimize(trajreward, xi0, args=(theta, lava_position, n), method='SLSQP', constraints=cons)
-    return res.x.reshape(n, 2)
+    res = minimize(trajreward, xi0, args=(theta, lava_position, traj_length), method='SLSQP', constraints=cons)
+    return res.x.reshape(traj_length, 2)
 
 def get_human(theta, lava, type):
     vision_radius = 0.3
@@ -171,7 +170,8 @@ def calculate_policy_accuracy(map_pi, opt_pi):
     n = len(map_pi)
     acc = 0
     for i in range(n):
-        acc += map_pi[i][0] == opt_pi[i][0] or map_pi[i][1] == opt_pi[i][1]
+        acc += np.linalg.norm(np.array(map_pi)[i, :] - np.array(opt_pi)[i, :]) <= 0.05
+        # acc += map_pi[i][0] == opt_pi[i][0] or map_pi[i][1] == opt_pi[i][1]
     return acc / n
 
 def calculate_expected_value_difference(eval_policy, env, opt_policy, rn = False):

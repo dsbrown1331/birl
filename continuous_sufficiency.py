@@ -13,7 +13,7 @@ if __name__ == "__main__":
     random.seed(rseed)
     np.random.seed(rseed)
 
-    stopping_condition = sys.argv[1] # options: avar, map_pi, baseline_pi
+    stopping_condition = sys.argv[1] # options: nevd, map_pi, baseline_pi
     debug = False # set to False to suppress terminal outputs
 
     # Hyperparameters
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     beta = 10.0 # confidence for mcmc
     N = continuous_utils.N # gets around 500 after burn and skip
     random_normalization = True # whether or not to normalize with random policy
-    num_worlds = 2
+    num_worlds = 1
 
     # Experiment variables
     envs = [continuous_utils.random_lavaworld() for _ in range(num_worlds)]
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     max_demos = 5
     continuous_utils.generate_random_policies()
 
-    if stopping_condition == "avar": # stop learning after passing a-VaR threshold
+    if stopping_condition == "nevd": # stop learning after passing nEVD threshold
         # Experiment setup
         thresholds = [0.1, 0.2, 0.3, 0.4, 0.5] # thresholds on the a-VaR bounds
 

@@ -24,7 +24,7 @@ class CONT_BIRL:
         choice_set = demos + counters
         for theta in self.possible_rewards:
             n = np.exp(-self.beta * sum([self.R(demo, theta) for demo in demos]))
-            d = sum([np.exp(-self.beta * self.R(demo, theta)) for demo in counters])**len(demos)
+            d = sum([np.exp(-self.beta * self.R(demo, theta)) for demo in choice_set])**len(demos)
             probs.append(n/d)
         # for theta in self.possible_rewards:
         #     demo_rewards = [self.R(demo, theta) for demo in demos]
