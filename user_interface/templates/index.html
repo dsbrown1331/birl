@@ -28,10 +28,13 @@
         <form method="POST" action="/start" id="start-form">
             <button type="submit">Start</button>
         </form>
-        <p id="user-options">{{ user_options }}</p>
+        <p id="user-options"></p>
     </div>
     
     <div id="grid-container" style="display: none;">
+        <p id="reward-function" align="center">
+            <span id="reward-function-vector"></span>
+        </p>
         <div class="grid">
             {% for i in range(grid_size) %}
                 {% for j in range(grid_size) %}
