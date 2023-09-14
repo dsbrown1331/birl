@@ -3,6 +3,7 @@ import numpy as np
 import random
 from scipy.optimize import minimize
 from scipy.optimize import LinearConstraint
+import math
 
 rseed = 168
 random.seed(rseed)
@@ -11,23 +12,70 @@ np.random.seed(rseed)
 # Lavaworld variables
 N = 6
 traj_length = 20
-rand_policies = []
+num_start_pos = 10
+num_rand_policies = 10
+starting_positions = np.random.uniform(0, 1, (num_start_pos, 2))
+rand_policies = []  # set of random policies for each starting position
 rewards = np.array([round(t, 1) for t in np.linspace(0, 1, N)])
 
 def generate_random_policies(env = "lavaworld"):
     if env == "lavaworld":
-        for _ in range(20):
-            rand_policy = [[np.random.uniform(0, 1), np.random.uniform(0, 1)]]
-            for __ in range(traj_length - 2):
-                rand_policy.append(list(np.random.random(2)))
-            rand_policy.append([1.0, 1.0])
-            rand_policy = np.array(sorted(rand_policy, key = lambda x: x[0])).reshape(traj_length, 2)
-            rand_policies.append(rand_policy)
-
+        ### Random geneneration types (RGT) ###
+        # A: completely random; generate a bunch of points, ensuring ending at (1, 1), and sort by x-value. 0.048489625937646816
+        # B: same as above, but don't even sort the points. 0.024790507333516485
+        # C: generate random waypoints starting from left side and ending at (1, 1), but ensuring equal spacing. 9.810941615629709
+        # D: RRT. 
+        rgt = "D"
+        for start_pos in starting_positions:
+            rand_policies_start_pos = []
+            if rgt == "A":
+                for _ in range(num_rand_policies):  # generate num_rand_policies random trajectories for this starting position
+                    rand_policy = np.random.uniform(0, 1, (traj_length - 1, 2))
+                    rand_policy = np.append(rand_policy, [1.0, 1.0]).reshape(traj_length, 2)
+                    rand_policy = rand_policy[np.argsort((lambda x: x[:, 0])(rand_policy))]
+                    rand_policies_start_pos.append(rand_policy)
+            elif rgt == "B":
+                for _ in range(num_rand_policies):  # generate num_rand_policies random trajectories for this starting position
+                    rand_policy = np.random.uniform(0, 1, (traj_length - 1, 2))
+                    rand_policy = np.append(rand_policy, [1.0, 1.0]).reshape(traj_length, 2)
+                    rand_policies_start_pos.append(rand_policy)
+            elif rgt == "C":
+                for _ in range(num_rand_policies):  # generate num_rand_policies random trajectories for this starting position
+                    xs = np.linspace(start_pos[0], 1.0, traj_length)
+                    ys = np.linspace(start_pos[1], 1.0, traj_length)
+                    rand_policy = np.array(list(zip(xs, ys)))
+                    rand_policies_start_pos.append(rand_policy)
+            elif rgt == "D":
+                def distance(point1, point2):
+                    return math.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)
+                def generate_random_waypoint(curr_pos, end_pos, num_waypoints, current_index):
+                    d = distance(curr_pos, end_pos) / (num_waypoints - current_index - 1)
+                    angle_range_rad = math.radians(90)
+                    min_x, max_x = 0, 1  # define the boundaries of the unit square
+                    min_y, max_y = 0, 1
+                    angle = np.random.uniform(0, angle_range_rad)
+                    x = curr_pos[0] + d * math.cos(angle)
+                    y = curr_pos[1] + d * math.sin(angle)
+                    x = min(max(x, min_x), max_x)  # ensure the generated point is within the unit square
+                    y = min(max(y, min_y), max_y)
+                    return (x, y)
+                def rrt_path(start_pos, end_pos, num_waypoints):
+                    path = [start_pos]
+                    current_index = 0
+                    for _ in range(num_waypoints - 2):
+                        new_waypoint = generate_random_waypoint(path[current_index], end_pos, num_waypoints, current_index)
+                        path.append(new_waypoint)
+                        current_index += 1
+                    path.append(end_pos)
+                    return path
+                for _ in range(num_rand_policies):  # generate num_rand_policies random trajectories for this starting position
+                    rand_policy = np.array(rrt_path(start_pos, (1.0, 1.0), traj_length))
+                    rand_policies_start_pos.append(rand_policy)
+            rand_policies.append(rand_policies_start_pos)
 
 def random_lavaworld(tt = None):
     lava = np.asarray([np.random.random()*0.5 + 0.25, np.random.random()*0.5 + 0.25])
-    if not tt:
+    if tt is None:
         theta = np.random.choice(rewards)
         # theta_idx = np.random.choice(np.array(range(8)))
         # theta = np.array([[0, 0.5], [0, 1], [0.5, 0], [0.5, 0.5], [0.5, 1], [1, 0], [1, 0.5], [1, 1]])[theta_idx]
@@ -91,9 +139,9 @@ def get_optimal_policy(theta, lava_position, generating_demo = False, start_pos 
     res = minimize(trajreward, xi0, args=(theta, lava_position, traj_length), method='SLSQP', constraints=cons)
     return res.x.reshape(traj_length, 2)
 
-def get_human(theta, lava, type, generating_demo = False):
+def get_human(theta, lava, type, generating_demo = False, start_pos = None):
     vision_radius = 0.3
-    xi_star = get_optimal_policy(theta, lava, generating_demo)
+    xi_star = get_optimal_policy(theta, lava, generating_demo = generating_demo, start_pos = start_pos)
     if type == "optimal":
         return xi_star
     n = xi_star.shape[0]
@@ -188,16 +236,32 @@ def calculate_policy_accuracy(env, map_pi, opt_pi = None):
         # acc += map_pi[i][0] == opt_pi[i][0] or map_pi[i][1] == opt_pi[i][1]
     return acc / n
 
-def calculate_expected_value_difference(eval_policy, env, opt_policy = None, rn = False):
-    if opt_policy is None:
-        opt_policy = get_optimal_policy(env.feature_weights, env.lava, start_pos = (eval_policy[0][0], eval_policy[0][1]))
-    V_opt = trajreward(opt_policy, env.feature_weights, env.lava, traj_length)
-    V_eval = trajreward(eval_policy, env.feature_weights, env.lava, traj_length)
+def get_trajectory_and_reward(env, start_pos):
+    trajectory = get_optimal_policy(env.feature_weights, env.lava, start_pos)
+    reward = trajreward(trajectory, env.feature_weights, env.lava, traj_length)
+    return reward
+
+def calculate_expected_value_difference(test_env, eval_env, rn = False):
+    # A = E_(starting positions)[reward(optimal trajectory for R', R')]
+    # B = E_(starting positions)[reward(optimal trajectory for R_MAP, R')]
+    # C = E_(all random trajectories)[reward(random trajectory, R')]
+    # nEVD(R', R_MAP) = (A - B) / (A - C), where R' <=> test_env and R_MAP <=> eval_env
+    V_opt = 0
+    V_eval = 0
+    V_rand = 0
+    for i in range(num_start_pos):
+        start_pos = starting_positions[i]
+        opt_traj = get_optimal_policy(test_env.feature_weights, test_env.lava, start_pos = start_pos)
+        eval_traj = get_optimal_policy(eval_env.feature_weights, eval_env.lava, start_pos = start_pos)
+        V_opt += trajreward(opt_traj, test_env.feature_weights, test_env.lava, traj_length) / num_start_pos
+        V_eval += trajreward(eval_traj, test_env.feature_weights, test_env.lava, traj_length) / num_start_pos
+        if rn:
+            V_rand_start_pos = 0
+            for j in range(num_rand_policies):
+                V_rand_start_pos += trajreward(rand_policies[i][j], test_env.feature_weights, test_env.lava, traj_length) / num_rand_policies
+            V_rand += V_rand_start_pos / num_start_pos
     if rn:
-        V_rand = 0
-        for rand_policy in rand_policies:
-            V_rand += trajreward(rand_policy, env.feature_weights, env.lava, traj_length)
-        evd = (V_opt - V_eval) / (V_opt - V_rand/len(rand_policies))
+        evd = (V_opt - V_eval) / (V_opt - V_rand)
         return evd
     else:
         return V_opt - V_eval

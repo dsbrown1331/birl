@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demonstration Sufficiency User Study</title>
+</head>
+<body>
+    <h1>Demonstration Sufficiency User Study</h1>
+    <p>Welcome to the demonstration sufficiency user study. You will be teaching an AI agent how to navigate around a gridworld. You will be giving it demonstrations of what to do in each grid cell (i.e. go up, down, left, or right), one demo at a time. After each demonstration, the agent will attempt to calculate whether or not it has received enough demonstrations in order to successfully complete the task. If it has, it will notify you and show you its learned policy, and you will be able to verify the policy yourself to see if it's satisfactory.</p>
+    <p>Each gridworld is structured similarly. Each cell, or state, will be one of four colors, representing four features. One state will have a star in it; that is the goal state, and it is also a terminal state, meaning that you can't move from this state once you're in it, nor will you be allowed to give demonstrations from this state. Every gridworld will also have an associated reward function, which is a mapping from each feature/color to a reward value; this is the reward you get if you land in a state with that feature.</p>
+    <p>There are two <i>teaching</i> options: <strong>guided</strong> or <strong>freeform</strong>. In <strong>guided</strong>, you will be given a reward function as described above to guide your demonstrations. The hope is that the reward function will let you know which states/features to avoid and what is the best path to the goal. In <strong>freeform</strong>, you will not be given a reward function. You will be able to decide for yourself how much each feature is worth, then give demonstrations based on this internal reward function. You don't even have to guide the agent towards the goal if you wish.</p>
+    <p>There are also two <i>demonstration selection</i> options: <strong>IID</strong> and <strong>active</strong>. In <strong>IID</strong>, at each iteration, you will get to give the agent a (state, action) demo pair in whichever order you prefer. You can even repeat demonstrations if you want! In <strong>active</strong>, the agent will request a state for which to give a demonstration. In this case, you MUST give the action corresponding with this state.</p>
+    
+    <br>
+
+    <p>Now, please select from the dropdown menus below and click Start to begin the simulation.</p>
+    <label for="teaching-option">Teaching option:</label>
+    <select id="teaching-option" name="teaching_option">
+        <option value="guided">Guided</option>
+        <option value="freeform">Freeform</option>
+    </select>
+    <label for="selection-option">Selection option:</label>
+    <select id="selection-option" name="selection_option">
+        <option value="iid">IID</option>
+        <option value="active">Active</option>
+    </select>
+    <form method="GET" action="/start">
+        <button type="submit">Start</button>
+    </form>
+    <br>
+    <p>{{ user_options }}</p>
+
+    <br>
+
+    <p>{{ reward_function }}</p>
+    <p>{{ gridworld }}</p>
+
+    <p>{{ message }}</p>
+    <form method="POST" action="/process_input">
+        <input type="number" name="user_input" placeholder="Enter a number">
+        <button type="submit">Submit</button>
+    </form>
+    <form method="GET" action="/undo">
+        <button type="submit">Undo</button>
+    </form>
+    <form method="GET" action="/restart">
+        <button type="submit">Restart</button>
+    </form>
+</body>
+</html>

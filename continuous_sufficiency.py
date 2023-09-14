@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = continuous_utils.N # gets around 500 after burn and skip
+    N = continuous_utils.N
     random_normalization = True # whether or not to normalize with random policy
     num_worlds = 1
 
@@ -83,7 +83,7 @@ if __name__ == "__main__":
                 for r in range(len(rewards)):
                     learned_env = copy.deepcopy(env)
                     learned_env.set_rewards(rewards[r])
-                    Zi = continuous_utils.calculate_expected_value_difference(map_policy, learned_env, policies[r], rn = random_normalization) # compute policy loss
+                    Zi = continuous_utils.calculate_expected_value_difference(learned_env, map_env, rn = random_normalization) # compute policy loss
                     policy_losses.append(Zi)
 
                 # compute VaR bound
@@ -101,7 +101,7 @@ if __name__ == "__main__":
                 # evaluate thresholds
                 for t in range(len(thresholds)):
                     threshold = thresholds[t]
-                    actual = continuous_utils.calculate_expected_value_difference(map_policy, env, true_opt_policy, rn = random_normalization)
+                    actual = continuous_utils.calculate_expected_value_difference(env, map_env, rn = random_normalization)
                     if avar_bound < threshold:
                         print("Good for bound {}; learned theta was {}".format(threshold, birl.get_map_solution()))
                         map_evd = actual

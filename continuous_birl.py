@@ -19,8 +19,10 @@ class CONT_BIRL:
         # counterfactuals
         # counters = self.possible_policies
         counters = []
-        for pr in self.possible_rewards:
-            counters.append(continuous_utils.get_human(pr, self.env.lava, type = "regular"))
+        for demo in demos:
+            start_pos = demo[0]
+            for pr in self.possible_rewards:
+                counters.append(continuous_utils.get_human(pr, self.env.lava, type = "optimal", start_pos = start_pos))
         choice_set = demos + counters
         for theta in self.possible_rewards:
             n = np.exp(-self.beta * sum([self.R(demo, theta) for demo in demos]))

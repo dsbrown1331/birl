@@ -1,0 +1,81 @@
+Ground truth theta: 1.0
+Lava is at [0.54889938 0.5104231 ]
+The optimal policies start from:
+0.0 : (0.8922104129262332, 0.7934396413356682)
+0.2 : (0.2550766367714501, 0.13395884637268163)
+0.4 : (0.11009012682202113, 0.019489019499339566)
+0.6 : (0.22006870260518496, 0.08151200364836131)
+0.8 : (0.8056008852035993, 0.11541785894073953)
+1.0 : (0.1233169712597888, 0.9936851447579109)
+This optimal policy starts from: (0.1233169712597888, 0.9936851447579109)
+This demo is starting from 0.3104990016382242 0.21026056162504425
+World 1 , 1 demos
+[array([0.310499  , 0.21026056])]
+BOUND: 6.7090641804514695
+
+
+This demo is starting from 0.42353151025011504 0.6977806780613481
+World 1 , 2 demos
+[array([0.310499  , 0.21026056]), array([0.42353151, 0.69778068])]
+BOUND: 6.7090641804514695
+
+
+This demo is starting from 0.1973368820186826 0.572684379020019
+World 1 , 3 demos
+[array([0.310499  , 0.21026056]), array([0.42353151, 0.69778068]), array([0.19733688, 0.57268438])]
+BOUND: 6.7090641804514695
+
+
+This demo is starting from 0.8676755762529729 0.8751537364225422
+World 1 , 4 demos
+[array([0.310499  , 0.21026056]), array([0.42353151, 0.69778068]), array([0.19733688, 0.57268438]), array([0.86767558, 0.87515374])]
+BOUND: 6.7090641804514695
+
+
+This demo is starting from 0.6931348874988684 0.9815016186580343
+World 1 , 5 demos
+[array([0.310499  , 0.21026056]), array([0.42353151, 0.69778068]), array([0.19733688, 0.57268438]), array([0.86767558, 0.87515374]), array([0.69313489, 0.98150162])]
+BOUND: 6.7090641804514695
+
+
+NEW THRESHOLD 0.1
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [5, 0]]
+NEW THRESHOLD 0.2
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [5, 0]]
+NEW THRESHOLD 0.3
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [5, 0]]
+NEW THRESHOLD 0.4
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [5, 0]]
+NEW THRESHOLD 0.5
+Num demos
+Bound errors
+Policy optimalities
+Accuracy
+0.0
+Confusion matrices
+[[0, 0], [5, 0]]
+**************************************************
