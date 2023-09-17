@@ -19,7 +19,7 @@
 .purple-text {
     color: var(--purple-color);
 }
-.black-text {
+.goal-text {
     color: var(--black-color);
 }
 
@@ -30,7 +30,7 @@ body {
     padding: 20px 120px 40px 120px;
 }
 
-.grid-container {
+#grid-container, #status-update {
     display: flex;
     flex-direction: column;
     align-items: center;

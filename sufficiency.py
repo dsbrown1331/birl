@@ -120,7 +120,6 @@ if __name__ == "__main__":
                     learned_env.set_rewards(sample)
                     Zi = mdp_utils.calculate_expected_value_difference(map_policy, learned_env, birl.value_iters, rn = random_normalization) # compute policy loss
                     policy_losses.append(Zi)
-
                 # compute VaR bound
                 N_burned = len(samples)
                 k = math.ceil(N_burned * alpha + norm.ppf(1 - delta) * np.sqrt(N_burned*alpha*(1 - alpha)) - 0.5)

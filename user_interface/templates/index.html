@@ -6,25 +6,50 @@
 </head>
 <body>
     <h1 align="center">Demonstration Sufficiency User Study</h1>
-    <p>Welcome to the demonstration sufficiency user study. You will be teaching an AI agent how to navigate around a gridworld. You will be giving it demonstrations of what to do in each grid cell (i.e. go <strong>up</strong>, <strong>down</strong>, <strong>left</strong>, or <strong>right</strong>), one demo at a time. After each demonstration, the agent will attempt to calculate whether or not it has received enough demonstrations in order to successfully complete the task. If it has, it will notify you and show you its learned policy, and you will be able to verify the policy yourself to see if it's satisfactory.</p>
-    <p>Each gridworld is structured similarly. Each cell, or state, will be one of four colors, representing four features. One state will have a star in it; that is the goal state, and it is also a terminal state, meaning that you can't move from this state once you're in it, nor will you be allowed to give demonstrations from this state. Every gridworld will also have an associated reward function, which is a mapping from each feature/color to a reward value; this is the reward you get if you land in a state with that feature.</p>
-    <p>There are two <i>teaching</i> options: <strong>guided</strong> or <strong>freeform</strong>. In <strong>guided</strong>, you will be given a reward function as described above to guide your demonstrations. The hope is that the reward function will let you know which states/features to avoid and what is the best path to the goal. In <strong>freeform</strong>, you will not be given a reward function. You will be able to decide for yourself how much each feature is worth, then give demonstrations based on this internal reward function. You don't even have to guide the agent towards the goal if you wish.</p>
+    <p>Welcome to the demonstration sufficiency user study. You will be teaching an AI agent how to navigate around a gridworld. You will be giving it demonstrations of what to do in each grid cell (i.e. go <strong>up</strong>, <strong>down</strong>, <strong>left</strong>, or <strong>right</strong>), one demo at a time. After each demonstration, the agent will attempt to calculate whether or not it has received enough demonstrations in order to successfully complete the task. If it has, it will notify you and show you its learned policy, and you will be able to verify the policy yourself to see if it's satisfactory. Please keep in mind that the agent may take up to ~1 minute between demonstrations to calculate.</p>
+    <p>Each gridworld is structured similarly. Each cell, or state, will be one of up to five colors/designs, representing five features: <strong>red</strong>, <strong>blue</strong>, <strong>green</strong>, <strong>purple</strong>, and <strong>star</strong>. The star state is the <strong>goal state</strong>, where you must try to get the agent to reach. It's also a terminal state, meaning that you can't move from it once you're in it, nor will you be allowed to give demonstrations for this state. Every gridworld will also have an associated reward function, which is a mapping from each feature/color to a reward value; this is the reward you get if you land in a state with that feature.</p>
+    <p>You will get to choose how many features your gridworld has: <strong>two</strong> (one color and the goal state), <strong>three</strong> (two colors and the goal state), <strong>four</strong> (three colors and the goal state), or <strong>five</strong> (four colors and the goal state).</p>
+    <p>There are two <i>teaching</i> options: <strong>guided</strong> or <strong>freeform</strong>. In <strong>guided</strong>, you will be given a reward function as described above to guide your demonstrations. The reward function will let you know which states/features to avoid and thus what is the best path to the goal. In <strong>freeform</strong>, you will not be given a reward function. You will be able to decide for yourself how much each feature is worth, then give demonstrations based on this reward function. If you choose this option, we ask that you write down your reward function to keep your demonstrations consistent throughout the simulation.</p>
     <p>There are also two <i>demonstration selection</i> options: <strong>IID</strong> and <strong>active</strong>. In <strong>IID</strong>, at each iteration, you will get to give the agent a (state, action) demo pair in whichever order you prefer. You can even repeat demonstrations if you want! In <strong>active</strong>, the agent will request a state for which to give a demonstration. In this case, you MUST give the action corresponding with this state.</p>
+    <!-- <p>Finally, there are five <i>thresholds</i> that you can choose for the agent: 0.1, 0.2, 0.3, 0.4, and 0.5. The <strong>lower</strong> the threshold, the <strong>more confident</strong> the agent must be before determining demonstration sufficiency.</p> -->
 
     <br>
 
     <div id="start-container" style="margin: 0 auto; text-align: center;">
         <p>Now, please select from the dropdown menus below and click Start to begin the simulation.</p>
+        <label for="features-option">Number of features:</label>
+        <select id="features-option" name="features_option">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5" selected>5</option>
+        </select>
+        <br>
         <label for="teaching-option">Teaching option:</label>
         <select id="teaching-option" name="teaching_option">
             <option value="guided">Guided</option>
             <option value="freeform">Freeform</option>
         </select>
+        <br>
         <label for="selection-option">Selection option:</label>
         <select id="selection-option" name="selection_option">
             <option value="iid">IID</option>
             <option value="active">Active</option>
         </select>
+        <br>
+        <div style="display: none;">
+            <label for="threshold-option">Threshold:</label>
+            <select id="threshold-option" name="threshold_option">
+                <option value="0.1" selected>0.1</option>
+                <option value="0.2">0.2</option>
+                <option value="0.3">0.3</option>
+                <option value="0.4">0.4</option>
+                <option value="0.5">0.5</option>
+            </select>
+        </div>
+        <br>
+        <label for="reward-option">If you chose freeform, write down your intended reward function here as comma-separated numbers. For example, if you chose 3 features, you could write something like `0.2, 0.3, 0.5`:</label>
+        <input type="text" id="reward-option" name="reward_option">
         <form method="POST" action="/start" id="start-form">
             <button type="submit">Start</button>
         </form>
@@ -35,11 +60,12 @@
         <p id="reward-function" align="center">
             <span id="reward-function-vector"></span>
         </p>
+        <div id="status-update"></div>
         <div class="grid">
             {% for i in range(grid_size) %}
                 {% for j in range(grid_size) %}
-                    <div class="square" id="{{ i * grid_size + j }}" style="background-color: {{ grid[i * grid_size + j]['color'] }};">
-                        {% if i * grid_size + j == 23 %}
+                    <div class="square" id="{{ i * grid_size + j }}" style="background-color: {{ feature_color[grid[i][j]]}};">
+                        {% if grid[i][j] == 5 %}
                             <div class="star">&#9733;</div>
                         {% endif %}
                         {% if grid[i * grid_size + j]['action'] %}

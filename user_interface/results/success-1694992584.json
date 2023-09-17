@@ -1,0 +1,74 @@
+{
+    "teaching_option": "freeform",
+    "selection_option": "iid",
+    "threshold": 0.1,
+    "is_gridworld": true,
+    "num_features": 5,
+    "num_demos": 7,
+    "pct_states": 0.28,
+    "given_demos": [
+        [
+            13,
+            3
+        ],
+        [
+            11,
+            1
+        ],
+        [
+            7,
+            3
+        ],
+        [
+            9,
+            1
+        ],
+        [
+            19,
+            0
+        ],
+        [
+            0,
+            3
+        ],
+        [
+            16,
+            3
+        ]
+    ],
+    "bound": 0.07089183927240894,
+    "ground_truth_nevd": 0.007688945487399829,
+    "good_bound": true,
+    "bound_error": 0.06320289378500911,
+    "true_optimal_policy": [
+        3,
+        1,
+        1,
+        1,
+        1,
+        3,
+        3,
+        3,
+        1,
+        1,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        0,
+        3,
+        0,
+        0,
+        0,
+        3,
+        3,
+        0
+    ],
+    "policy_optimality": 0.8,
+    "policy_accuracy": 0.8,
+    "demo_suff": true,
+    "user_evaluation": "1"
+}

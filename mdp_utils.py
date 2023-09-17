@@ -228,13 +228,13 @@ def action_to_string(act, driving = False):
         DOWN = 1
         LEFT = 2
         RIGHT = 3
-        if act[1] == UP:
+        if act == UP:
             return "^"
-        elif act[1] == DOWN:
+        elif act == DOWN:
             return "v"
-        elif act[1] == LEFT:
+        elif act == LEFT:
             return "<"
-        elif act[1] == RIGHT:
+        elif act == RIGHT:
             return ">"
     else:
         STAY = 0
