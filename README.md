@@ -24,7 +24,7 @@ git checkout userstudy
 ```
 git pull
 ```
-6. Make a new branch for your experiments. **Please stay on this branch when running the experiment**. Result files are written to the `results/` folder after each experiment, and this ensures everyone's files do not override one another's. It also makes it easier for us to access the results by just checking out your branch! Please make sure the branch follows the naming format, e.g. `results-atrinh` or `results-narwhal`. 
+6. Make a new branch for your experiments. **Please stay on this branch when running the experiment**. Result files are written to the `results/` folder after each experiment, so it's easier for us to access the results by just checking out your branch! Please make sure the branch follows the naming format, e.g. `results-atrinh` or `results-narwhal`. 
 ```
 git checkout -b results-<any unique identifier you want>
 ```
