@@ -43,7 +43,7 @@ If the above introduces import errors, append the path to the `birl` directory t
 
 ## Submitting Results
 All experiment results are written to `user_interface/results/`. Please push these results to your branch as often as you can, so that we can analyze them as they come. To do so, make sure you're in the `user_interface/` directory, then do the following:
-1. Check to see what changes are in the codebase. The only changes that should show up are the new result files. **If you've made any other edits, including the `sys.path` modification, undo them with `git checkout -- <file>.** 
+1. Check to see what changes are in the codebase. The only changes that should show up are the new result files. **If you've made any other edits, including the `sys.path` modification, undo them with `git checkout -- <file>`.** 
 ```
 git status
 ```
