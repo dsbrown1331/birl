@@ -48,7 +48,7 @@ pip install -r requirements.txt
 ```
 cd user_interface
 ```
-6. Run the app. It should start up a development server, which you can access by opening a browser tab and going to `localhost:5000`.
+6. **Make sure you are on your branch that you made above.** Run the app. It should start up a development server, which you can access by opening a browser tab and going to `localhost:5000`.
 ```
 python3 app.py
 ```
