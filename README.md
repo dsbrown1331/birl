@@ -60,7 +60,7 @@ If the above introduces import errors, append the path to `birl` to your `sys.pa
 7. Have fun! All instructions should be on the user study interface itself. Please read and follow them carefully. The app has been tested extensively, but if at any point there is a crash, just do Ctrl+C on the terminal to end the session then restart it again. **At the end of each simulation, you will find a question asking for your evaluation of the agent. Results will only be recorded if you submit this evaluation, so please do so!**
 
 ## Submitting Results
-You will notice that there is a `results/` directory inside `user_interface`. This is where all experiment results will be written to once they are completed. We suggest that you push these experiments to your branch every now and then, so that we can analyze them as they come. Make sure you're in the `user_interface/` directory, then do the following:
+You will notice that there is a `results/` directory inside `user_interface`. This is where all experiment results will be written to once they are completed. If you can, please push these experiments to your branch every now and then, so that we can analyze them as they come. Make sure you're in the `user_interface/` directory, then do the following:
 1. First, check to see what changes are in the codebase. The only changes that should show up when you run this command are the result files. **If you've made any other edits, including the `sys.path` modification, undo them with `git checkout -- <file>.** 
 ```
 git status
