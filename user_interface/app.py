@@ -1,7 +1,4 @@
 import sys
-pwd = sys.path[0]
-sys.path.append("/".join(pwd.split("/")[:5]) + "/")
-sys.path.append("/".join(pwd.split("/")[:6]) + "/")
 import random
 from flask import Flask, render_template, request, jsonify
 import mdp_utils
