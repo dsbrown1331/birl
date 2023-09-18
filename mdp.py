@@ -150,9 +150,9 @@ class MDP:
 
             # STAY in lane
             for s in range(self.num_states):
-                left_state = s + 4 if s < 5 * (self.num_rows - 1) else (s - 1) % 5
-                fwd_state = s + 5 if s < 5 * (self.num_rows - 1) else s % 5
-                right_state = s + 6 if s < 5 * (self.num_rows - 1) else (s + 1) % 5
+                left_state = s - 6 if s >= self.num_cols else s + 19
+                fwd_state = s - 5 if s >= self.num_cols else s + 20
+                right_state = s - 4 if s >= self.num_cols else s + 21
                 if s % 5 == 0: # left border
                     self.transitions[s][STAY][fwd_state] = 1.0 - noise # possibility of moving forward
                     self.transitions[s][STAY][right_state] = noise # possibility of going right
@@ -174,9 +174,9 @@ class MDP:
 
             # moving LEFT
             for s in range(self.num_states):
-                left_state = s + 4 if s < 5 * (self.num_rows - 1) else (s - 1) % 5
-                fwd_state = s + 5 if s < 5 * (self.num_rows - 1) else s % 5
-                right_state = s + 6 if s < 5 * (self.num_rows - 1) else (s + 1) % 5
+                left_state = s - 6 if s >= self.num_cols else s + 19
+                fwd_state = s - 5 if s >= self.num_cols else s + 20
+                right_state = s - 4 if s >= self.num_cols else s + 21
                 if s % 5 == 0: # left border
                     self.transitions[s][LEFT][fwd_state] = 0.5 # possibility of moving forward
                     self.transitions[s][LEFT][right_state] = 0.5 # possibility of going right
@@ -198,9 +198,9 @@ class MDP:
 
             # moving RIGHT
             for s in range(self.num_states):
-                left_state = s + 4 if s < 5 * (self.num_rows - 1) else (s - 1) % 5
-                fwd_state = s + 5 if s < 5 * (self.num_rows - 1) else s % 5
-                right_state = s + 6 if s < 5 * (self.num_rows - 1) else (s + 1) % 5
+                left_state = s - 6 if s >= self.num_cols else s + 19
+                fwd_state = s - 5 if s >= self.num_cols else s + 20
+                right_state = s - 4 if s >= self.num_cols else s + 21
                 if s % 5 == 0: # left border
                     self.transitions[s][RIGHT][fwd_state] = noise # possibility of moving forward
                     self.transitions[s][RIGHT][right_state] = 1.0 - noise # possibility of going right

@@ -9,7 +9,12 @@ const featureColor = {
     4: '#946BBB',  // Purple
     5: '#FFFFFF'   // Goal (White)
 };
+const roadColor = {
+    "lane": '#666666',
+    "dirt": '#955011',
+}
 const COLORLABEL = ['Red', 'Blue', 'Green', 'Purple', 'Goal']
+const ROADLABEL = ['Left lane', 'Middle lane', 'Right lane', 'Collision with car', 'Crash into dirt']
 
 startForm.addEventListener('submit', (event) => {
     event.preventDefault(); // Prevent the form submission
@@ -19,6 +24,7 @@ startForm.addEventListener('submit', (event) => {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
+            'environment_option': document.getElementById('environment-option').value,
             'teaching_option': document.getElementById('teaching-option').value,
             'selection_option': document.getElementById('selection-option').value,
             'threshold_option': document.getElementById('threshold-option').value,
@@ -34,43 +40,76 @@ startForm.addEventListener('submit', (event) => {
     })
     .then(function (data) {
         document.getElementById("user-options").textContent = data.user_options;
-        const grid = data.grid;
-        const gridContainer = document.getElementById('grid-container');
-        const gridDiv = gridContainer.querySelector('.grid');
-        const num_features = parseInt(document.getElementById('features-option').value);
-        gridDiv.innerHTML = '';
-        grid.forEach((row) => {
-            row.forEach((feature) => {
-                const square = document.createElement('div');
-                square.className = 'square';
-                if (feature === num_features) {
-                    square.style.backgroundColor = featureColor[5];    
-                } else {
-                    square.style.backgroundColor = featureColor[feature];
-                }
-                if (feature === num_features) {
-                    const star = document.createElement('div');
-                    star.className = 'star';
-                    star.innerHTML = '&starf;';
-                    square.appendChild(star);
-                }
-                gridDiv.appendChild(square);
+        const envOption = document.getElementById('environment-option').value;
+        if (envOption === "gridworld") {
+            const grid = data.grid;
+            const gridContainer = document.getElementById('grid-container');
+            const gridDiv = gridContainer.querySelector('.grid');
+            const num_features = parseInt(document.getElementById('features-option').value);
+            gridDiv.innerHTML = '';
+            grid.forEach((row) => {
+                row.forEach((feature) => {
+                    const square = document.createElement('div');
+                    square.className = 'square';
+                    if (feature === num_features) {
+                        square.style.backgroundColor = featureColor[5];    
+                    } else {
+                        square.style.backgroundColor = featureColor[feature];
+                    }
+                    if (feature === num_features) {
+                        const star = document.createElement('div');
+                        star.className = 'star';
+                        star.innerHTML = '&starf;';
+                        square.appendChild(star);
+                    }
+                    gridDiv.appendChild(square);
+                });
             });
-        });
+        } else if (envOption === "driving") {
+            const grid = data.grid;
+            const gridContainer = document.getElementById('grid-container');
+            const gridDiv = gridContainer.querySelector('.grid');
+            gridDiv.innerHTML = '';
+            grid.forEach((row) => {
+                row.forEach((feature) => {
+                    const square = document.createElement('div');
+                    square.className = 'square';
+                    if (feature < 5) {
+                        square.style.backgroundColor = roadColor["lane"];    
+                    } else {
+                        square.style.backgroundColor = roadColor["dirt"];
+                    }
+                    if (feature === 4) {
+                        const motorist = document.createElement('div');
+                        motorist.className = 'motorist';
+                        motorist.innerHTML = '&#x1F697;';
+                        square.appendChild(motorist);
+                    }
+                    gridDiv.appendChild(square);
+                });
+            });
+        }
         gridContainer.style.display = "block";
         attachEventListenersToGridSquares();
         endButton.style.display = 'block';
         if (data.reward_function !== null && data.reward_function !== undefined) {
-            const num_features = parseInt(document.getElementById('features-option').value);
-            const colorLabels = COLORLABEL.slice(0, num_features - 1).concat(COLORLABEL.slice(-1));
-            console.log(colorLabels);
-            const rewardFunctionString = data.reward_function.map((value, index) => {
-                const colorLabel = colorLabels[index];
-                return `<span class="${colorLabel.toLowerCase()}-text">${colorLabel}: ${value}</span>`;
-            }).join(',<br>');
+            var rewardFunctionString = "";
+            if (envOption === "gridworld") {
+                const num_features = parseInt(document.getElementById('features-option').value);
+                const colorLabels = COLORLABEL.slice(0, num_features - 1).concat(COLORLABEL.slice(-1));
+                rewardFunctionString = data.reward_function.map((value, index) => {
+                    const colorLabel = colorLabels[index];
+                    return `<span class="${colorLabel.toLowerCase()}-text">${colorLabel}: ${value}</span>`;
+                }).join(',<br>');
+            } else if (envOption === "driving") {
+                rewardFunctionString = data.reward_function.map((value, index) => {
+                    const colorLabel = ROADLABEL[index];
+                    return `<span class="${colorLabel.split(" ").join("-").toLowerCase()}-text">${colorLabel}: ${value}</span>`;
+                }).join(', <br>');
+            }
     
             // Update the <span> element with the class
-            document.getElementById("reward-function-vector").innerHTML = "Here is the reward function you should follow:<br>" + "[" + rewardFunctionString + "]" + "<br>Reminder that you should direct the agent towards the goal, and on the way, you should be avoiding states with lower reward values and opting to go through states with higher reward values instead.";
+            document.getElementById("reward-function-vector").innerHTML = "Here is the reward function you should follow:<br>" + "[" + rewardFunctionString + "]" + "<br>Avoid states with lower reward values and go through states with higher reward values. <strong>Please wait for the agent to finish calculating before submitting additional demos.</strong>";
         }
     })
     .catch(function (error) {
@@ -112,27 +151,33 @@ function attachEventListenersToGridSquares() {
     squares.forEach((square, index) => {
         square.addEventListener('click', () => {
             const starSquare = document.querySelector('.square .star');
+            const envOption = document.getElementById('environment-option').value;
             if (starSquare && starSquare.parentElement === square) {
                 alert("Cannot give demonstrations for the goal state.");
             } else {
-                const action = prompt('Choose an action (U, D, L, R):');
+                var action = null;
+                if (envOption === "gridworld") {
+                    action = prompt("Choose an action (U, D, L, R");
+                } else if (envOption === "driving") {
+                    action = prompt("Choose an action (S, L, R)");
+                }
                 if (action !== null && action !== '') {
                     const actionDiv = document.createElement('div');
                     actionDiv.classList.add('action');
-
                     // Set arrow symbols based on the user-selected action
                     switch (action.toUpperCase()) {
                         case 'U':
+                        case 'S':
                             actionDiv.textContent = '\u2191'; // Up arrow
                             break;
                         case 'D':
                             actionDiv.textContent = '\u2193'; // Down arrow
                             break;
                         case 'L':
-                            actionDiv.textContent = '\u2190'; // Left arrow
+                            actionDiv.textContent = envOption === "gridworld" ? '\u2190' : '\u2196'; // Left arrow
                             break;
                         case 'R':
-                            actionDiv.textContent = '\u2192'; // Right arrow
+                            actionDiv.textContent = envOption === "gridworld" ? '\u2192' : '\u2197'; // Right arrow
                             break;
                         default:
                             actionDiv.textContent = action;

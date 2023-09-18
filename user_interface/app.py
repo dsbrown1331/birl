@@ -1,10 +1,11 @@
 import sys
+sys.path.append("/Users/tutrinh/Work/InterACT/birl/")
 import random
 from flask import Flask, render_template, request, jsonify
 import mdp_utils
 import mdp_worlds
 import bayesian_irl
-from mdp import FeatureMDP
+from mdp import DrivingSimulator
 import copy
 from scipy.stats import norm
 import numpy as np
@@ -17,11 +18,16 @@ app = Flask(__name__)
 
 # Define the grid size (5x5)
 GRID_SIZE = 5
-ACTION_MAPPING = {
+GRIDWORLD_ACTION_MAPPING = {
     "U": 0,
     "D": 1,
     "L": 2,
     "R": 3
+}
+DRIVING_ACTION_MAPPING = {
+    "S": 0,
+    "L": 1,
+    "R": 2
 }
 feature_color = {
     1: '#D42A2F',  # Red
@@ -79,6 +85,7 @@ def index():
 @app.route("/start", methods=["POST"])
 def start_simulation():
     global teaching_option, selection_option, threshold, num_features
+    environment_option = request.form.get("environment_option")
     teaching_option = request.form.get("teaching_option")
     selection_option = request.form.get("selection_option")
     threshold = float(request.form.get("threshold_option"))
@@ -89,11 +96,11 @@ def start_simulation():
         chosen_reward = np.array([float(v) for v in chosen_reward])
         chosen_reward /= np.linalg.norm(chosen_reward)
     if teaching_option == "guided":
-        grid, reward = get_environment()
+        grid, reward = get_environment(gridworld = environment_option == "gridworld")
     elif teaching_option == "freeform":
-        grid, reward = get_environment(chosen_reward = chosen_reward)
+        grid, reward = get_environment(gridworld = environment_option == "gridworld", chosen_reward = chosen_reward)
     response = {
-        "user_options": "You have chosen the {} teaching option and {} selection option for a gridworld with {} features. Let's begin!".format(teaching_option, selection_option, num_features),
+        "user_options": "You have chosen the {} teaching option and {} selection option for a {} environment with {} features. Let's begin! Click on a state to select it for demonstration, then enter your action.".format(teaching_option, selection_option, environment_option, num_features),
         "grid": grid,
         "reward_function": reward if teaching_option == "guided" else None
     }
@@ -120,8 +127,23 @@ def get_environment(gridworld = True, chosen_reward = None):
                 readable_row.append(idx + 1)
         readable_grid.append(readable_row)
         reward_function = [round(float(w), 2) for w in env.feature_weights]
-        print(readable_grid)
-        print(reward_function)
+    else:
+        env = mdp_worlds.random_driving_simulator(GRID_SIZE, reward_function = "safe")
+        true_optimal_policy = mdp_utils.get_optimal_policy(env)
+        readable_grid = []
+        for i in range(GRID_SIZE * 5):
+            if i % GRID_SIZE == 0:
+                if i != 0:
+                    readable_grid.append(readable_row)
+                readable_row = []
+            arr = np.array(env.state_features[i])
+            idx = int(np.argwhere(arr == 1)[0][0])
+            readable_row.append(idx + 1)
+        readable_grid.append(readable_row)
+        reward_function = [round(float(w), 2) for w in env.feature_weights]
+        print(env.motorists)
+    print(readable_grid)
+    print(reward_function)
     return readable_grid, reward_function
 
 @app.route("/update_action", methods=["POST"])
@@ -130,7 +152,7 @@ def update_action():
     square_index = int(request.form["square_index"])
     action = request.form["action"]
     grid[square_index]["action"] = action
-    given_demos.append((square_index, ACTION_MAPPING[action]))
+    given_demos.append((square_index, DRIVING_ACTION_MAPPING[action] if isinstance(env, DrivingSimulator) else GRIDWORLD_ACTION_MAPPING[action]))
     print("Added demo", given_demos[-1])
     start = time.time()
     birl = bayesian_irl.BIRL(env, given_demos, beta)
@@ -191,7 +213,7 @@ def store_result(failed = False):
     simulation_result["teaching_option"] = teaching_option
     simulation_result["selection_option"] = selection_option
     simulation_result["threshold"] = threshold
-    simulation_result["is_gridworld"] = isinstance(env, FeatureMDP)
+    simulation_result["is_gridworld"] = not isinstance(env, DrivingSimulator)
     simulation_result["num_features"] = num_features  # includes augmented goal feature
     simulation_result["num_demos"] = len(given_demos)
     simulation_result["pct_states"] = len(given_demos) / (GRID_SIZE * GRID_SIZE)
