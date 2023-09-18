@@ -19,7 +19,7 @@ if __name__ == "__main__":
     world = "goal" # options: feature, driving, goal
     demo_type = "pairs" # options: pairs, trajectories
 
-    debug = False # set to False to suppress terminal outputs
+    debug = True # set to False to suppress terminal outputs
 
     # Hyperparameters
     alpha = 0.95
@@ -73,12 +73,10 @@ if __name__ == "__main__":
                     try:
                         D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
                         demos[i].append(D)
-                        print("Demos:", demos[i])
                     except IndexError:
                         pass
                     if debug:
-                        print("running BIRL with demos")
-                        print("demos", demos[i])
+                        print("running BIRL with demos", demos[i])
                     birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
                 elif demo_type == "trajectories":
                     D = mdp_utils.generate_optimal_demo(env, demo_order[M])[:int(1/(1 - gamma))]
@@ -93,18 +91,18 @@ if __name__ == "__main__":
                 burn_indx = int(len(birl.chain) * burn_rate)
                 samples = birl.chain[burn_indx::skip_rate]
                 #check if MCMC seems to be mixing properly
-                if debug:
-                    print("accept rate for MCMC", birl.accept_rate) #good to tune number of samples and stepsize to have this around 50%
-                    if birl.accept_rate > 0.7:
-                        print("too high, probably need to increase standard deviation")
-                    elif birl.accept_rate < 0.2:
-                        print("too low, probably need to decrease standard dev")
+                # if debug:
+                #     print("accept rate for MCMC", birl.accept_rate) #good to tune number of samples and stepsize to have this around 50%
+                #     if birl.accept_rate > 0.7:
+                #         print("too high, probably need to increase standard deviation")
+                #     elif birl.accept_rate < 0.2:
+                #         print("too low, probably need to decrease standard dev")
                 #generate evaluation policy from running BIRL
                 map_env = copy.deepcopy(env)
                 map_env.set_rewards(birl.get_map_solution())
                 map_policy = mdp_utils.get_optimal_policy(map_env)
                 #debugging to visualize the learned policy
-                if not debug:
+                if debug:
                     print("environment")
                     print("state features", env.state_features)
                     print("feature weights", env.feature_weights)

@@ -100,7 +100,7 @@ def start_simulation():
     elif teaching_option == "freeform":
         grid, reward = get_environment(gridworld = environment_option == "gridworld", chosen_reward = chosen_reward)
     response = {
-        "user_options": "You have chosen the {} teaching option and {} selection option for a {} environment with {} features. Let's begin! Click on a state to select it for demonstration, then enter your action.".format(teaching_option, selection_option, environment_option, num_features),
+        "user_options": "You have chosen the {} teaching option and {} selection option for a {} environment with {} features. Let's begin!".format(teaching_option, selection_option, environment_option, num_features),
         "grid": grid,
         "reward_function": reward if teaching_option == "guided" else None
     }

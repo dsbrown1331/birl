@@ -109,7 +109,7 @@ startForm.addEventListener('submit', (event) => {
             }
     
             // Update the <span> element with the class
-            document.getElementById("reward-function-vector").innerHTML = "Here is the reward function you should follow:<br>" + "[" + rewardFunctionString + "]" + "<br>Avoid states with lower reward values and go through states with higher reward values. <strong>Please wait for the agent to finish calculating before submitting additional demos.</strong>";
+            document.getElementById("reward-function-vector").innerHTML = "Here is the reward function you should follow:<br>" + "[" + rewardFunctionString + "]" + "<br>Click on a state to select it for demonstration, then enter your action. Avoid states with lower reward values and go through states with higher reward values. <strong>Please wait for the agent to finish calculating before submitting additional demos.</strong>";
         }
     })
     .catch(function (error) {
