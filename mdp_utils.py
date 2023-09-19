@@ -302,7 +302,7 @@ def visualize_policy(policy, env):
                 policy_row += ".\t"
             else:
                 # policy_row += action_to_string(policy[count], type(env) is DrivingSimulator) + "\t"
-                policy_row += action_to_string(policy[count]) + "\t"
+                policy_row += action_to_string(policy[count], driving = True) + "\t"
             count += 1
         print(policy_row)
 

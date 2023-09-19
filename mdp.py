@@ -178,8 +178,8 @@ class MDP:
                 fwd_state = s - 5 if s >= self.num_cols else s + 20
                 right_state = s - 4 if s >= self.num_cols else s + 21
                 if s % 5 == 0: # left border
-                    self.transitions[s][LEFT][fwd_state] = 0.5 # possibility of moving forward
-                    self.transitions[s][LEFT][right_state] = 0.5 # possibility of going right
+                    self.transitions[s][LEFT][fwd_state] = 1.0 - noise # possibility of moving forward
+                    self.transitions[s][LEFT][right_state] = noise # possibility of going right
                 elif s % 5 == 1: # left lanes
                     self.transitions[s][LEFT][left_state] = 1.0 - (2 * noise) # possibility of going left
                     self.transitions[s][LEFT][fwd_state] = noise # possibility of moving forward
@@ -217,8 +217,8 @@ class MDP:
                     self.transitions[s][RIGHT][fwd_state] = noise # possibility of moving forward
                     self.transitions[s][RIGHT][right_state] = 1.0 - (2 * noise) # possibility of going right
                 elif s % 5 == 4: # right border
-                    self.transitions[s][RIGHT][left_state] = 0.5 # possibility of going left
-                    self.transitions[s][RIGHT][fwd_state] = 0.5 # possibility of moving forward
+                    self.transitions[s][RIGHT][left_state] = noise # possibility of going left
+                    self.transitions[s][RIGHT][fwd_state] = 1.0 - noise # possibility of moving forward
 
             # deal with terminal states
             for s in range(self.num_states):

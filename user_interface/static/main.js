@@ -174,10 +174,10 @@ function attachEventListenersToGridSquares() {
                             actionDiv.textContent = '\u2193'; // Down arrow
                             break;
                         case 'L':
-                            actionDiv.textContent = envOption === "gridworld" ? '\u2190' : '\u2196'; // Left arrow
+                            actionDiv.textContent = envOption === "gridworld" ? '\u2190' : '\u2196'; // (diag) Left arrow
                             break;
                         case 'R':
-                            actionDiv.textContent = envOption === "gridworld" ? '\u2192' : '\u2197'; // Right arrow
+                            actionDiv.textContent = envOption === "gridworld" ? '\u2192' : '\u2197'; // (diag) Right arrow
                             break;
                         default:
                             actionDiv.textContent = action;
@@ -256,6 +256,7 @@ function displaySufficiencyMessage(policy, goal_state) {
     const squares = document.querySelectorAll('.square');
     squares.forEach((square, index) => {
         const actionDiv = square.querySelector('.action');
+        const envOption = document.getElementById('environment-option').value;
         if (actionDiv) {
             square.removeChild(actionDiv);
         }
@@ -267,16 +268,16 @@ function displaySufficiencyMessage(policy, goal_state) {
             const action = policy[index];
             switch (action) {
                 case 0:
-                    arrowDiv.textContent = '\u2191'; // Up arrow
+                    arrowDiv.textContent = '\u2191';
                     break;
                 case 1:
-                    arrowDiv.textContent = '\u2193'; // Down arrow
+                    arrowDiv.textContent = envOption === "gridworld" ? '\u2193' : '\u2196';
                     break;
                 case 2:
-                    arrowDiv.textContent = '\u2190'; // Left arrow
+                    arrowDiv.textContent = envOption === "gridworld" ? '\u2190' : '\u2197';
                     break;
                 case 3:
-                    arrowDiv.textContent = '\u2192'; // Right arrow
+                    arrowDiv.textContent = '\u2192';
                     break;
                 default:
                     // Handle invalid action if needed
