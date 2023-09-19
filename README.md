@@ -38,12 +38,12 @@ pip install -r requirements.txt
 cd user_interface
 python3 app.py
 ```
-If the above introduces import errors, append the path to the `birl` directory to your `sys.path`, for example, `/Users/tutrinh/birl/`. You can do this inside `app.py` if you want, but make sure to delete these lines before you push your results.
+If the above introduces import errors, append the path to the `birl` directory to your `sys.path`, for example, `/Users/tutrinh/birl/`. You can do this inside `app.py` if you want, as long as you're on your branch.
 6. Have fun! All instructions should be on the user study interface itself. Please read and follow them carefully. The app has been tested, but if at any point there is a crash, just end the server with Ctrl+C then restart it. You can start and stop the server as much as you want, **as long as it's between complete simulations**—otherwise your work will be lost!
 
 ## Submitting Results
 All experiment results are written to `user_interface/results/`. Please push these results to your branch as often as you can, so that we can analyze them as they come. To do so, make sure you're in the `user_interface/` directory, then do the following:
-1. Check to see what changes are in the codebase. The only changes that should show up are the new result files. **If you've made any other edits, including the `sys.path` modification, undo them with `git checkout -- <file>`.** 
+1. Check to see what changes are in the codebase. The only changes that should show up are the new result files and potentially `app.py` if you did the `sys.path` modification. **If you've made any other edits, undo them with `git checkout -- <file>`.** 
 ```
 git status
 ```
