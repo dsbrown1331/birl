@@ -10,19 +10,10 @@ git clone https://github.com/dsbrown1331/birl.git
 cd birl
 git fetch
 git checkout userstudy
+```
+2. On the off chance that we needed to make edits to the `userstudy` branch, we will notify you. To get the latest updates in that case, just pull.
+```
 git pull
-```
-2. Make a new branch for your experiments. **Please stay on this branch when running the experiment**. Result files are written to the `results/` folder after each experiment, so it's easier for us to access the results by just checking out your branch! Please make sure that whatever name you give your branch, it should have "results-" prepended, e.g. `results-atrinh` or `results-narwhal`. 
-```
-git checkout -b results-<any unique identifier you want>
-git push --set-upstream origin <your branch name>
-```
-3. If on the off chance I needed to make edits to the `userstudy` branch, I/Daniel will notify you. To get the latest updates in that case, please do the following.
-```
-git checkout userstudy
-git pull
-git checkout <your branch name>
-git merge userstudy
 ```
 
 ## How to Run
@@ -49,16 +40,6 @@ If the above introduces import errors, append the path to the `birl` directory t
 6. Have fun! All instructions should be on the user study interface itself. Please read and follow them carefully. The app has been tested, but if at any point there is a crash, just end the server with Ctrl+C then restart it. You can start and stop the server as much as you want, **as long as it's between complete simulations**—otherwise your work will be lost!
 
 ## Submitting Results
-All experiment results are written to `user_interface/results/`. Please push these results to your branch as often as you can, so that we can analyze them as they come. To do so, make sure you're in the `user_interface/` directory, then do the following:
-1. Check to see what changes are in the codebase. The only changes that should show up are the new result files and potentially `app.py` if you did the `sys.path` modification. **If you've made any other edits, undo them with `git checkout -- <file>`.** 
-```
-git status
-```
-2. Stage, commit, and push your results.
-```
-git add .
-git commit -m <any message here>
-git push
-```
+All experiment results are written to `user_interface/results/`. When you are done, please zip up the result files (NOT including the parent `results/` folder) and send them to Tu (Alina) Trinh via Slack or [email](mailto:tutrinh@berkeley.edu).
 
 Thank you very much for taking your time and participating! If you have any questions, please ask Tu (Alina) Trinh via Slack or [email](mailto:tutrinh@berkeley.edu).

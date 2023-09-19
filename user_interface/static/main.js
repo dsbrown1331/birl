@@ -261,7 +261,7 @@ function displayDemoRequest(stateIdx) {
 }
 
 function displayFailedMessage() {
-    statusUpdate.innerHTML = `<p>Unfortunately, the agent was not able to determine demonstration sufficiency. This could be the agent's fault, but still be sure to keep your demonstrations as consistent as possible with one another and with the reward function.</p><p>Thank you for playing! Click End Simulation to end this session and start another round.</p>`
+    statusUpdate.innerHTML = `<p>Unfortunately, the agent was not able to determine demonstration sufficiency (which is still good data!). This could be the agent's fault, but still be sure to keep your demonstrations as consistent as possible with one another and with the reward function.</p><p>Thank you for playing! Click End Simulation to end this session and start another round.</p>`
 }
 
 function displaySufficiencyMessage(policy, goal_state) {
