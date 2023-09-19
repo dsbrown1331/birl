@@ -31,12 +31,12 @@ conda activate demo_sufficiency
 ```
 pip install -r requirements.txt
 ```
-5. **Make sure you are on your branch that you made above.** Run the app. It should start up a development server, which you can access by opening a browser tab and going to `localhost:5000`.
+5. Run the app. It should start up a development server, which you can access by opening a browser tab and going to `localhost:5000`.
 ```
 cd user_interface
 python3 app.py
 ```
-If the above introduces import errors, append the path to the `birl` directory to your `sys.path`, for example, `/Users/tutrinh/birl/`. You can do this inside `app.py` if you want, as long as you're on your branch.
+If the above introduces import errors, append the path to the `birl` directory to your `sys.path`, for example, `/Users/tutrinh/birl/`. You can do this inside `app.py`.
 6. Have fun! All instructions should be on the user study interface itself. Please read and follow them carefully. The app has been tested, but if at any point there is a crash, just end the server with Ctrl+C then restart it. You can start and stop the server as much as you want, **as long as it's between complete simulations**—otherwise your work will be lost!
 
 ## Submitting Results
