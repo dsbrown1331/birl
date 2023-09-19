@@ -322,7 +322,7 @@ class DrivingSimulator(FeatureMDP):
     The purpose is to avoid obstacles on the road i.e. other motorists and medians.
     Actions include STAYing in the current lane, moving LEFT, and moving RIGHT.
     """
-    def __init__(self, num_rows, terminals, feature_weights, motorists, police, gamma, noise = 0.0, chosen_reward = None):
+    def __init__(self, num_rows, terminals, feature_weights, motorists, police, gamma, noise = 0.0):
         # features:
         # left, middle, and right lanes
         # collision with car, crash into border
@@ -349,7 +349,7 @@ class DrivingSimulator(FeatureMDP):
                 state_features.append(crash)
         self.motorists = motorists
         self.num_states = num_rows * num_cols
-        super().__init__(num_rows, num_cols, num_actions, terminals, feature_weights, np.array(state_features), gamma, noise, driving = True, chosen_reward = chosen_reward)
+        super().__init__(num_rows, num_cols, num_actions, terminals, feature_weights, np.array(state_features), gamma, noise, driving = True)
 
 
 
