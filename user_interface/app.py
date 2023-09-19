@@ -1,5 +1,4 @@
 import sys
-sys.path.append("/Users/tutrinh/Work/InterACT/birl/")
 import random
 from flask import Flask, render_template, request, jsonify
 import mdp_utils
@@ -13,6 +12,8 @@ import math
 import json
 import time
 import re
+import parser
+fun_facts = parser.get_fun_facts()
 
 app = Flask(__name__)
 
@@ -43,7 +44,7 @@ threshold = 0.1
 num_features = None
 
 env = None
-terminals = None
+terminals = []
 true_optimal_policy = None
 goal_state = None
 given_demos = []
@@ -93,7 +94,7 @@ def start_simulation():
     num_features = int(request.form.get("features_option"))
     chosen_reward = request.form.get("reward_option")
     if chosen_reward != "":
-        chosen_reward = re.findall(r'\d+(?:\.\d+)?', chosen_reward)
+        chosen_reward = re.findall(r'-?\d+(?:\.\d+)?', chosen_reward)
         chosen_reward = np.array([float(v) for v in chosen_reward])
         chosen_reward /= np.linalg.norm(chosen_reward)
     if teaching_option == "guided":
@@ -103,7 +104,7 @@ def start_simulation():
     response = {
         "user_options": "You have chosen the {} teaching option and {} selection option for a {} environment with {} features. Let's begin!".format(teaching_option, selection_option, environment_option, num_features),
         "grid": grid,
-        "reward_function": reward if teaching_option == "guided" else None
+        "reward_function": reward if teaching_option == "guided" else [round(float(v), 2) for v in chosen_reward]
     }
     return jsonify(response)
 
@@ -129,7 +130,7 @@ def get_environment(gridworld = True, chosen_reward = None):
         readable_grid.append(readable_row)
         reward_function = [round(float(w), 2) for w in env.feature_weights]
     else:
-        env = mdp_worlds.random_driving_simulator(GRID_SIZE, reward_function = "safe")
+        env = mdp_worlds.random_driving_simulator(GRID_SIZE, reward_function = "safe", chosen_reward = chosen_reward)
         true_optimal_policy = mdp_utils.get_optimal_policy(env)
         readable_grid = []
         for i in range(GRID_SIZE * 5):
@@ -214,9 +215,9 @@ def update_action():
         else:
             print("More demos please")
             if selection_option == "iid":
-                return jsonify({"demo_suff": False, "requested_state": None})
+                return jsonify({"demo_suff": False, "requested_state": None, "fun_fact": fun_facts[np.random.randint(0, len(fun_facts))]})
             elif selection_option == "active":
-                return jsonify({"demo_suff": False, "requested_state": uncertain_state})
+                return jsonify({"demo_suff": False, "requested_state": uncertain_state, "fun_fact": fun_facts[np.random.randint(0, len(fun_facts))]})
 
 @app.route("/end_simulation", methods=["POST"])
 def end_simulation():

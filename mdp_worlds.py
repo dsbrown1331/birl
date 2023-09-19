@@ -65,7 +65,7 @@ def random_feature_mdp(rows, columns, num_features, reference_world = None, term
     return mdp
 
 
-def random_driving_simulator(rows, reward_function = None, reference_world = None):
+def random_driving_simulator(rows, reward_function = None, reference_world = None, chosen_reward = None):
     weights = [] # left lane, middle lane, right lane, collision, crashing
     if reward_function is None or reward_function == "none":
         # create random weight vector
@@ -101,7 +101,7 @@ def random_driving_simulator(rows, reward_function = None, reference_world = Non
         motorists = np.random.choice([s for s in range(rows * 5) if s % 5 in [1, 2, 3]], size = math.floor(rows))
     else:
         motorists = reference_world.motorists
-    mdp = DrivingSimulator(rows, [], weights, motorists, None, gamma = 0.95, noise = 0.0)
+    mdp = DrivingSimulator(rows, [], weights, motorists, None, gamma = 0.95, noise = 0.0, chosen_reward = chosen_reward)
     return mdp
 
 
