@@ -301,8 +301,7 @@ def visualize_policy(policy, env):
             if count in env.terminals:
                 policy_row += ".\t"
             else:
-                # policy_row += action_to_string(policy[count], type(env) is DrivingSimulator) + "\t"
-                policy_row += action_to_string(policy[count], driving = True) + "\t"
+                policy_row += action_to_string(policy[count], driving = isinstance(env, DrivingSimulator)) + "\t"
             count += 1
         print(policy_row)
 

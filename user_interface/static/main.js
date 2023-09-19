@@ -47,6 +47,7 @@ startForm.addEventListener('submit', (event) => {
             const gridDiv = gridContainer.querySelector('.grid');
             const num_features = parseInt(document.getElementById('features-option').value);
             gridDiv.innerHTML = '';
+            var squareIndex = 0;
             grid.forEach((row) => {
                 row.forEach((feature) => {
                     const square = document.createElement('div');
@@ -62,7 +63,12 @@ startForm.addEventListener('submit', (event) => {
                         star.innerHTML = '&starf;';
                         square.appendChild(star);
                     }
+                    const indexNumber = document.createElement('div');
+                    indexNumber.className = 'index-number';
+                    indexNumber.textContent = squareIndex;
+                    square.appendChild(indexNumber);
                     gridDiv.appendChild(square);
+                    squareIndex += 1;
                 });
             });
         } else if (envOption === "driving") {
@@ -70,6 +76,7 @@ startForm.addEventListener('submit', (event) => {
             const gridContainer = document.getElementById('grid-container');
             const gridDiv = gridContainer.querySelector('.grid');
             gridDiv.innerHTML = '';
+            var squareIndex = 0;
             grid.forEach((row) => {
                 row.forEach((feature) => {
                     const square = document.createElement('div');
@@ -85,7 +92,12 @@ startForm.addEventListener('submit', (event) => {
                         motorist.innerHTML = '&#x1F697;';
                         square.appendChild(motorist);
                     }
+                    const indexNumber = document.createElement('div');
+                    indexNumber.className = 'index-number';
+                    indexNumber.textContent = squareIndex;
+                    square.appendChild(indexNumber);
                     gridDiv.appendChild(square);
+                    squareIndex += 1;
                 });
             });
         }
@@ -140,6 +152,10 @@ endButton.addEventListener("click", () => {
         if (actionDiv) {
             square.removeChild(actionDiv);
         }
+        const indexNumber = square.querySelector('.index-number');
+        if (indexNumber) {
+            square.removeChild(indexNumber);
+        }
     });
     gridContainer.style.display = 'none';
     // Hide the undo and end buttons
@@ -157,7 +173,7 @@ function attachEventListenersToGridSquares() {
             } else {
                 var action = null;
                 if (envOption === "gridworld") {
-                    action = prompt("Choose an action (U, D, L, R");
+                    action = prompt("Choose an action (U, D, L, R)");
                 } else if (envOption === "driving") {
                     action = prompt("Choose an action (S, L, R)");
                 }
@@ -203,14 +219,14 @@ function attachEventListenersToGridSquares() {
                         return response.json();
                     })
                     .then (function (data) {
-                        console.log(data);
+                        const selectionOption = document.getElementById('selection-option').value;
                         if (data.failed) {
                             displayFailedMessage();
                         } else {
                             if (data.demo_suff) {
                                 displaySufficiencyMessage(data.map_pi, data.goal);
                             } else {
-                                displayDemoRequest();
+                                displayDemoRequest(data.requested_state);
                             }
                         }
                     })
@@ -223,8 +239,12 @@ function attachEventListenersToGridSquares() {
     });
 }
 
-function displayDemoRequest() {
-    statusUpdate.innerHTML = `<p>The agent would like another demonstration.</p>`;
+function displayDemoRequest(stateIdx) {
+    if (stateIdx !== null) {
+        statusUpdate.innerHTML = `<p>The agent would like another demonstration <strong>for state ${stateIdx}</strong>.</p>`;
+    } else {
+        statusUpdate.innerHTML = `<p>The agent would like another demonstration.</p>`;
+    }
 }
 
 function displayFailedMessage() {

@@ -162,18 +162,34 @@ def update_action():
     map_env = copy.deepcopy(env)
     map_env.set_rewards(birl.get_map_solution())
     map_policy = mdp_utils.get_optimal_policy(map_env)
-    policy_losses = []
-    for sample in samples:
-        learned_env = copy.deepcopy(env)
-        learned_env.set_rewards(sample)
-        Zi = mdp_utils.calculate_expected_value_difference(map_policy, learned_env, birl.value_iters, rn = random_normalization)
-        policy_losses.append(Zi)
+    if selection_option == "iid":
+        policy_losses = []
+        for sample in samples:
+            learned_env = copy.deepcopy(env)
+            learned_env.set_rewards(sample)
+            Zi = mdp_utils.calculate_expected_value_difference(map_policy, learned_env, birl.value_iters, rn = random_normalization)
+            policy_losses.append(Zi)
+        policy_losses.sort()
+    elif selection_option == "active":
+        state_metrics = np.array([[0 for _ in range(env.num_states)]])
+        policy_metrics = []
+        for sample in samples:
+            learned_env = copy.deepcopy(env)
+            learned_env.set_rewards(sample)
+            state_metric, policy_metric = mdp_utils.calculate_state_and_policy_metrics(map_policy, learned_env, birl.value_iters, "evd", "nevd", rn = random_normalization)
+            state_metrics = np.append(state_metrics, state_metric, axis = 0)
+            policy_metrics.append(policy_metric)
+        state_metrics = np.delete(state_metrics, 0, axis = 0)
+        policy_metrics.sort()
     N_burned = len(samples)
     k = math.ceil(N_burned * alpha + norm.ppf(1 - delta) * np.sqrt(N_burned*alpha*(1 - alpha)) - 0.5)
     if k >= N_burned:
         k = N_burned - 1
-    policy_losses.sort()
-    avar_bound = policy_losses[k]
+    if selection_option == "iid":
+        avar_bound = policy_losses[k]
+    elif selection_option == "active":
+        _, uncertain_state = mdp_utils.find_nonterminal_uncertainties(state_metrics, k, env, [d[0] for d in given_demos], "evd", False)
+        avar_bound = policy_metrics[k]
     end = time.time()
     print("Agent took {:02d}:{:02d}".format(int((end - start) // 60), int((end - start) % 60)))
     if avar_bound < threshold:
@@ -196,7 +212,10 @@ def update_action():
             return jsonify({"failed": True})
         else:
             print("More demos please")
-            return jsonify({"demo_suff": False})
+            if selection_option == "iid":
+                return jsonify({"demo_suff": False, "requested_state": None})
+            elif selection_option == "active":
+                return jsonify({"demo_suff": False, "requested_state": uncertain_state})
 
 @app.route("/end_simulation", methods=["POST"])
 def end_simulation():
