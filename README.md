@@ -17,6 +17,13 @@ git pull
 git checkout -b results-<any unique identifier you want>
 git push --set-upstream origin <your branch name>
 ```
+3. If on the off chance I needed to make edits to the `userstudy` branch, I/Daniel will notify you. To get the latest updates in that case, please do the following.
+```
+git checkout userstudy
+git pull
+git checkout <your branch name>
+git merge userstudy
+```
 
 ## How to Run
 The user study will be conducted via a Flask web app. We understand that not everyone will have the necessary libraries to run this, so we recommend installing and running in a conda environment. Here's how to set it up:
