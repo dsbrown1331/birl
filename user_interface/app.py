@@ -43,6 +43,7 @@ threshold = 0.1
 num_features = None
 
 env = None
+terminals = None
 true_optimal_policy = None
 goal_state = None
 given_demos = []
@@ -107,7 +108,7 @@ def start_simulation():
     return jsonify(response)
 
 def get_environment(gridworld = True, chosen_reward = None):
-    global env, goal_state, true_optimal_policy
+    global env, goal_state, true_optimal_policy, terminals
     if gridworld:
         goal_state = random.randint(0, GRID_SIZE**2 - 1)
         terminals = [goal_state]
@@ -188,7 +189,7 @@ def update_action():
     if selection_option == "iid":
         avar_bound = policy_losses[k]
     elif selection_option == "active":
-        _, uncertain_state = mdp_utils.find_nonterminal_uncertainties(state_metrics, k, env, [d[0] for d in given_demos], "evd", False)
+        _, uncertain_state = mdp_utils.find_nonterminal_uncertainties(state_metrics, k, env, [d[0] for d in given_demos], "evd", False, terminals)
         avar_bound = policy_metrics[k]
     end = time.time()
     print("Agent took {:02d}:{:02d}".format(int((end - start) // 60), int((end - start) % 60)))

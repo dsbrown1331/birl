@@ -219,7 +219,6 @@ function attachEventListenersToGridSquares() {
                         return response.json();
                     })
                     .then (function (data) {
-                        const selectionOption = document.getElementById('selection-option').value;
                         if (data.failed) {
                             displayFailedMessage();
                         } else {
@@ -248,14 +247,14 @@ function displayDemoRequest(stateIdx) {
 }
 
 function displayFailedMessage() {
-    statusUpdate.innerHTML = `<p>Unfortunately, the agent was not able to determine demonstration sufficiency. While this could be the agent's fault, you may want to keep your demonstrations even more consistent with one another and with the reward function.</p><p>Thank you for playing! Click End Simulation to end this session and start another round.</p>`
+    statusUpdate.innerHTML = `<p>Unfortunately, the agent was not able to determine demonstration sufficiency. While this could be the agent's fault, be sure to keep your demonstrations as consistent as possible with one another and with the reward function.</p><p>Thank you for playing! Click End Simulation to end this session and start another round.</p>`
 }
 
 function displaySufficiencyMessage(policy, goal_state) {
     console.log("Called");
     statusUpdate.innerHTML = `
         <p>The agent has determined demonstration sufficiency! Here is the policy it learned.</p>
-        <p>On a scale of 1 to 10, how well did the agent's learned policy match your intended policy or reward function?</p>
+        <p>On a scale of 1 to 10, how well did the agent's learned policy match your intended policy or reward function? <strong>Please answer this, otherwise your experiment result will not be saved.</strong></p>
         <select id="user-evaluation">
             <option value="1">1</option>
             <option value="2">2</option>

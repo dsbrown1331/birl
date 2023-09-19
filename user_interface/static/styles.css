@@ -35,7 +35,7 @@ body {
     font-family: Arial, sans-serif;
     text-align: left;
     margin: 5px 100px 40px 100px;
-    padding: 20px 120px 40px 120px;
+    padding: 10px 120px 40px 120px;
 }
 
 #grid-container, #status-update {
