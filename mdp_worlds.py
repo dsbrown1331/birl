@@ -29,7 +29,7 @@ def random_gridworld(rows, columns):
     return random_mdp
 
 
-def random_feature_mdp(rows, columns, num_features, reference_world = None, terminals = [], goal = False, chosen_reward = None):
+def random_feature_mdp(rows, columns, num_features, reference_world = None, terminals = [], goal = False, chosen_reward = None, user_study = False):
     """
     e.g. if each cell in a 3x3 non-terminal grid world has a color: red or white, and red states have as reward of -1
     and white states have a reward of +1, then this could be created by having
@@ -59,9 +59,9 @@ def random_feature_mdp(rows, columns, num_features, reference_world = None, term
         if goal:
             for terminal in terminals:
                 state_features[terminal] = features[num_features]
-        mdp = FeatureMDP(rows, columns, 4, terminals, feature_weights, state_features, gamma = 0.95, chosen_reward = chosen_reward)
+        mdp = FeatureMDP(rows, columns, 4, terminals, feature_weights, state_features, gamma = 0.95, chosen_reward = chosen_reward, user_study = user_study)
     else:
-        mdp = FeatureMDP(rows, columns, 4, terminals, reference_world.feature_weights, reference_world.state_features, gamma = 0.95)
+        mdp = FeatureMDP(rows, columns, 4, terminals, reference_world.feature_weights, reference_world.state_features, gamma = 0.95, user_study = user_study)
     return mdp
 
 

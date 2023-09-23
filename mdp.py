@@ -256,18 +256,19 @@ class FeatureMDP(MDP):
 
     """
         
-    def __init__(self, num_rows, num_cols, num_actions, terminals, feature_weights, state_features, gamma, noise = 0.0, driving = False, chosen_reward = None):
+    def __init__(self, num_rows, num_cols, num_actions, terminals, feature_weights, state_features, gamma, noise = 0.0, driving = False, chosen_reward = None, user_study = False):
 
         assert(num_rows * num_cols == len(state_features))
         assert(len(state_features[0]) == len(feature_weights))
 
-        #if we have a terminal state, that should be the goal, so the reward should be higher
-        if len(terminals) != 0:
+        #if we have a terminal state, that should be the goal, so the reward should be higher (modify for user study)
+        if user_study:
             if chosen_reward is None:
                 if len(feature_weights) == 1:
                     feature_weights = np.append(feature_weights, abs(np.random.uniform(1.5, 2.5) * feature_weights[0]))
                 else:
-                    feature_weights = np.append(feature_weights, [np.max(feature_weights) + np.std(feature_weights)])
+                    feature_weights = np.array([-fw if fw > 0 else fw for fw in feature_weights])
+                    feature_weights = np.append(feature_weights, [abs(np.max(feature_weights)) + np.std(feature_weights)])
             else:
                 feature_weights = chosen_reward
             feature_weights /= np.linalg.norm(feature_weights)

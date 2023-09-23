@@ -82,6 +82,7 @@ class BIRL:
         all_lls = [] # all the likelihoods
 
         self.chain = np.zeros((num_samples, self.num_mcmc_dims)) #store rewards found via BIRL here, preallocate for speed
+        self.likelihoods = [0 for _ in range(num_samples)]
         cur_sol = self.initial_solution() #initial guess for MCMC
         cur_ll = self.calc_ll(cur_sol)  # log likelihood
         #keep track of MAP loglikelihood and solution
@@ -97,6 +98,7 @@ class BIRL:
             if prop_ll > cur_ll:
                 # accept
                 self.chain[i, :] = prop_sol
+                self.likelihoods[i] = prop_ll
                 accept_cnt += 1
                 if adaptive:
                     accept_cnt_list.append(1)
@@ -109,6 +111,7 @@ class BIRL:
                 # accept with prob exp(prop_ll - cur_ll)
                 if np.random.rand() < np.exp(prop_ll - cur_ll):
                     self.chain[i, :] = prop_sol
+                    self.likelihoods[i] = prop_ll
                     accept_cnt += 1
                     if adaptive:
                         accept_cnt_list.append(1)
@@ -117,6 +120,7 @@ class BIRL:
                 else:
                     # reject
                     self.chain[i, :] = cur_sol
+                    self.likelihoods[i] = cur_ll
                     if adaptive:
                         accept_cnt_list.append(0)
             # Check for step size adaptation
@@ -128,34 +132,6 @@ class BIRL:
                 accept_prob_list.append(accept_cnt / len(self.chain))
         self.accept_rate = accept_cnt / num_samples
         self.map_sol = map_sol
-
-    def generate_samples_with_mcmc(self, samples, stepsize, normalize=True):
-        num_samples = samples
-        self.chain = np.zeros((num_samples, self.num_mcmc_dims))
-        curr_sol = self.initial_solution()
-        curr_ll = self.calc_ll(curr_sol)
-        map_ll, map_sol = curr_ll, curr_sol
-        generated_samples = []
-        for i in range(num_samples):
-            prop_sol = self.generate_proposal(curr_sol, stepsize, normalize)
-            prop_ll = self.calc_ll(prop_sol)
-            if prop_ll > curr_ll:
-                self.chain[i, :] = prop_sol
-                curr_sol = prop_sol
-                curr_ll = prop_ll
-                if prop_ll > map_ll:
-                    map_ll = prop_ll
-                    map_sol = prop_sol
-            else:
-                if np.random.rand() < np.exp(prop_ll - curr_ll):
-                    self.chain[i, :] = prop_sol
-                    curr_sol = prop_sol
-                    curr_ll = prop_ll
-                else:
-                    self.chain[i, :] = curr_sol
-            generated_samples.append(curr_sol)
-        self.map_sol = map_sol
-        return generated_samples
         
 
     def get_map_solution(self):

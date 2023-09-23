@@ -2,12 +2,13 @@ const startForm = document.getElementById("start-form"); // Get the form element
 const gridContainer = document.getElementById('grid-container');
 const endButton = document.getElementById('end-button'); // Get the end button
 const statusUpdate = document.getElementById("status-update");
+const numFeatures = 4; // Just for gridworld
+var envOption = "";
 const featureColor = {
     1: '#D42A2F',  // Red
     2: '#2778B2',  // Blue
     3: '#339F34',  // Green
-    4: '#946BBB',  // Purple
-    5: '#FFFFFF'   // Goal (White)
+    4: '#FFFFFF'   // Goal (White)
 };
 const roadColor = {
     "lane": '#666666',
@@ -15,17 +16,14 @@ const roadColor = {
 };
 const COLORLABEL = ['Red', 'Blue', 'Green', 'Purple', 'Goal'];
 const ROADLABEL = ['Left lane', 'Middle lane', 'Right lane', 'Collision with car', 'Crash into dirt'];
-var firstSelection = true;
-var requestedState = null;
-var funFact = "Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible. Honey's low water content and acidic pH create an environment that is inhospitable to most bacteria and microorganisms, allowing it to remain preserved for incredibly long periods of time.";
+var funFact = "";
 
 startForm.addEventListener('submit', (event) => {
     event.preventDefault(); // Prevent the form submission
-    const teachingOption = document.getElementById('teaching-option').value;
-    const rewardOption = document.getElementById('reward-option').value;
-    const featuresOption = document.getElementById('features-option').value;
-    if (teachingOption === "freeform" && (rewardOption === "" || rewardOption.split(",").length !== Number(featuresOption))) {
-        alert("Please enter in your reward function as comma-separated numbers, one for each feature.")
+    const simulationOption = document.getElementById("simulation-option").value;
+    const rewardOption = document.getElementById("reward-option").value;
+    if ((simulationOption == "0B" || Number(simulationOption) % 2 === 0) && (rewardOption === "" || rewardOption.split(",").length !== 5)) {
+        alert("Please enter in your reward function as comma-separated numbers, one for each feature in order.")
     } else {
         fetch('/start', {
             method: 'POST',
@@ -33,11 +31,7 @@ startForm.addEventListener('submit', (event) => {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: new URLSearchParams({
-                'environment_option': document.getElementById('environment-option').value,
-                'teaching_option': document.getElementById('teaching-option').value,
-                'selection_option': document.getElementById('selection-option').value,
-                'threshold_option': document.getElementById('threshold-option').value,
-                'features_option': document.getElementById('features-option').value,
+                'simulation_option': document.getElementById('simulation-option').value,
                 'reward_option': document.getElementById('reward-option').value
             })
         })
@@ -48,25 +42,21 @@ startForm.addEventListener('submit', (event) => {
             return response.json();
         })
         .then(function (data) {
+            funFact = data.fun_fact;
             document.getElementById("user-options").textContent = data.user_options;
-            const envOption = document.getElementById('environment-option').value;
+            envOption = data.environment;
             if (envOption === "gridworld") {
                 const grid = data.grid;
                 const gridContainer = document.getElementById('grid-container');
                 const gridDiv = gridContainer.querySelector('.grid');
-                const num_features = parseInt(document.getElementById('features-option').value);
                 gridDiv.innerHTML = '';
                 var squareIndex = 0;
                 grid.forEach((row) => {
                     row.forEach((feature) => {
                         const square = document.createElement('div');
                         square.className = 'square';
-                        if (feature === num_features) {
-                            square.style.backgroundColor = featureColor[5];    
-                        } else {
-                            square.style.backgroundColor = featureColor[feature];
-                        }
-                        if (feature === num_features) {
+                        square.style.backgroundColor = featureColor[feature];
+                        if (feature === numFeatures) {
                             const star = document.createElement('div');
                             star.className = 'star';
                             star.innerHTML = '&starf;';
@@ -115,8 +105,7 @@ startForm.addEventListener('submit', (event) => {
             endButton.style.display = 'block';
             var rewardFunctionString = "";
             if (envOption === "gridworld") {
-                const num_features = parseInt(document.getElementById('features-option').value);
-                const colorLabels = COLORLABEL.slice(0, num_features - 1).concat(COLORLABEL.slice(-1));
+                const colorLabels = COLORLABEL.slice(0, numFeatures - 1).concat(COLORLABEL.slice(-1));
                 rewardFunctionString = data.reward_function.map((value, index) => {
                     const colorLabel = colorLabels[index];
                     return `<span class="${colorLabel.toLowerCase()}-text">${colorLabel}: ${value}</span>`;
@@ -127,11 +116,10 @@ startForm.addEventListener('submit', (event) => {
                     return `<span class="${colorLabel.split(" ").join("-").toLowerCase()}-text">${colorLabel}: ${value}</span>`;
                 }).join(', <br>');
             }
-            const teachingOption = document.getElementById('teaching-option').value;
-            var normalizationString = teachingOption === "freeform" ? "(normalized from your submission) " : "";
+            var normalizationString = envOption === "driving" ? " (normalized from your submission)" : "";
     
             // Update the <span> element with the class
-            document.getElementById("reward-function-vector").innerHTML = "Here is the reward function " + normalizationString + ":<br>" + "[" + rewardFunctionString + "]" + "<br>Click on a state to select it for demonstration, then enter your action.<br>Avoid states with lower reward values and go through states with higher reward values.<br><strong>You cannot undo demos</strong> so please be careful with your entries and only type in letters that are prompted.<br><strong>Please wait for the agent to finish calculating before submitting additional demos.</strong>";
+            document.getElementById("reward-function-vector").innerHTML = "Here is the reward function" + normalizationString + ":<br>" + "[" + rewardFunctionString + "]" + "<br>Click on a state to select it for demonstration, then enter your action.<br>Avoid states with lower reward values and go through states with higher reward values.<br><strong>You cannot undo demos</strong> so please be careful with your entries.<br><strong>Please wait for the agent to finish calculating before submitting additional demos.</strong><br><strong>If you want to stop in the middle of a simulation, just end and restart the app.</strong>";
         })
         .catch(function (error) {
             console.error("There was an error with /start:", error);
@@ -170,28 +158,38 @@ endButton.addEventListener("click", () => {
     endButton.style.display = 'none';
 });
 
+function promptAction(envOption) {
+    var action = "";
+    if (envOption === "gridworld") {
+        while (action !== "U" && action !== "D" && action !== "L" && action !== "R") {
+            action = prompt("Choose an action (U, D, L, R)");
+            if (action === null) {
+                break;
+            }
+        }
+    } else if (envOption === "driving") {
+        while (action !== "S" && action !== "L" && action !== "R") {
+            action = prompt("Choose an action (S, L, R)");
+            if (action === null) {
+                break;
+            }
+        }
+    }
+    return action;
+}
+
 function attachEventListenersToGridSquares() {
     const squares = document.querySelectorAll('.square');
     squares.forEach((square, index) => {
         square.addEventListener('click', () => {
             const starSquare = document.querySelector('.square .star');
-            const envOption = document.getElementById('environment-option').value;
-            const selectionOption = document.getElementById('selection-option').value;
             if (starSquare && starSquare.parentElement === square) {
                 alert("Cannot give demonstrations for the goal state.");
-            } else if (selectionOption === "active" && !firstSelection && index !== requestedState) {
-                alert("Must give demonstration in the requested state.")
             } else {
-                var action = null;
-                if (envOption === "gridworld") {
-                    action = prompt("Choose an action (U, D, L, R)");
-                } else if (envOption === "driving") {
-                    action = prompt("Choose an action (S, L, R)");
-                }
+                var action = promptAction(envOption);
                 if (action !== null && action !== '') {
                     const actionDiv = document.createElement('div');
                     actionDiv.classList.add('action');
-                    firstSelection = false;
                     // Set arrow symbols based on the user-selected action
                     switch (action.toUpperCase()) {
                         case 'U':
@@ -210,6 +208,7 @@ function attachEventListenersToGridSquares() {
                         default:
                             actionDiv.textContent = action;
                     }
+                    actionDiv.classList.add('arrow-icon');
                     square.appendChild(actionDiv);
                     statusUpdate.innerHTML = `<p>The agent is thinking...<br>Meanwhile, here's a fun fact for you: ${funFact}</p>`;
 
@@ -237,9 +236,8 @@ function attachEventListenersToGridSquares() {
                             if (data.demo_suff) {
                                 displaySufficiencyMessage(data.map_pi, data.goal);
                             } else {
-                                requestedState = data.requested_state;
                                 funFact = data.fun_fact;
-                                displayDemoRequest(data.requested_state);
+                                displayDemoRequest();
                             }
                         }
                     })
@@ -252,12 +250,8 @@ function attachEventListenersToGridSquares() {
     });
 }
 
-function displayDemoRequest(stateIdx) {
-    if (stateIdx !== null) {
-        statusUpdate.innerHTML = `<p>The agent would like another demonstration <strong>for state ${stateIdx}</strong>.</p>`;
-    } else {
-        statusUpdate.innerHTML = `<p>The agent would like another demonstration.</p>`;
-    }
+function displayDemoRequest() {
+    statusUpdate.innerHTML = `<p>The agent would like another demonstration.</p>`;
 }
 
 function displayFailedMessage() {
@@ -266,19 +260,14 @@ function displayFailedMessage() {
 
 function displaySufficiencyMessage(policy, goal_state) {
     statusUpdate.innerHTML = `
-        <p>The agent has determined demonstration sufficiency! Here is the policy it learned.</p>
-        <p>On a scale of 1 to 10, how well did the agent's learned policy match your intended policy or reward function? <strong>Please answer this, otherwise your experiment result will not be saved.</strong></p>
+        <p>&#x1F389; The agent has determined demonstration sufficiency! &#x1F389; Here is the policy it learned.<br><span style="font-size: smaller;">In case any of the arrows don't render, you can check the terminal output.</span></p>
+        <p>On a scale of 1 (worst) to 5 (best), how well did the agent's learned policy match your intended policy or reward function? <strong>Please answer this, otherwise your experiment result will not be saved.</strong></p>
         <select id="user-evaluation">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
         </select>
         <button id="submit-evaluation">Submit Evaluation</button>
         <p></p>
@@ -287,11 +276,10 @@ function displaySufficiencyMessage(policy, goal_state) {
     const squares = document.querySelectorAll('.square');
     squares.forEach((square, index) => {
         const actionDiv = square.querySelector('.action');
-        const envOption = document.getElementById('environment-option').value;
         if (actionDiv) {
             square.removeChild(actionDiv);
         }
-        if (index !== goal_state) {
+        if (envOption === "driving" || index !== goal_state) {
             const arrowDiv = document.createElement('div');
             arrowDiv.classList.add('action');
             arrowDiv.style.color = 'white';
@@ -299,7 +287,7 @@ function displaySufficiencyMessage(policy, goal_state) {
             const action = policy[index];
             switch (action) {
                 case 0:
-                    arrowDiv.textContent = '\u2191';
+                    arrowDiv.innerHTML = '\u2191';
                     break;
                 case 1:
                     arrowDiv.textContent = envOption === "gridworld" ? '\u2193' : '\u2196';
@@ -310,9 +298,8 @@ function displaySufficiencyMessage(policy, goal_state) {
                 case 3:
                     arrowDiv.textContent = '\u2192';
                     break;
-                default:
-                    // Handle invalid action if needed
             }
+            arrowDiv.classList.add('arrow-icon');
             square.appendChild(arrowDiv);
         }
     });
@@ -322,8 +309,6 @@ function displaySufficiencyMessage(policy, goal_state) {
     const submitEvaluationButton = document.getElementById('submit-evaluation');
     submitEvaluationButton.addEventListener('click', () => {
         const userResponse = document.getElementById('user-evaluation').value;
-        
-        // Send the user's response to the server for storage
         fetch('/store_result', {
             method: 'POST',
             headers: {
