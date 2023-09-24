@@ -31,7 +31,7 @@ conda activate demo_sufficiency
 ```
 pip install -r requirements.txt
 ```
-5. Run the app. It should start up a development server, which you can access by opening a browser tab and going to `localhost:5000`. If the commands below introduce import errors, append the path to the `birl` directory to your `sys.path`, for example, `/Users/tutrinh/birl/`. You can do this inside `app.py`.
+5. Go into the `user_interface` folder and run the app. It should start up a development server, which you can access by opening a browser tab and going to `localhost:5000`. If the commands below introduce import errors, append the path to the `birl` directory to your `sys.path`, for example, `sys.path.append("/Users/tutrinh/birl/")`. You can do this inside `app.py`, under the `import sys` statement.
 ```
 cd user_interface
 python3 app.py

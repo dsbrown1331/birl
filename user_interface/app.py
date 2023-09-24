@@ -230,9 +230,9 @@ def update_action():
             patience_tracker = 0
             prev_map_policy = list(map_policy)
         time.sleep(SLEEP_TIME)  # to make each iteration similar in time
-    elif methodology == "held_out" and not skip:
+    elif methodology == "held_out":
         if len(held_out_set) >= 3:
-            num_optimal_actions = mdp_utils.calculate_number_of_optimal_actions(env, map_policy, held_out_set)
+            num_optimal_actions = mdp_utils.calculate_number_of_optimal_actions(map_env, map_policy, [s for s, _ in held_out_set])
             if num_optimal_actions == len(held_out_set):
                 success = True
     end = time.time()

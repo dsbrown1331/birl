@@ -9,7 +9,7 @@
 <body>
     <h1 align="center">Demonstration Sufficiency User Study</h1>
     <h2>Introduction</h2>
-    <p>Welcome to the demonstration sufficiency user study. You will be teaching an AI agent how to navigate around an environment. You will be giving it demonstrations of what action to take in each cell, one demo at a time. After each demonstration, the agent will attempt to calculate whether or not it has received enough demonstrations in order to successfully complete the task. If it has, it will notify you and show you its learned policy, and you will be able to verify the policy yourself to see if it is satisfactory. Please keep in mind that the agent may take up to ~1 minute between demonstrations to calculate.</p>
+    <p>Welcome to the demonstration sufficiency user study. You will be teaching an AI agent how to navigate around an environment. You will be giving it demonstrations of what action to take in different cells, one demo at a time. After each demonstration, the agent will attempt to calculate whether or not it has received enough demonstrations in order to successfully complete the task. If it has, it will notify you and show you its learned policy, and you will be able to verify the policy yourself to see if it is satisfactory. Please keep in mind that the agent may take up to ~1 minute between demonstrations to calculate.</p>
     <h2>Configurations</h2>
     <p>There are two environment types: <strong>gridworld</strong> and <strong>driving</strong>.</p>
     <ul>
@@ -21,9 +21,10 @@
     <p>You will be running six simulations, numbered 1 through 6. Each one will be a different configuration of the above environments, so it's imperative that you do all six. We highly recommend that you also do the two practice rounds, numbered 0A and 0B, before doing the real simulations. Use the dropdown menu to choose the number each time you start.</p>
     <p>Here are some example reward functions you could design for the driving environment. Note that the feature order in which you should write your reward function is <strong>always</strong> left lane, middle lane, right lane, collision with car, and crashing into dirt. To clarify, the left/middle/right lane features are only present when the cell is clear; if there is another car in the cell, the feature will be collision with car.</p>
     <ul>
-        <li>Say you want your car to drive safely: it should drive towards the right whenever possible and avoid any accidents, especially with other cars on the road. Your reward function could then be something like `1, 2, 3, -10, -5`, which means the left lane is worth 1, the middle lane is worth 2, the right lane is worth 3, colliding with another car is worth -10, and crashing into the dirt patch is worth -5.</li>
-        <li>Say you want your car to drive as nastily as possible: it should aim to cause as many accidents as it can. Your reward function could then be something like `-1, -1, -1, 100, 100`. This would mean that driving in any clear cell is worth -1, while colliding with another car and crashing into the dirt patch are worth 100 each.</li>
+        <li>Say you want your car to drive safely: it should drive towards the right whenever possible and avoid any accidents, especially with other cars on the road. Your reward function could then be something like `1, 2, 3, -10, -5`, which means the left lane is worth 1, the middle lane is worth 2, the right lane is worth 3, colliding with another car is worth -10, and crashing into the dirt patch is worth -5. If you want to change your car's lane preference to be the left while still avoiding accidents, your reward function could be something like `3, 1, 1, -10, -5`.</li>
+        <li>Say you want to play bumper cars and your sole mission is to cause as many accidents as you can. Your reward function could then be something like `0, 0, 0, 1, 0`. This would mean that driving in any clear cell is worth 0, as is driving in a dirt patch, while colliding with another car is worth 1. Or, say you want to drive off-road as much as possible. Then your reward function could be something like `-1, -1, -1, -1, 5`.</li>
     </ul>
+    <p>No matter what reward function you design, please be sure to keep your demonstrations as consistent as possible with each other and with the reward function.</p>
 
     <br>
 
@@ -31,17 +32,17 @@
         <p>Now, please select from the dropdown menu below and click Start to begin the simulation.</p>
         <label for="simulation-option">Select Simulation Number:</label>
         <select id="simulation-option" name="simulation_option">
-            <option value="0A" selected>0A</option>  <!-- practice (gridworld, ours) -->
-            <option value="0B">0B</option> <!-- practice (driving, ours) -->
-            <option value="1">1</option> <!-- gridworld, MAP -->
-            <option value="2">2</option> <!-- driving, held_out -->
-            <option value="3">3</option> <!-- gridworld, ours -->
-            <option value="4">4</option> <!-- driving, ours -->
-            <option value="5">5</option> <!-- gridworld, held_out -->
-            <option value="6">6</option> <!-- driving, MAP -->
+            <option value="0A" selected>0A (practice gridworld)</option>  <!-- practice (gridworld, ours) -->
+            <option value="0B">0B (practice driving)</option> <!-- practice (driving, ours) -->
+            <option value="1">1 (gridworld)</option> <!-- gridworld, MAP -->
+            <option value="2">2 (driving)</option> <!-- driving, held_out -->
+            <option value="3">3 (gridworld)</option> <!-- gridworld, ours -->
+            <option value="4">4 (driving)</option> <!-- driving, ours -->
+            <option value="5">5 (gridworld)</option> <!-- gridworld, held_out -->
+            <option value="6">6 (driving)</option> <!-- driving, MAP -->
         </select>
         <br>
-        <label for="reward-option">(OPTIONS 0B, 2, 4, OR 6 ONLY) Your intended reward function, as comma-separated numbers (e.g. `0.1, 0.2, 0.3, 0.4, 0.5`)</label>
+        <label for="reward-option">[FOR DRIVING (0B, 2, 4, 6) ONLY] Your intended reward function, as comma-separated numbers (e.g. `0.1, 0.2, 0.3, 0.4, 0.5`)</label>
         <input type="text" id="reward-option" name="reward_option">
         <br>
         <form method="POST" action="/start" id="start-form">

@@ -50,7 +50,7 @@ startForm.addEventListener('submit', (event) => {
                 const gridContainer = document.getElementById('grid-container');
                 const gridDiv = gridContainer.querySelector('.grid');
                 gridDiv.innerHTML = '';
-                var squareIndex = 0;
+                // var squareIndex = 0;
                 grid.forEach((row) => {
                     row.forEach((feature) => {
                         const square = document.createElement('div');
@@ -62,12 +62,12 @@ startForm.addEventListener('submit', (event) => {
                             star.innerHTML = '&starf;';
                             square.appendChild(star);
                         }
-                        const indexNumber = document.createElement('div');
-                        indexNumber.className = 'index-number';
-                        indexNumber.textContent = squareIndex;
-                        square.appendChild(indexNumber);
+                        // const indexNumber = document.createElement('div');
+                        // indexNumber.className = 'index-number';
+                        // indexNumber.textContent = squareIndex;
+                        // square.appendChild(indexNumber);
                         gridDiv.appendChild(square);
-                        squareIndex += 1;
+                        // squareIndex += 1;
                     });
                 });
             } else if (envOption === "driving") {
@@ -75,7 +75,7 @@ startForm.addEventListener('submit', (event) => {
                 const gridContainer = document.getElementById('grid-container');
                 const gridDiv = gridContainer.querySelector('.grid');
                 gridDiv.innerHTML = '';
-                var squareIndex = 0;
+                // var squareIndex = 0;
                 grid.forEach((row) => {
                     row.forEach((feature) => {
                         const square = document.createElement('div');
@@ -91,12 +91,12 @@ startForm.addEventListener('submit', (event) => {
                             motorist.innerHTML = '&#x1F697;';
                             square.appendChild(motorist);
                         }
-                        const indexNumber = document.createElement('div');
-                        indexNumber.className = 'index-number';
-                        indexNumber.textContent = squareIndex;
-                        square.appendChild(indexNumber);
+                        // const indexNumber = document.createElement('div');
+                        // indexNumber.className = 'index-number';
+                        // indexNumber.textContent = squareIndex;
+                        // square.appendChild(indexNumber);
                         gridDiv.appendChild(square);
-                        squareIndex += 1;
+                        // squareIndex += 1;
                     });
                 });
             }
