@@ -25,7 +25,7 @@ def generate_random_policies(env = "lavaworld"):
         # B: same as above, but don't even sort the points. 0.024790507333516485
         # C: generate random waypoints starting from left side and ending at (1, 1), but ensuring equal spacing. 9.810941615629709
         # D: RRT. 
-        rgt = "D"
+        rgt = "A"
         for start_pos in starting_positions:
             rand_policies_start_pos = []
             if rgt == "A":
