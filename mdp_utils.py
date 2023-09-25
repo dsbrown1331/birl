@@ -520,7 +520,6 @@ def calculate_number_of_optimal_actions(env, pi, states, epsilon=0.0001):
         q_values = calculate_q_values(env, epsilon=epsilon)
         for state in states:
             best_actions = arg_max_set(q_values[state], epsilon)
-            print("State", state, "Policy", pi[state], "Best actions", best_actions)
             if pi[state] in best_actions:
                 optimal += 1
     else:  # a list of demos, to compare exact matching actions

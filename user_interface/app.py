@@ -1,4 +1,5 @@
 import sys
+sys.path.append("/Users/tutrinh/Work/InterACT/birl/")
 import random
 from flask import Flask, render_template, request, jsonify
 import mdp_utils
@@ -57,7 +58,7 @@ held_out_tracker = 1
 beta = 10
 alpha = 0.95
 delta = 0.05
-gamma = 0.95
+gamma = 0.999
 N = 500
 step_stdev = 0.5
 burn_rate = 0
@@ -102,7 +103,7 @@ def start_simulation():
     elif simulation_option == "0B" or simulation_option == "4":
         teaching_option = "freeform"
         environment_option = "driving"
-        methodology == "ours"
+        methodology = "ours"
     elif simulation_option == "1":
         teaching_option = "guided"
         environment_option = "gridworld"
@@ -118,7 +119,7 @@ def start_simulation():
     elif simulation_option == "6":
         teaching_option = "freeform"
         environment_option = "driving"
-        methodology == "MAP"
+        methodology = "MAP"
     if environment_option == "gridworld":
         grid, reward = get_environment(gridworld = True, chosen_reward = None)
     elif environment_option == "driving":
@@ -158,7 +159,7 @@ def get_environment(gridworld = True, chosen_reward = None):
         readable_grid.append(readable_row)
         reward_function = [round(float(w), 2) for w in env.feature_weights]
     else:
-        env = mdp_worlds.random_driving_simulator(GRID_SIZE, reward_function = "safe", chosen_reward = chosen_reward)
+        env = mdp_worlds.random_driving_simulator(GRID_SIZE, chosen_reward = chosen_reward)
         true_optimal_policy = mdp_utils.get_optimal_policy(env)
         readable_grid = []
         for i in range(GRID_SIZE * 5):
@@ -230,7 +231,7 @@ def update_action():
             patience_tracker = 0
             prev_map_policy = list(map_policy)
         time.sleep(SLEEP_TIME)  # to make each iteration similar in time
-    elif methodology == "held_out":
+    elif methodology == "held_out" and not skip:
         if len(held_out_set) >= 3:
             num_optimal_actions = mdp_utils.calculate_number_of_optimal_actions(map_env, map_policy, [s for s, _ in held_out_set])
             if num_optimal_actions == len(held_out_set):
@@ -254,7 +255,7 @@ def update_action():
         return jsonify({"demo_suff": True, "map_pi": map_policy, "goal": goal_state})
     else:
         if (environment_option == "driving" and (len(given_demos) + len(held_out_set)) == GRID_SIZE * GRID_SIZE) \
-        or ((len(given_demos) + len(held_out_set)) == GRID_SIZE * GRID_SIZE - 1):
+        or (environment_option == "gridworld" and (len(given_demos) + len(held_out_set)) == GRID_SIZE * GRID_SIZE - 1):
             if methodology == "ours":
                 final_bound = avar_bound
             ground_truth_nevd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
@@ -273,9 +274,26 @@ def update_action():
 @app.route("/end_simulation", methods=["POST"])
 def end_simulation():
     reset_grid()
-    global given_demos, teaching_option
+    global given_demos, teaching_option, methodology, environment_option, env, terminals, true_optimal_policy, goal_state, prev_map_policy, patience_tracker, held_out_set, held_out_tracker, final_bound, ground_truth_nevd, demo_suff, policy_optimality, policy_accuracy, confusion_matrix, simulation_result
     given_demos = []
     teaching_option = None
+    methodology = None
+    environment_option = None
+    env = None
+    terminals = []
+    true_optimal_policy = None
+    goal_state = None
+    prev_map_policy = None
+    patience_tracker = 0
+    held_out_set = []
+    held_out_tracker = 1
+    final_bound = None
+    ground_truth_nevd = None
+    demo_suff = False
+    policy_optimality = None
+    policy_accuracy = None
+    confusion_matrix = [[0, 0], [0, 0]]
+    simulation_result = {}
     return "Simulation ended and data reset"
 
 @app.route("/store_result", methods=["POST"])
