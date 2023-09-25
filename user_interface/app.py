@@ -55,7 +55,7 @@ patience = 3
 patience_tracker = 0
 held_out_set = []
 held_out_tracker = 1
-beta = 10
+beta = 20
 alpha = 0.95
 delta = 0.05
 gamma = 0.999
@@ -240,14 +240,14 @@ def update_action():
     print("Agent took {:02d}:{:02d}".format(int((end - start) // 60), int((end - start) % 60)))
     if success:
         demo_suff = True
-        if methodology == "ours":
-            final_bound = avar_bound
         ground_truth_nevd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = 
         random_normalization)
-        if ground_truth_nevd < threshold:
-            confusion_matrix[0][0] += 1
-        else:
-            confusion_matrix[0][1] += 1
+        if methodology == "ours":
+            final_bound = avar_bound
+            if ground_truth_nevd < threshold:
+                confusion_matrix[0][0] += 1
+            else:
+                confusion_matrix[0][1] += 1
         policy_optimality = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
         policy_accuracy = mdp_utils.calculate_policy_accuracy(true_optimal_policy, map_policy)
         print("Success!")
@@ -256,19 +256,25 @@ def update_action():
     else:
         if (environment_option == "driving" and (len(given_demos) + len(held_out_set)) == GRID_SIZE * GRID_SIZE) \
         or (environment_option == "gridworld" and (len(given_demos) + len(held_out_set)) == GRID_SIZE * GRID_SIZE - 1):
+            ground_truth_nevd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
             if methodology == "ours":
                 final_bound = avar_bound
-            ground_truth_nevd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
-            if ground_truth_nevd < threshold:
-                confusion_matrix[1][0] += 1
-            else:
-                confusion_matrix[1][1] += 1
+                if ground_truth_nevd < threshold:
+                    confusion_matrix[1][0] += 1
+                else:
+                    confusion_matrix[1][1] += 1
             policy_optimality = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
             policy_accuracy = mdp_utils.calculate_policy_accuracy(true_optimal_policy, map_policy)
             store_result(True)
             return jsonify({"failed": True})
         else:
             print("More demos please")
+            if methodology == "ours":
+                ground_truth_nevd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
+                if ground_truth_nevd < threshold:
+                    confusion_matrix[1][0] += 1
+                else:
+                    confusion_matrix[1][1] += 1
             return jsonify({"demo_suff": False, "fun_fact": fun_facts[np.random.randint(0, len(fun_facts))]})
 
 @app.route("/end_simulation", methods=["POST"])
