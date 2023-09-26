@@ -295,8 +295,6 @@ def calculate_percent_improvement(test_env, eval_env, baseline_pis, epsilon = 0.
         V_base += trajreward(baseline_pis[i], test_env.feature_weights, test_env.lava, traj_length) / num_start_pos
         eval_policy = get_optimal_policy(eval_env.feature_weights, eval_env.lava, start_pos = starting_positions[i])
         V_eval += trajreward(eval_policy, test_env.feature_weights, test_env.lava, traj_length) / num_start_pos
-    print("V_base is", V_base)
-    print("V_eval is", V_eval)
     improvement = (V_base - V_eval) / (np.abs(V_base) + epsilon)
     return improvement  # keep as percentage
 
