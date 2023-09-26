@@ -25,7 +25,7 @@ def generate_random_policies(env = "lavaworld"):
         # B: same as above, but don't even sort the points. 0.024790507333516485
         # C: generate random waypoints starting from left side and ending at (1, 1), but ensuring equal spacing. 9.810941615629709
         # D: RRT. 
-        rgt = "A"
+        rgt = "D"
         for start_pos in starting_positions:
             rand_policies_start_pos = []
             if rgt == "A":
@@ -50,7 +50,7 @@ def generate_random_policies(env = "lavaworld"):
                     return math.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)
                 def generate_random_waypoint(curr_pos, end_pos, num_waypoints, current_index):
                     d = distance(curr_pos, end_pos) / (num_waypoints - current_index - 1)
-                    angle_range_rad = math.radians(90)
+                    angle_range_rad = math.radians(270)
                     min_x, max_x = 0, 1  # define the boundaries of the unit square
                     min_y, max_y = 0, 1
                     angle = np.random.uniform(0, angle_range_rad)
