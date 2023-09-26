@@ -569,5 +569,5 @@ if __name__ == "__main__":
             for po in policy_optimalities[threshold]:
                 print(po)
             print("Accuracy")
-            print(sum(accuracies[threshold]) / num_worlds)
+            print(sum(accuracies[threshold]) / len(accuracies[threshold]))
             print("**************************************************")
