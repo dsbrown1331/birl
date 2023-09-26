@@ -10,7 +10,7 @@ random.seed(rseed)
 np.random.seed(rseed)
 
 # Lavaworld variables
-N = 6
+N = 50
 traj_length = 20
 num_start_pos = 5
 num_rand_policies = 5
