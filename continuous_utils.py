@@ -10,22 +10,21 @@ random.seed(rseed)
 np.random.seed(rseed)
 
 # Lavaworld variables
-N = 50
+N = 10
 traj_length = 20
 num_start_pos = 5
 num_rand_policies = 5
 starting_positions = np.random.uniform(0, 1, (num_start_pos, 2))
 rand_policies = []  # set of random policies for each starting position
-rewards = np.array([round(t, 1) for t in np.linspace(0, 1, N)])
+rewards = np.array([t for t in np.linspace(0, 1, N)])
 
-def generate_random_policies(env = "lavaworld"):
+def generate_random_policies(env = "lavaworld", rgt = "A"):
     if env == "lavaworld":
         ### Random geneneration types (RGT) ###
         # A: completely random; generate a bunch of points, ensuring ending at (1, 1), and sort by x-value. 0.048489625937646816
         # B: same as above, but don't even sort the points. 0.024790507333516485
         # C: generate random waypoints starting from left side and ending at (1, 1), but ensuring equal spacing. 9.810941615629709
-        # D: RRT. 
-        rgt = "A"
+        # D: RRT.
         for start_pos in starting_positions:
             rand_policies_start_pos = []
             if rgt == "A":
@@ -231,6 +230,8 @@ def calculate_policy_accuracy(env, map_env, baseline_pis = None, baseline = Fals
     # Baseline is a flag of if we are calculating the policy accuracy of a baseline policy
     n = traj_length * num_start_pos
     acc = 0
+    print(f"True env: theta = {env.feature_weights}, lava = {env.lava}")
+    print(f"MAP env: theta = {map_env.feature_weights}, lava = {map_env.lava}")
     for i in range(num_start_pos):
         start_pos = starting_positions[i]
         opt_pi = np.array(get_optimal_policy(env.feature_weights, env.lava, start_pos = start_pos))
@@ -295,7 +296,7 @@ def calculate_percent_improvement(test_env, eval_env, baseline_pis, epsilon = 0.
         V_base += trajreward(baseline_pis[i], test_env.feature_weights, test_env.lava, traj_length) / num_start_pos
         eval_policy = get_optimal_policy(eval_env.feature_weights, eval_env.lava, start_pos = starting_positions[i])
         V_eval += trajreward(eval_policy, test_env.feature_weights, test_env.lava, traj_length) / num_start_pos
-    improvement = (V_base - V_eval) / (np.abs(V_base) + epsilon)
+    improvement = (V_base - V_eval) / (np.abs(V_base) + epsilon)  # actually works because "trajreward" is actually a cost!
     return improvement  # keep as percentage
 
 def sample_l2_ball(k):

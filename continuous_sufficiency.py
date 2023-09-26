@@ -28,13 +28,13 @@ if __name__ == "__main__":
     num_worlds = 10
 
     # Experiment variables
-    envs = [continuous_utils.random_lavaworld() for _ in range(num_worlds)]
+    envs = [continuous_utils.random_lavaworld(tt = 1.0) for _ in range(num_worlds)]
     rewards = continuous_utils.rewards
     demos = [[] for _ in range(num_worlds)]
-    optimality_threshold = 0.96
+    optimality_threshold = 0.92
     max_demos = 25
     # if stopping_condition == "nevd":
-    continuous_utils.generate_random_policies()
+    continuous_utils.generate_random_policies(rgt = sys.argv[2])
 
     if stopping_condition == "nevd": # stop learning after passing nEVD threshold
         # Experiment setup
@@ -53,19 +53,13 @@ if __name__ == "__main__":
                 print("Ground truth theta:", env.feature_weights)
                 print("Lava is at", env.lava)
             policies = [continuous_utils.get_optimal_policy(theta, env.lava) for theta in rewards]
-            if debug:
-                print("The optimal policies start from:")
-                for p in range(len(policies)):
-                    print(rewards[p], ":", (policies[p][0][0], policies[p][0][1]))
             true_opt_policy = policies[np.where(rewards == env.feature_weights)[0][0]]
-            if debug:
-                print("This optimal policy starts from:", (true_opt_policy[0][0], true_opt_policy[0][1]))
             for M in range(max_demos): # number of demonstrations; we want good policy without needing to see all states
                 D = continuous_utils.generate_optimal_demo(env, generating_demo = True)
                 demos[i].append(D)
                 if debug:
-                    print("running BIRL with demos")
-                    print("demos", demos[i])
+                    print("running BIRL with additional demo starting from")
+                    print("demos", demos[i][-1][0])
                 birl = continuous_birl.CONT_BIRL(env, beta, rewards, policies) # create BIRL environment
                 # use MCMC to generate sequence of sampled rewards
                 birl.birl(demos[i])
@@ -73,15 +67,6 @@ if __name__ == "__main__":
                 map_env = copy.deepcopy(env)
                 map_env.set_rewards(birl.get_map_solution())
                 map_policy = birl.get_map_policy()
-                #debugging to visualize the learned policy
-                if debug:
-                    print("environment")
-                    print("state features", env.state_features)
-                    print("feature weights", env.feature_weights)
-                    print("map policy")
-                    mdp_utils.visualize_policy(map_policy, env)
-                    policy_accuracy = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
-                    print("policy accuracy", policy_accuracy)
 
                 #run counterfactual policy loss calculations using eval policy
                 policy_losses = []
@@ -102,7 +87,6 @@ if __name__ == "__main__":
                     print("World", i+1, ",", M+1, "demos")
                     print([d[0] for d in demos[i]])
                     print("BOUND:", avar_bound)
-                    print("\n")
 
                 # evaluate thresholds
                 for t in range(len(thresholds)):
