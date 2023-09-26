@@ -13,7 +13,7 @@ if __name__ == "__main__":
     random.seed(rseed)
     np.random.seed(rseed)
 
-    stopping_condition = "nevd" # options: nevd, map_pi, baseline_pi
+    stopping_condition = sys.argv[1] # options: nevd, map_pi, baseline_pi
     debug = False # set to False to suppress terminal outputs
 
     # Hyperparameters
@@ -25,13 +25,14 @@ if __name__ == "__main__":
     beta = 10.0 # confidence for mcmc
     N = continuous_utils.N
     random_normalization = True # whether or not to normalize with random policy
-    num_worlds = 20
+    num_worlds = 10
 
     # Experiment variables
     envs = [continuous_utils.random_lavaworld() for _ in range(num_worlds)]
     rewards = continuous_utils.rewards
     demos = [[] for _ in range(num_worlds)]
-    max_demos = 5
+    max_demos = 10
+    # if stopping_condition == "nevd":
     continuous_utils.generate_random_policies()
 
     if stopping_condition == "nevd": # stop learning after passing nEVD threshold
@@ -112,7 +113,7 @@ if __name__ == "__main__":
                         map_evd = actual
                         # store threshold metrics
                         avg_bound_errors[threshold].append(avar_bound - map_evd)
-                        policy_optimalities[threshold].append(continuous_utils.calculate_policy_accuracy(env, map_policy, opt_pi = true_opt_policy))
+                        policy_optimalities[threshold].append(continuous_utils.calculate_policy_accuracy(env, map_env))
                         accuracies[threshold].append(avar_bound >= map_evd)
                         num_demos[threshold].append(M + 1)
                         if actual < threshold:
@@ -239,42 +240,33 @@ if __name__ == "__main__":
             env = envs[i]
             policies = [continuous_utils.get_optimal_policy(theta, env.lava) for theta in rewards]
             true_opt_policy = continuous_utils.get_optimal_policy(env.feature_weights, env.lava)
-            baseline_pi = continuous_utils.get_nonpessimal_policy(env)
-            baseline_evd = continuous_utils.calculate_expected_value_difference(baseline_pi, env, true_opt_policy, rn = random_normalization)
-            baseline_optimality = continuous_utils.calculate_policy_accuracy(baseline_pi, true_opt_policy)
-            print("BASELINE POLICY: evd {}, policy optimality {}, and policy accuracy {}".format(baseline_evd, baseline_optimality, 69))
+            # baseline_pis = continuous_utils.get_nonpessimal_policies(env)
+            baseline_pis = [pol_set[np.random.choice(range(continuous_utils.num_rand_policies), 1)[0]] for pol_set in continuous_utils.rand_policies]
+            baseline_optimality = continuous_utils.calculate_policy_accuracy(env, env, baseline_pis = baseline_pis, baseline = True)
+            # print("BASELINE POLICY policy optimality {}".format(baseline_optimality))
             for M in range(max_demos): # number of demonstrations; we want good policy without needing to see all states
                 D = continuous_utils.generate_optimal_demo(env)
                 demos[i].append(D)
                 if debug:
-                    print("running BIRL with demos")
-                    print("demos", demos[i])
+                    print(f"running BIRL with {M + 1} demos")
                 birl = continuous_birl.CONT_BIRL(env, beta, rewards, policies)
                 # use MCMC to generate sequence of sampled rewards
                 birl.birl(demos[i])
                 #generate evaluation policy from running BIRL
                 map_env = copy.deepcopy(env)
                 map_env.set_rewards(birl.get_map_solution())
-                map_policy = birl.get_map_policy()
-                #debugging to visualize the learned policy
                 if debug:
-                    print("True weights", env.feature_weights)
-                    print("True policy")
-                    # mdp_utils.visualize_policy(policies[i], env)
-                    print("MAP weights", map_env.feature_weights)
-                    print("MAP policy")
-                    # mdp_utils.visualize_policy(map_policy, map_env)
-                    policy_optimality = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
-                    print("Policy optimality:", policy_optimality)
-                    policy_accuracy = mdp_utils.calculate_policy_accuracy(policies[i], map_policy)
-                    print("Policy accuracy:", policy_accuracy)
+                    print("Ground truth theta is {}, learned theta is {}".format(env.feature_weights, birl.get_map_solution()))
+                map_policy = birl.get_map_policy()
 
                 # get percent improvements
                 improvements = []
                 for r in range(len(rewards)):
                     learned_env = copy.deepcopy(env)
                     learned_env.set_rewards(rewards[r])
-                    improvement = continuous_utils.calculate_percent_improvement(learned_env, baseline_pi, map_policy)
+                    improvement = continuous_utils.calculate_percent_improvement(learned_env, map_env, baseline_pis)
+                    if debug:
+                        print("Percent improvement over baseline if reward was {}: {}".format(rewards[r], improvement))
                     improvements.append(improvement)
                 
                 # evaluate 95% confidence on lower bound of improvement
@@ -285,16 +277,21 @@ if __name__ == "__main__":
                 if k >= N_burned:
                     k = N_burned - 1
                 bound = improvements[k]
+                if debug:
+                    print("Bound is", bound)
                 
                 # evaluate thresholds
                 for t in range(len(thresholds)):
                     threshold = thresholds[t]
-                    actual = continuous_utils.calculate_percent_improvement(env, baseline_pi, map_policy, actual = "True")
+                    actual = continuous_utils.calculate_percent_improvement(env, map_env, baseline_pis)
+                    if debug:
+                        print("Looking at threshold", threshold)
+                        print("Actual improvement with ground-truth reward {}: {}".format(env.feature_weights, actual))
                     if bound > threshold:
                         # map_evd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
                         # store threshold metrics
                         avg_bound_errors[threshold].append(actual - bound)
-                        policy_optimalities[threshold].append(continuous_utils.calculate_policy_accuracy(map_policy, true_opt_policy))
+                        policy_optimalities[threshold].append(continuous_utils.calculate_policy_accuracy(env, map_env))
                         accuracies[threshold].append(bound <= actual)
                         num_demos[threshold].append(M + 1)
                         if actual > threshold:

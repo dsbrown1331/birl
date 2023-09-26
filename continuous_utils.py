@@ -12,8 +12,8 @@ np.random.seed(rseed)
 # Lavaworld variables
 N = 6
 traj_length = 20
-num_start_pos = 10
-num_rand_policies = 10
+num_start_pos = 5
+num_rand_policies = 5
 starting_positions = np.random.uniform(0, 1, (num_start_pos, 2))
 rand_policies = []  # set of random policies for each starting position
 rewards = np.array([round(t, 1) for t in np.linspace(0, 1, N)])
@@ -25,7 +25,7 @@ def generate_random_policies(env = "lavaworld"):
         # B: same as above, but don't even sort the points. 0.024790507333516485
         # C: generate random waypoints starting from left side and ending at (1, 1), but ensuring equal spacing. 9.810941615629709
         # D: RRT. 
-        rgt = "D"
+        rgt = "A"
         for start_pos in starting_positions:
             rand_policies_start_pos = []
             if rgt == "A":
@@ -127,8 +127,8 @@ def get_optimal_policy(theta, lava_position, generating_demo = False, start_pos 
     xi0 = np.zeros((traj_length, 2))
     xi0[:, 0] = np.linspace(start_x, 1, traj_length)
     xi0[:, 1] = np.linspace(start_y, 1, traj_length)
-    if generating_demo:
-        print("This demo is starting from", start_x, start_y)
+    # if generating_demo:
+        # print("This demo is starting from", start_x, start_y)
     xi0 = xi0.reshape(-1)
     B = np.zeros((4, traj_length * 2))
     B[0, 0] = 1
@@ -149,7 +149,7 @@ def get_human(theta, lava, type, generating_demo = False, start_pos = None):
         stoptime_lb = n - 1
         noise_variance = 0.00001
     elif type == "noise":
-        stoptime_lb = n - 1
+        stoptime_lb = n - n // 2
         noise_variance = 100
     elif type == "counterfactual":
         stoptime_lb = 0
@@ -208,8 +208,11 @@ def policy_evaluation(policy, env):
 def policy_evaluation_stochastic(env):
     return
 
-def get_nonpessimal_policy(env, epsilon = 0.0001, V = None):
-    return get_human(env.feature_weights, env.lava, type = "noise")
+def get_nonpessimal_policies(env, epsilon = 0.0001, V = None):
+    pis = []
+    for start_pos in starting_positions:
+        pis.append(get_human(env.feature_weights, env.lava, type = "noise", start_pos = start_pos))
+    return pis
 
 def logsumexp(x):
     max_x = np.max(x)
@@ -224,16 +227,19 @@ def calculate_q_values(env, storage = None, V = None, epsilon = 0.0001):
 def arg_max_set(values, eps = 0.0001):
     return
 
-def calculate_policy_accuracy(env, map_pi, opt_pi = None):
-    n = len(map_pi)
+def calculate_policy_accuracy(env, map_env, baseline_pis = None, baseline = False):
+    # Baseline is a flag of if we are calculating the policy accuracy of a baseline policy
+    n = traj_length * num_start_pos
     acc = 0
-    print("Map policy starts from", (map_pi[0][0], map_pi[0][1]))
-    if opt_pi is None:
-        opt_pi = get_optimal_policy(env.feature_weights, env.lava, start_pos = (map_pi[0][0], map_pi[0][1]))
-        print("Optimal policy starts from", (opt_pi[0][0], opt_pi[0][1]))
-    for i in range(n):
-        acc += np.linalg.norm(np.array(map_pi)[i, :] - np.array(opt_pi)[i, :]) <= 0.1
-        # acc += map_pi[i][0] == opt_pi[i][0] or map_pi[i][1] == opt_pi[i][1]
+    for i in range(num_start_pos):
+        start_pos = starting_positions[i]
+        opt_pi = np.array(get_optimal_policy(env.feature_weights, env.lava, start_pos = start_pos))
+        if not baseline:
+            map_pi = np.array(get_optimal_policy(map_env.feature_weights, map_env.lava, start_pos = start_pos))
+        else:
+            map_pi = baseline_pis[i]
+        for j in range(traj_length):
+            acc += np.linalg.norm(opt_pi[j, :] - map_pi[j, :]) <= 0.1
     return acc / n
 
 def get_trajectory_and_reward(env, start_pos):
@@ -241,18 +247,22 @@ def get_trajectory_and_reward(env, start_pos):
     reward = trajreward(trajectory, env.feature_weights, env.lava, traj_length)
     return reward
 
-def calculate_expected_value_difference(test_env, eval_env, rn = False):
+def calculate_expected_value_difference(test_env, eval_env, rn = False, baseline_pis = None, baseline = False):
     # A = E_(starting positions)[reward(optimal trajectory for R', R')]
     # B = E_(starting positions)[reward(optimal trajectory for R_MAP, R')]
     # C = E_(all random trajectories)[reward(random trajectory, R')]
     # nEVD(R', R_MAP) = (A - B) / (A - C), where R' <=> test_env and R_MAP <=> eval_env
+    # Baseline flag is whether or not we want to calculate the nEVD for a baseline/nonpessimal policy
     V_opt = 0
     V_eval = 0
     V_rand = 0
     for i in range(num_start_pos):
         start_pos = starting_positions[i]
         opt_traj = get_optimal_policy(test_env.feature_weights, test_env.lava, start_pos = start_pos)
-        eval_traj = get_optimal_policy(eval_env.feature_weights, eval_env.lava, start_pos = start_pos)
+        if not baseline:
+            eval_traj = get_optimal_policy(eval_env.feature_weights, eval_env.lava, start_pos = start_pos)
+        else:
+            eval_traj = baseline_pis[i]
         V_opt += trajreward(opt_traj, test_env.feature_weights, test_env.lava, traj_length) / num_start_pos
         V_eval += trajreward(eval_traj, test_env.feature_weights, test_env.lava, traj_length) / num_start_pos
         if rn:
@@ -276,12 +286,19 @@ def comparison_grid(env, possible_rewards, possible_policies):
             values[i][j] = value
     return np.array(values)
 
-def calculate_percent_improvement(env, base_policy, eval_policy, epsilon = 0.000001, actual = False):
-    # V_base = trajreward(base_policy, env.feature_weights, env.lava, traj_length)
-    V_base = 1e-3
-    V_eval = trajreward(eval_policy, env.feature_weights, env.lava, traj_length)
-    improvement = (V_eval - V_base) / (np.abs(V_base) + epsilon)
-    return (improvement + 1)/2
+def calculate_percent_improvement(test_env, eval_env, baseline_pis, epsilon = 0.000001):
+    # test_env <=> either ground truth env or sample envs
+    # eval_env <=> map env learned by agent
+    V_base = 0
+    V_eval = 0
+    for i in range(num_start_pos):
+        V_base += trajreward(baseline_pis[i], test_env.feature_weights, test_env.lava, traj_length) / num_start_pos
+        eval_policy = get_optimal_policy(eval_env.feature_weights, eval_env.lava, start_pos = starting_positions[i])
+        V_eval += trajreward(eval_policy, test_env.feature_weights, test_env.lava, traj_length) / num_start_pos
+    print("V_base is", V_base)
+    print("V_eval is", V_eval)
+    improvement = (V_base - V_eval) / (np.abs(V_base) + epsilon)
+    return improvement  # keep as percentage
 
 def sample_l2_ball(k):
     sample = np.random.randn(k)
