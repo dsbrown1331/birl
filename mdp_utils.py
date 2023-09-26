@@ -515,12 +515,18 @@ def calculate_percentage_optimal_actions(pi, env, epsilon=0.0001):
 
     return accuracy / env.num_states
 
-def calculate_number_of_optimal_actions(env, pi, states, epsilon=0.0001):
+def calculate_number_of_optimal_actions(env, pi, demos, exact, epsilon=0.0001):
     optimal = 0
-    q_values = calculate_q_values(env, epsilon=epsilon)
-    for state in states:
-        if pi[state] in arg_max_set(q_values[state], epsilon):
-            optimal += 1
+    if exact:
+        for s, a in demos:
+            if pi[s] == a:
+                optimal += 1
+    else:
+        states = [s for s, _ in demos]
+        q_values = calculate_q_values(env, epsilon=epsilon)
+        for state in states:
+            if pi[state] in arg_max_set(q_values[state], epsilon):
+                optimal += 1
     return optimal
 
 def calculate_percent_improvement(env, base_policy, eval_policy, epsilon = 0.0001):

@@ -16,8 +16,9 @@ if __name__ == "__main__":
     np.random.seed(rseed)
 
     stopping_condition = "held_out" # options: nevd, map_pi, baseline_pi, held_out, active_baseline
-    world = "goal" # options: feature, driving, goal
+    world = sys.argv[1] # options: feature, driving, goal
     demo_type = "pairs" # options: pairs, trajectories
+    optimality_threshold = 0.96
 
     debug = False # set to False to suppress terminal outputs
 
@@ -31,13 +32,13 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = 50 # gets around 500 after burn and skip
+    N = 500 # gets around 500 after burn and skip
     step_stdev = 0.5
     burn_rate = 0.00
     skip_rate = 1
     random_normalization = True # whether or not to normalize with random policy
     adaptive = True # whether or not to use adaptive step size
-    num_worlds = 1
+    num_worlds = 20
 
     if stopping_condition == "nevd": # stop learning after passing a-VaR threshold
         # Experiment setup
@@ -495,6 +496,7 @@ if __name__ == "__main__":
         print("**************************************************")
     elif stopping_condition == "held_out": # once subset of policy's states match a held-out demonstration set
         # Experiment setup
+        thresholds = [3, 4, 5, 6, 7]
         if world == "feature":
             envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features) for _ in range(num_worlds)]
         elif world == "driving":
@@ -503,92 +505,69 @@ if __name__ == "__main__":
             envs = [mdp_worlds.random_feature_mdp(num_rows, num_cols, num_features, terminals = [random.randint(0, num_rows * num_cols - 1)]) for _ in range(num_worlds)]
             # envs = [FeatureMDP(num_rows, num_cols, 4, [], np.array([-0.2904114626557843, 0.19948602297642423, 0.9358774006220993]), np.array([(0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.0, 0.0, 1.0), (1.0, 0.0, 0.0)]), gamma)]
         policies = [mdp_utils.get_optimal_policy(envs[i]) for i in range(num_worlds)]
-        demos = [[] for _ in range(num_worlds)]
-        possible_demos = list(range(num_rows * num_cols))
-        random.shuffle(possible_demos)
-        split_idx = int(0.8 * len(possible_demos)) # reserve 80% of states for demos, 20% for the validation set
-        demo_order = possible_demos[:split_idx]
-        held_out_states = possible_demos[split_idx:]
 
         # Metrics to evaluate thresholds
-        num_demos = []
-        pct_states = []
-        policy_optimalities = []
-        accuracy = 0
+        # num_demos = {threshold: [] for threshold in thresholds}
+        pct_states = {threshold: [] for threshold in thresholds}
+        policy_optimalities = {threshold: [] for threshold in thresholds}
+        # policy_accuracies = {threshold: [] for threshold in thresholds}
+        # confidence = {threshold: set() for threshold in thresholds}
+        accuracies = {threshold: [] for threshold in thresholds}
 
         for i in range(num_worlds):
             env = envs[i]
-            held_out_set = []
-            for hos in held_out_states:
-                try:
-                    held_out_set.append(mdp_utils.generate_optimal_demo(env, hos)[0])
-                except IndexError:
-                    pass
-            need_comparison = held_out_set[:]
+            demo_order = list(set(range(num_rows * num_cols)) - set(env.terminals))
+            random.shuffle(demo_order)
+            demo_counter = 0
+            total_demos = {threshold: [] for threshold in thresholds}
+            held_out_sets = {threshold: [] for threshold in thresholds}
             for M in range(len(demo_order)):
+                demo_counter += 1
                 if demo_type == "pairs":
                     try:
                         D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
-                        demos[i].append(D)
-                        print("Demos:", demos[i])
                     except IndexError:
                         pass
-                    if debug:
-                        print("running BIRL with demos")
-                        print("demos", demos[i])
-                    birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
                 elif demo_type == "trajectories":
                     D = mdp_utils.generate_optimal_demo(env, demo_order[M])[:int(1/(1 - gamma))]
                     demos[i].append(D)
                     if debug:
                         print("running BIRL with demos")
                         print("demos", demos[i])
-                    birl = bayesian_irl.BIRL(env, list(set([pair for traj in demos[i] for pair in traj])), beta)
-                # use MCMC to generate sequence of sampled rewards
-                birl.run_mcmc(N, step_stdev, adaptive = adaptive)
-                #burn initial samples and skip every skip_rate for efficiency
-                burn_indx = int(len(birl.chain) * burn_rate)
-                samples = birl.chain[burn_indx::skip_rate]
-                #check if MCMC seems to be mixing properly
-                if debug:
-                    print("accept rate for MCMC", birl.accept_rate) #good to tune number of samples and stepsize to have this around 50%
-                    if birl.accept_rate > 0.7:
-                        print("too high, probably need to increase standard deviation")
-                    elif birl.accept_rate < 0.2:
-                        print("too low, probably need to decrease standard dev")
-                #generate evaluation policy from running BIRL
-                map_env = copy.deepcopy(env)
-                map_env.set_rewards(birl.get_map_solution())
-                map_policy = mdp_utils.get_optimal_policy(map_env)
-                #debugging to visualize the learned policy
-                if debug:
-                    print("environment")
-                    print("state features", env.state_features)
-                    print("feature weights", env.feature_weights)
-                    print("map policy")
-                    mdp_utils.visualize_policy(map_policy, env)
-                    policy_accuracy = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
-                    print("policy accuracy", policy_accuracy)
-
-                # evaluate learned policy against held-out set
-                print("MAP:", map_policy)
-                print("HOS:", need_comparison)
-                done = mdp_utils.calculate_number_of_optimal_actions(env, map_policy, held_out_states) == len(held_out_states)
-                if done:
-                    num_demos.append(M + 1)
-                    pct_states.append((M + 1) / (num_cols * num_rows))
-                    policy_optimalities.append(mdp_utils.calculate_policy_accuracy(list(policies[i]), list(map_policy)))
-                    break
-        accuracy = np.count_nonzero(np.array(policy_optimalities) >= 0.96)
+                    # birl = bayesian_irl.BIRL(env, list(set([pair for traj in demos[i] for pair in traj])), beta)
+                for t in range(len(thresholds)):
+                    threshold = thresholds[t]
+                    if demo_counter % threshold == 0:
+                        held_out_sets[threshold].append(D)
+                        continue
+                    else:
+                        total_demos[threshold].append(D)
+                        birl = bayesian_irl.BIRL(env, total_demos[threshold], beta) # create BIRL environment
+                        # use MCMC to generate sequence of sampled rewards
+                        birl.run_mcmc(N, step_stdev, adaptive = adaptive)
+                        #generate evaluation policy from running BIRL
+                        map_env = copy.deepcopy(env)
+                        map_env.set_rewards(birl.get_map_solution())
+                        map_policy = mdp_utils.get_optimal_policy(map_env)
+                        # evaluate learned policy against held-out set
+                        if len(held_out_sets[threshold]) >= 2:
+                            exact = True if sys.argv[2] == "true" else False
+                            done = mdp_utils.calculate_number_of_optimal_actions(env, map_policy, held_out_sets[threshold], exact) == len(held_out_sets[threshold])
+                            if done:
+                                pct_states[threshold].append((M + 1) / (num_cols * num_rows))
+                                optimality = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
+                                policy_optimalities[threshold].append(optimality)
+                                accuracies[threshold].append(optimality >= optimality_threshold)
 
         # Output results for plotting
-        print("Using held out set of \"demonstrations\", at point of termination")
-        print("Num demos across worlds")
-        print(num_demos)
-        print("Percentage of states needed to be seen across worlds")
-        print(pct_states)
-        print("Policy optimality across worlds")
-        print(policy_optimalities)
-        print("Final accuracy across all worlds")
-        print(accuracy)
-        print("**************************************************")
+        for threshold in thresholds:
+            print("NEW THRESHOLD", threshold)
+            print("Percent states")
+            for ps in pct_states[threshold]:
+                print(ps)
+            print("Policy optimalities")
+            for po in policy_optimalities[threshold]:
+                print(po)
+            print("Accuracy")
+            print(sum(accuracies[threshold]) / num_worlds)
+            print("**************************************************")

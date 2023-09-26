@@ -314,7 +314,7 @@ if __name__ == "__main__":
         print("**************************************************")
     elif stopping_condition == "held_out":
         # Experiment setup
-        thresholds = [2, 3, 4, 5, 6]
+        thresholds = [3, 4, 5, 6, 7]
 
         # Metrics to evaluate stopping condition
         num_demos = {threshold: [] for threshold in thresholds}
