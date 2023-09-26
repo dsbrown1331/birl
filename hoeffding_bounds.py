@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     start = time.time()
     m = 1
-    epsilons = [0.05, 0.04, 0.03, 0.02, 0.01]
+    epsilons = [0.5, 0.4, 0.3, 0.2, 0.1]
     bounds_dict = {"bound": epsilons,
                 "syed_schapire_num_demos": [], "syed_schapire_bound": [],
                 "abbeel_num_demos": [], "abbeel_bound": []}
