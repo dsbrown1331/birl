@@ -13,7 +13,7 @@ if __name__ == "__main__":
     random.seed(rseed)
     np.random.seed(rseed)
 
-    stopping_condition = sys.argv[1] # options: nevd, map_pi, baseline_pi
+    stopping_condition = sys.argv[1] # options: nevd, map_pi, baseline_pi, held_out
     debug = False # set to False to suppress terminal outputs
 
     # Hyperparameters
@@ -31,7 +31,8 @@ if __name__ == "__main__":
     envs = [continuous_utils.random_lavaworld() for _ in range(num_worlds)]
     rewards = continuous_utils.rewards
     demos = [[] for _ in range(num_worlds)]
-    max_demos = 10
+    optimality_threshold = 0.96
+    max_demos = 25
     # if stopping_condition == "nevd":
     continuous_utils.generate_random_policies()
 
@@ -158,8 +159,7 @@ if __name__ == "__main__":
         for i in range(num_worlds):
             env = envs[i]
             policies = [continuous_utils.get_optimal_policy(theta, env.lava) for theta in rewards]
-            true_opt_policy = continuous_utils.get_optimal_policy(env.feature_weights, env.lava)
-            curr_map_pi = np.zeros(true_opt_policy.shape)
+            curr_map_sol = None
             patience = 0
             start_comp = 0
             done_with_demos = False
@@ -176,32 +176,20 @@ if __name__ == "__main__":
                 map_env = copy.deepcopy(env)
                 map_env.set_rewards(birl.get_map_solution())
                 map_policy = birl.get_map_policy()
-                #debugging to visualize the learned policy
-                if debug:
-                    print("map policy")
-                    print("MAP weights", map_env.feature_weights)
-                    # mdp_utils.visualize_policy(map_policy, env)
-                    print("optimal policy")
-                    print("true weights", env.feature_weights)
-                    opt_policy = mdp_utils.get_optimal_policy(env)
-                    # mdp_utils.visualize_policy(opt_policy, env)
-                    policy_accuracy = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
-                    print("policy accuracy", policy_accuracy)
 
                 # compare policies
-                policy_match = continuous_utils.calculate_policy_accuracy(curr_map_pi, map_policy)
-                if policy_match == 1.0:
+                if curr_map_sol == birl.get_map_solution():
                     patience += 1
                     # evaluate thresholds
                     for t in range(len(thresholds[start_comp:])):
                         threshold = thresholds[t + start_comp]
                         if patience == threshold:
                             # store metrics
-                            optimality = continuous_utils.calculate_policy_accuracy(map_policy, true_opt_policy)
-                            policy_optimalities[threshold].append(optimality)
-                            accuracies[threshold].append(optimality >= 1.0)
                             num_demos[threshold].append(M + 1)
-                            curr_map_pi = map_policy
+                            optimality = continuous_utils.calculate_policy_accuracy(env, map_env)
+                            policy_optimalities[threshold].append(optimality)
+                            accuracies[threshold].append(optimality >= optimality_threshold)
+                            curr_map_sol = birl.get_map_solution()
                             if threshold == max(thresholds):
                                 done_with_demos = True
                         else:
@@ -209,7 +197,7 @@ if __name__ == "__main__":
                             break
                 else:
                     patience = 0
-                    curr_map_pi = map_policy
+                    curr_map_sol = birl.get_map_solution()
                 if done_with_demos:
                     break
         
@@ -324,3 +312,55 @@ if __name__ == "__main__":
             print("Confusion matrices")
             print(confusion_matrices[threshold])
         print("**************************************************")
+    elif stopping_condition == "held_out":
+        # Experiment setup
+        thresholds = [2, 3, 4, 5, 6]
+
+        # Metrics to evaluate stopping condition
+        num_demos = {threshold: [] for threshold in thresholds}
+        policy_optimalities = {threshold: [] for threshold in thresholds}
+        accuracies = {threshold: [] for threshold in thresholds}
+
+        for i in range(num_worlds):
+            env = envs[i]
+            policies = [continuous_utils.get_optimal_policy(theta, env.lava) for theta in rewards]
+            demo_counter = 0
+            total_demos = {threshold: [] for threshold in thresholds}
+            held_out_sets = {threshold: [] for threshold in thresholds}
+            for M in range(max_demos):
+                D = continuous_utils.generate_optimal_demo(env)
+                demo_counter += 1
+                for t in range(len(thresholds)):
+                    threshold = thresholds[t]
+                    if demo_counter % threshold == 0:
+                        held_out_sets[threshold].append(D)
+                        continue
+                    else:
+                        total_demos[threshold].append(D)
+                    birl = continuous_birl.CONT_BIRL(env, beta, rewards, policies) # create BIRL environment
+                    # use MCMC to generate sequence of sampled rewards
+                    birl.birl(total_demos[threshold])
+                    #generate evaluation policy from running BIRL
+                    map_env = copy.deepcopy(env)
+                    map_env.set_rewards(birl.get_map_solution())
+                    map_policy = birl.get_map_policy()
+                    # compare with held out set
+                    if len(held_out_sets[threshold]) >= 3:
+                        if birl.get_map_solution() == env.feature_weights:
+                            num_demos[threshold].append(M + 1)
+                            optimality = continuous_utils.calculate_policy_accuracy(env, map_env)
+                            policy_optimalities[threshold].append(optimality)
+                            accuracies[threshold].append(optimality >= optimality_threshold)
+        
+        # Output results for plotting
+        for threshold in thresholds:
+            print("NEW THRESHOLD", threshold)
+            print("Num demos")
+            for nd in num_demos[threshold]:
+                print(nd)
+            print("Policy optimalities")
+            for po in policy_optimalities[threshold]:
+                print(po)
+            print("Accuracy")
+            print(sum(accuracies[threshold]) / num_worlds)
+            print("**************************************************")
