@@ -29,7 +29,7 @@ def random_gridworld(rows, columns):
     return random_mdp
 
 
-def random_feature_mdp(rows, columns, num_features, reference_world = None, terminals = [], goal = False):
+def random_feature_mdp(rows, columns, num_features, reference_world = None, terminals = [], goal = False, chosen_reward = None, user_study = False):
     """
     e.g. if each cell in a 3x3 non-terminal grid world has a color: red or white, and red states have as reward of -1
     and white states have a reward of +1, then this could be created by having
@@ -59,42 +59,45 @@ def random_feature_mdp(rows, columns, num_features, reference_world = None, term
         if goal:
             for terminal in terminals:
                 state_features[terminal] = features[num_features]
-        mdp = FeatureMDP(rows, columns, 4, terminals, feature_weights, state_features, gamma = 0.95)
+        mdp = FeatureMDP(rows, columns, 4, terminals, feature_weights, state_features, gamma = 0.95, chosen_reward = chosen_reward, user_study = user_study)
     else:
-        mdp = FeatureMDP(rows, columns, 4, terminals, reference_world.feature_weights, reference_world.state_features, gamma = 0.95)
+        mdp = FeatureMDP(rows, columns, 4, terminals, reference_world.feature_weights, reference_world.state_features, gamma = 0.95, user_study = user_study)
     return mdp
 
 
-def random_driving_simulator(rows, reward_function = None, reference_world = None):
+def random_driving_simulator(rows, reward_function = None, reference_world = None, chosen_reward = None):
     weights = [] # left lane, middle lane, right lane, collision, crashing
-    if reward_function is None or reward_function == "none":
-        # create random weight vector
-        weights.append(np.random.randint(1, 10))
-        weights.append(np.random.randint(1, 10))
-        weights.append(np.random.randint(1, 10))
-        weights.append(np.random.randint(-20, -10))
-        weights.append(np.random.randint(-10, 0))
+    if chosen_reward is not None:
+        weights = chosen_reward
     else:
-        if reward_function == "nasty":
-            weights.append(np.random.randint(1, 5))
-            weights.append(np.random.randint(1, 5))
-            weights.append(np.random.randint(1, 5))
-            weights.append(np.random.randint(10, 20))
-            weights.append(np.random.randint(5, 10))
-        elif reward_function == "on_road":
-            weights.append(np.random.randint(5, 10))
-            weights.append(np.random.randint(5, 10))
-            weights.append(np.random.randint(5, 10))
-            weights.append(np.random.randint(-2, 2))
-            weights.append(np.random.randint(-10, -5))
-        elif reward_function == "safe":
-            weights.append(np.random.randint(1, 5))
-            weights.append(np.random.randint(1, 5))
-            weights.append(np.random.randint(5, 10))
-            weights.append(np.random.randint(-10, -5))
-            weights.append(np.random.randint(-5, 0))
+        if reward_function is None or reward_function == "none":
+            # create random weight vector
+            weights.append(np.random.randint(1, 10))
+            weights.append(np.random.randint(1, 10))
+            weights.append(np.random.randint(1, 10))
+            weights.append(np.random.randint(-20, -10))
+            weights.append(np.random.randint(-10, 0))
         else:
-            return NotImplementedError
+            if reward_function == "nasty":
+                weights.append(np.random.randint(1, 5))
+                weights.append(np.random.randint(1, 5))
+                weights.append(np.random.randint(1, 5))
+                weights.append(np.random.randint(10, 20))
+                weights.append(np.random.randint(5, 10))
+            elif reward_function == "on_road":
+                weights.append(np.random.randint(5, 10))
+                weights.append(np.random.randint(5, 10))
+                weights.append(np.random.randint(5, 10))
+                weights.append(np.random.randint(-2, 2))
+                weights.append(np.random.randint(-10, -5))
+            elif reward_function == "safe":
+                weights.append(np.random.randint(1, 5))
+                weights.append(np.random.randint(1, 5))
+                weights.append(np.random.randint(5, 10))
+                weights.append(np.random.randint(-10, -5))
+                weights.append(np.random.randint(-5, 0))
+            else:
+                return NotImplementedError
     weights /= np.linalg.norm(np.array(weights))
     if reference_world is None:
         # disperse motorists randomly, assume three lanes

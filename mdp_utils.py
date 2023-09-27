@@ -228,13 +228,13 @@ def action_to_string(act, driving = False):
         DOWN = 1
         LEFT = 2
         RIGHT = 3
-        if act[1] == UP:
+        if act == UP:
             return "^"
-        elif act[1] == DOWN:
+        elif act == DOWN:
             return "v"
-        elif act[1] == LEFT:
+        elif act == LEFT:
             return "<"
-        elif act[1] == RIGHT:
+        elif act == RIGHT:
             return ">"
     else:
         STAY = 0
@@ -301,8 +301,7 @@ def visualize_policy(policy, env):
             if count in env.terminals:
                 policy_row += ".\t"
             else:
-                # policy_row += action_to_string(policy[count], type(env) is DrivingSimulator) + "\t"
-                policy_row += action_to_string(policy[count]) + "\t"
+                policy_row += action_to_string(policy[count], driving = isinstance(env, DrivingSimulator)) + "\t"
             count += 1
         print(policy_row)
 
@@ -414,7 +413,7 @@ def calculate_expected_value_difference(eval_policy, env, storage, epsilon = 0.0
         return (np.mean(V_opt) - np.mean(V_eval)) / (np.mean(V_opt) - np.mean(V_rand))
     return np.mean(V_opt) - np.mean(V_eval)
 
-def find_nonterminal_uncertainties(metrics, k, env, queried_states, query_type, repeats_allowed):
+def find_nonterminal_uncertainties(metrics, k, env, queried_states, query_type, repeats_allowed, avoid_states):
     if query_type == "evd":
         metrics = np.sort(metrics, axis = 0)
         metric = metrics[k]
@@ -423,7 +422,7 @@ def find_nonterminal_uncertainties(metrics, k, env, queried_states, query_type, 
         losses = np.copy(metric)
         uncertain = state_losses[-1]
         if repeats_allowed:
-            while uncertain[0] in env.terminals:
+            while uncertain[0] in env.terminals or uncertain[0] in avoid_states:
                 state_losses = state_losses[:-1]
                 losses = np.delete(losses, np.argwhere(losses == uncertain[1]))
                 if len(set(losses)) == 1:
@@ -435,7 +434,7 @@ def find_nonterminal_uncertainties(metrics, k, env, queried_states, query_type, 
                     except:
                         break
         else:
-            while uncertain[0] in env.terminals or uncertain[0] in queried_states:
+            while uncertain[0] in env.terminals or uncertain[0] in queried_states or uncertain[0] in avoid_states:
                 state_losses = state_losses[:-1]
                 losses = np.delete(losses, np.argwhere(losses == uncertain[1]))
                 if len(set(losses)) == 1:

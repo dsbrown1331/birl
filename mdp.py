@@ -150,9 +150,9 @@ class MDP:
 
             # STAY in lane
             for s in range(self.num_states):
-                left_state = s + 4 if s < 5 * (self.num_rows - 1) else (s - 1) % 5
-                fwd_state = s + 5 if s < 5 * (self.num_rows - 1) else s % 5
-                right_state = s + 6 if s < 5 * (self.num_rows - 1) else (s + 1) % 5
+                left_state = s - 6 if s >= self.num_cols else s + 19
+                fwd_state = s - 5 if s >= self.num_cols else s + 20
+                right_state = s - 4 if s >= self.num_cols else s + 21
                 if s % 5 == 0: # left border
                     self.transitions[s][STAY][fwd_state] = 1.0 - noise # possibility of moving forward
                     self.transitions[s][STAY][right_state] = noise # possibility of going right
@@ -174,12 +174,12 @@ class MDP:
 
             # moving LEFT
             for s in range(self.num_states):
-                left_state = s + 4 if s < 5 * (self.num_rows - 1) else (s - 1) % 5
-                fwd_state = s + 5 if s < 5 * (self.num_rows - 1) else s % 5
-                right_state = s + 6 if s < 5 * (self.num_rows - 1) else (s + 1) % 5
+                left_state = s - 6 if s >= self.num_cols else s + 19
+                fwd_state = s - 5 if s >= self.num_cols else s + 20
+                right_state = s - 4 if s >= self.num_cols else s + 21
                 if s % 5 == 0: # left border
-                    self.transitions[s][LEFT][fwd_state] = 0.5 # possibility of moving forward
-                    self.transitions[s][LEFT][right_state] = 0.5 # possibility of going right
+                    self.transitions[s][LEFT][fwd_state] = 1.0 - noise # possibility of moving forward
+                    self.transitions[s][LEFT][right_state] = noise # possibility of going right
                 elif s % 5 == 1: # left lanes
                     self.transitions[s][LEFT][left_state] = 1.0 - (2 * noise) # possibility of going left
                     self.transitions[s][LEFT][fwd_state] = noise # possibility of moving forward
@@ -198,9 +198,9 @@ class MDP:
 
             # moving RIGHT
             for s in range(self.num_states):
-                left_state = s + 4 if s < 5 * (self.num_rows - 1) else (s - 1) % 5
-                fwd_state = s + 5 if s < 5 * (self.num_rows - 1) else s % 5
-                right_state = s + 6 if s < 5 * (self.num_rows - 1) else (s + 1) % 5
+                left_state = s - 6 if s >= self.num_cols else s + 19
+                fwd_state = s - 5 if s >= self.num_cols else s + 20
+                right_state = s - 4 if s >= self.num_cols else s + 21
                 if s % 5 == 0: # left border
                     self.transitions[s][RIGHT][fwd_state] = noise # possibility of moving forward
                     self.transitions[s][RIGHT][right_state] = 1.0 - noise # possibility of going right
@@ -217,8 +217,8 @@ class MDP:
                     self.transitions[s][RIGHT][fwd_state] = noise # possibility of moving forward
                     self.transitions[s][RIGHT][right_state] = 1.0 - (2 * noise) # possibility of going right
                 elif s % 5 == 4: # right border
-                    self.transitions[s][RIGHT][left_state] = 0.5 # possibility of going left
-                    self.transitions[s][RIGHT][fwd_state] = 0.5 # possibility of moving forward
+                    self.transitions[s][RIGHT][left_state] = noise # possibility of going left
+                    self.transitions[s][RIGHT][fwd_state] = 1.0 - noise # possibility of moving forward
 
             # deal with terminal states
             for s in range(self.num_states):
@@ -256,10 +256,25 @@ class FeatureMDP(MDP):
 
     """
         
-    def __init__(self, num_rows, num_cols, num_actions, terminals, feature_weights, state_features, gamma, noise = 0.0, driving = False):
+    def __init__(self, num_rows, num_cols, num_actions, terminals, feature_weights, state_features, gamma, noise = 0.0, driving = False, chosen_reward = None, user_study = False):
 
         assert(num_rows * num_cols == len(state_features))
         assert(len(state_features[0]) == len(feature_weights))
+
+        #if we have a terminal state, that should be the goal, so the reward should be higher (modify for user study)
+        if user_study:
+            if chosen_reward is None:
+                if len(feature_weights) == 1:
+                    feature_weights = np.append(feature_weights, abs(np.random.uniform(1.5, 2.5) * feature_weights[0]))
+                else:
+                    feature_weights = np.array([-fw if fw > 0 else fw for fw in feature_weights])
+                    feature_weights = np.append(feature_weights, [abs(np.max(feature_weights)) + np.std(feature_weights)])
+            else:
+                feature_weights = chosen_reward
+            feature_weights /= np.linalg.norm(feature_weights)
+            state_features = [feature + (0.0,) for feature in state_features]
+            state_features[terminals[0]] = tuple([0] * (len(feature_weights) - 1) + [1])
+            terminals = []  # now make it not a terminal, because the agent will avoid it since it means no more rewards
 
         #rewards are linear combination of features
         rewards = np.dot(state_features, feature_weights)
