@@ -3,28 +3,48 @@
 <head>
     <title>Demonstration Sufficiency User Study</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
+    <meta charset="UTF-8">
 </head>
 <body>
     <h1 align="center">Demonstration Sufficiency User Study</h1>
-    <p>Welcome to the demonstration sufficiency user study. You will be teaching an AI agent how to navigate around a gridworld. You will be giving it demonstrations of what to do in each grid cell (i.e. go <strong>up</strong>, <strong>down</strong>, <strong>left</strong>, or <strong>right</strong>), one demo at a time. After each demonstration, the agent will attempt to calculate whether or not it has received enough demonstrations in order to successfully complete the task. If it has, it will notify you and show you its learned policy, and you will be able to verify the policy yourself to see if it's satisfactory.</p>
-    <p>Each gridworld is structured similarly. Each cell, or state, will be one of four colors, representing four features. One state will have a star in it; that is the goal state, and it is also a terminal state, meaning that you can't move from this state once you're in it, nor will you be allowed to give demonstrations from this state. Every gridworld will also have an associated reward function, which is a mapping from each feature/color to a reward value; this is the reward you get if you land in a state with that feature.</p>
-    <p>There are two <i>teaching</i> options: <strong>guided</strong> or <strong>freeform</strong>. In <strong>guided</strong>, you will be given a reward function as described above to guide your demonstrations. The hope is that the reward function will let you know which states/features to avoid and what is the best path to the goal. In <strong>freeform</strong>, you will not be given a reward function. You will be able to decide for yourself how much each feature is worth, then give demonstrations based on this internal reward function. You don't even have to guide the agent towards the goal if you wish.</p>
-    <p>There are also two <i>demonstration selection</i> options: <strong>IID</strong> and <strong>active</strong>. In <strong>IID</strong>, at each iteration, you will get to give the agent a (state, action) demo pair in whichever order you prefer. You can even repeat demonstrations if you want! In <strong>active</strong>, the agent will request a state for which to give a demonstration. In this case, you MUST give the action corresponding with this state.</p>
+    <h2>Introduction</h2>
+    <p>Welcome to the demonstration sufficiency user study. You will be teaching an AI agent how to navigate around an environment. You will be giving it demonstrations of what action to take in different cells, one demo at a time. After each demonstration, the agent will attempt to calculate whether or not it has received enough demonstrations in order to successfully complete the task. If it has, it will notify you and show you its learned policy, and you will be able to verify the policy yourself to see if it is satisfactory. Please keep in mind that the agent may take up to ~1 minute between demonstrations to calculate.</p>
+    <h2>Configurations</h2>
+    <p>There are two environment types: <strong>gridworld</strong> and <strong>driving</strong>.</p>
+    <ul>
+        <li><strong>Gridworld: </strong>In this environment, you want to help the agent reach the goal state. Each cell, or state, will be one of four colors/designs, representing four features: <strong>red</strong>, <strong>blue</strong>, <strong>green</strong>, and <strong>star</strong> (this is the goal state). The goal state is also terminal; once you reach it, you can't move from it, nor will you be allowed to give demonstrations for it. There are four actions the agent can do in each non-terminal state: go <strong>(U)p</strong>, <strong>(D)own</strong>, <strong>(L)eft</strong>, or <strong>(R)ight</strong>.</li>
+        <li><strong>Driving: </strong>In this environment, you want to help the agent navigate a stretch of road safely, maximizing your immediate reward. <strong>Each lane is its own feature</strong>; other features are <strong>dirt patches</strong> bordering the road and <strong>existing cars</strong> on the road (which are stationary relative to the agent). Consider this environment to be an infinite road; that is, moving from the top row will loop you back to the bottom row. There are three actions the agent can do in each state: move <strong>forward and (S)traight</strong>, <strong>forward and (L)eft</strong>, or <strong>forward and (R)ight</strong>.</li>
+    </ul>
+    <p>Every environment has an associated reward function, which is a mapping from each feature to a reward value; this is the reward you get if you land in a state with that feature. For the gridworld environment, we will give you a reward function to follow and guide your demonstrations. For the driving environment, you will be able to design your own reward function—you will decide how much each feature is worth, then give demonstrations based on this reward function.
+    <h2>Instructions</h2>
+    <p>You will be running six simulations, numbered 1 through 6. Each one will be a different configuration of the above environments, so it's imperative that you do all six. We highly recommend that you also do the two practice rounds, numbered 0A and 0B, before doing the real simulations. Use the dropdown menu to choose the number each time you start.</p>
+    <p>Since you will design your own reward function for the driving environment, we provide some examples here. Note that the feature order for which you write your reward function is <strong>always</strong> left lane, middle lane, right lane, collision with car, and crashing into dirt. The left/middle/right lane features are only present when the cell is clear; if there is another car in the cell, the feature will be collision with car.</p>
+    <ul>
+        <li>Say you want your car to drive safely: drive towards the right whenever possible and avoid any accidents, especially with other cars on the road. Your reward function could then be something like `1, 2, 3, -10, -5`, which means the left lane is worth 1, the middle lane is worth 2, the right lane is worth 3, colliding with another car is worth -10, and crashing into the dirt patch is worth -5. If you want to change your car's lane preference to be the left while still avoiding accidents, your reward function could be something like `3, 2, 1, -10, -5`.</li>
+        <li>Say you want to play bumper cars and your sole mission is to cause as many accidents as you can. Your reward function could then be something like `0, 0, 0, 1, 0`. This would mean that driving in any clear cell is worth 0, as is driving in a dirt patch, while colliding with another car is worth 1. Or, say you want to drive off-road as much as possible. Then your reward function could be something like `-1, -1, -1, -1, 5`.</li>
+    </ul>
+    <p>No matter what the reward function is, for either environment, please be sure to keep your demonstrations as consistent as possible with each other and with the reward function.</p>
 
     <br>
 
     <div id="start-container" style="margin: 0 auto; text-align: center;">
-        <p>Now, please select from the dropdown menus below and click Start to begin the simulation.</p>
-        <label for="teaching-option">Teaching option:</label>
-        <select id="teaching-option" name="teaching_option">
-            <option value="guided">Guided</option>
-            <option value="freeform">Freeform</option>
+        <p>Now, please select from the dropdown menu below and click Start to begin the simulation.</p>
+        <label for="simulation-option">Select Simulation Number:</label>
+        <select id="simulation-option" name="simulation_option">
+            <option value="0A" selected>0A (practice gridworld)</option>  <!-- practice (gridworld, ours) -->
+            <option value="0B">0B (practice driving)</option> <!-- practice (driving, ours) -->
+            <option value="1">1 (gridworld)</option> <!-- gridworld, MAP -->
+            <option value="2">2 (driving)</option> <!-- driving, held_out -->
+            <option value="3">3 (gridworld)</option> <!-- gridworld, ours -->
+            <option value="4">4 (driving)</option> <!-- driving, ours -->
+            <option value="5">5 (gridworld)</option> <!-- gridworld, held_out -->
+            <option value="6">6 (driving)</option> <!-- driving, MAP -->
         </select>
-        <label for="selection-option">Selection option:</label>
-        <select id="selection-option" name="selection_option">
-            <option value="iid">IID</option>
-            <option value="active">Active</option>
-        </select>
+        <br>
+        <label for="reward-option">[FOR DRIVING (0B, 2, 4, 6) ONLY] Your intended reward function, as comma-separated numbers (e.g. `0.1, 0.2, 0.3, 0.4, 0.5`)</label>
+        <input type="text" id="reward-option" name="reward_option">
+        <br>
         <form method="POST" action="/start" id="start-form">
             <button type="submit">Start</button>
         </form>
@@ -35,11 +55,12 @@
         <p id="reward-function" align="center">
             <span id="reward-function-vector"></span>
         </p>
+        <div id="status-update"></div>
         <div class="grid">
             {% for i in range(grid_size) %}
                 {% for j in range(grid_size) %}
-                    <div class="square" id="{{ i * grid_size + j }}" style="background-color: {{ grid[i * grid_size + j]['color'] }};">
-                        {% if i * grid_size + j == 23 %}
+                    <div class="square" id="{{ i * grid_size + j }}" style="background-color: {{ feature_color[grid[i][j]]}};">
+                        {% if grid[i][j] == 5 %}
                             <div class="star">&#9733;</div>
                         {% endif %}
                         {% if grid[i * grid_size + j]['action'] %}
