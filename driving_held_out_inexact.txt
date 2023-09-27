@@ -344,7 +344,7 @@ Policy optimalities
 1.0
 1.0
 Accuracy
-7.15
+0.8362573099415205
 **************************************************
 NEW THRESHOLD 4
 Percent states
@@ -768,7 +768,7 @@ Policy optimalities
 1.0
 1.0
 Accuracy
-8.85
+0.84688995215311
 **************************************************
 NEW THRESHOLD 5
 Percent states
@@ -1184,7 +1184,7 @@ Policy optimalities
 1.0
 1.0
 Accuracy
-8.65
+0.8439024390243902
 **************************************************
 NEW THRESHOLD 6
 Percent states
@@ -1560,7 +1560,7 @@ Policy optimalities
 1.0
 1.0
 Accuracy
-8.85
+0.9567567567567568
 **************************************************
 NEW THRESHOLD 7
 Percent states
@@ -1942,5 +1942,5 @@ Policy optimalities
 1.0
 1.0
 Accuracy
-8.75
+0.9308510638297872
 **************************************************

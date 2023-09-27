@@ -1,0 +1,6291 @@
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+MAP env: theta = 1.0, lava = [0.54889938 0.5104231 ]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.37341636 0.41874817]
+MAP env: theta = 1.0, lava = [0.37341636 0.41874817]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.67322274 0.57571527]
+MAP env: theta = 1.0, lava = [0.67322274 0.57571527]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.61670114 0.50589051]
+MAP env: theta = 1.0, lava = [0.61670114 0.50589051]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.70213158 0.74313798]
+MAP env: theta = 1.0, lava = [0.70213158 0.74313798]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.6399097 0.7092462]
+MAP env: theta = 1.0, lava = [0.6399097 0.7092462]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.45085367 0.62602953]
+MAP env: theta = 1.0, lava = [0.45085367 0.62602953]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.52879564 0.48134905]
+MAP env: theta = 1.0, lava = [0.52879564 0.48134905]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.72234854 0.72159973]
+MAP env: theta = 1.0, lava = [0.72234854 0.72159973]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+True env: theta = 1.0, lava = [0.64872022 0.47045893]
+MAP env: theta = 1.0, lava = [0.64872022 0.47045893]
+NEW THRESHOLD 0.1
+Num demos
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+Bound errors
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+Policy optimalities
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+Accuracy
+1.0
+Confusion matrices
+[[250, 0], [0, 0]]
+NEW THRESHOLD 0.2
+Num demos
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+Bound errors
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+Policy optimalities
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+Accuracy
+1.0
+Confusion matrices
+[[250, 0], [0, 0]]
+NEW THRESHOLD 0.3
+Num demos
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+Bound errors
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+Policy optimalities
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+Accuracy
+1.0
+Confusion matrices
+[[250, 0], [0, 0]]
+NEW THRESHOLD 0.4
+Num demos
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+Bound errors
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+Policy optimalities
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+Accuracy
+1.0
+Confusion matrices
+[[250, 0], [0, 0]]
+NEW THRESHOLD 0.5
+Num demos
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+Bound errors
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.0449976864870831
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.03590004849697473
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.05285500342397156
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.04725367602929757
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.06298898891495675
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.05771674408126665
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04508276524528061
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.04313431825228727
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.06298628130078263
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+0.046686277544954004
+Policy optimalities
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+1.0
+Accuracy
+1.0
+Confusion matrices
+[[250, 0], [0, 0]]
+**************************************************
