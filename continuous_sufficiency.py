@@ -6,6 +6,7 @@ from scipy.stats import norm
 import numpy as np
 import math
 import sys
+import argparse
 
 
 if __name__ == "__main__":
@@ -13,7 +14,13 @@ if __name__ == "__main__":
     random.seed(rseed)
     np.random.seed(rseed)
 
-    stopping_condition = sys.argv[1] # options: nevd, map_pi, baseline_pi, held_out
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--baseline", "-b", type = str, required = True, help = "map_pi or held_out")
+    parser.add_argument("--N", "-n", type = str, required = True, help = "6, 10, 20, or 50")
+    args = parser.parse_args()
+    stopping_condition = args.baseline
+    N = int(args.N)
+
     debug = False # set to False to suppress terminal outputs
 
     # Hyperparameters
@@ -23,18 +30,18 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = 10.0 # confidence for mcmc
-    N = continuous_utils.N
     random_normalization = True # whether or not to normalize with random policy
     num_worlds = 10
 
     # Experiment variables
     envs = [continuous_utils.random_lavaworld(tt = 1.0) for _ in range(num_worlds)]
-    rewards = continuous_utils.rewards
     demos = [[] for _ in range(num_worlds)]
     optimality_threshold = 0.92
     max_demos = 25
     # if stopping_condition == "nevd":
-    continuous_utils.generate_random_policies(rgt = sys.argv[2])
+    continuous_utils.initialize_parameters(n = N)
+    continuous_utils.generate_random_policies(rgt = "A")
+    rewards = continuous_utils.rewards
 
     if stopping_condition == "nevd": # stop learning after passing nEVD threshold
         # Experiment setup
@@ -139,14 +146,20 @@ if __name__ == "__main__":
         num_demos = {threshold: [] for threshold in thresholds}
         policy_optimalities = {threshold: [] for threshold in thresholds}
         accuracies = {threshold: [] for threshold in thresholds}
+        cm100 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is if optimality = 100%/99%
+        cm95 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is if optimality = 95%/96%
+        cm90 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is if optimality = 90%/92%
+        cm5 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is with nEVD threshold = 0.5
+        cm4 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is with nEVD threshold = 0.4
+        cm3 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is with nEVD threshold = 0.3
+        cm2 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is with nEVD threshold = 0.2
+        cm1 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is with nEVD threshold = 0.1
 
         for i in range(num_worlds):
             env = envs[i]
             policies = [continuous_utils.get_optimal_policy(theta, env.lava) for theta in rewards]
             curr_map_sol = None
             patience = 0
-            start_comp = 0
-            done_with_demos = False
             for M in range(max_demos): # number of demonstrations; we want good policy without needing to see all states
                 D = continuous_utils.generate_optimal_demo(env)
                 demos[i].append(D)
@@ -165,25 +178,88 @@ if __name__ == "__main__":
                 if curr_map_sol == birl.get_map_solution():
                     patience += 1
                     # evaluate thresholds
-                    for t in range(len(thresholds[start_comp:])):
-                        threshold = thresholds[t + start_comp]
+                    for t in range(len(thresholds)):
+                        threshold = thresholds[t]
+                        actual_nevd = continuous_utils.calculate_expected_value_difference(env, map_env)
+                        optimality = continuous_utils.calculate_policy_accuracy(env, map_env)
                         if patience == threshold:
                             # store metrics
                             num_demos[threshold].append(M + 1)
-                            optimality = continuous_utils.calculate_policy_accuracy(env, map_env)
                             policy_optimalities[threshold].append(optimality)
                             accuracies[threshold].append(optimality >= optimality_threshold)
                             curr_map_sol = birl.get_map_solution()
-                            if threshold == max(thresholds):
-                                done_with_demos = True
+                            # Evaluate actual positive by optimality
+                            if optimality >= 1.0:
+                                cm100[threshold][0][0] += 1
+                            else:
+                                cm100[threshold][0][1] += 1
+                            if optimality >= 0.95:
+                                cm95[threshold][0][0] += 1
+                            else:
+                                cm95[threshold][0][1] += 1
+                            if optimality >= 0.90:
+                                cm90[threshold][0][0] += 1
+                            else:
+                                cm90[threshold][0][1] += 1
+                            # Evaluate actual positive by nEVD
+                            if actual_nevd < 0.5:
+                                cm5[threshold][0][0] += 1
+                            else:
+                                cm5[threshold][0][1] += 1
+                            if actual_nevd < 0.4:
+                                cm4[threshold][0][0] += 1
+                            else:
+                                cm4[threshold][0][1] += 1
+                            if actual_nevd < 0.3:
+                                cm3[threshold][0][0] += 1
+                            else:
+                                cm3[threshold][0][1] += 1
+                            if actual_nevd < 0.2:
+                                cm2[threshold][0][0] += 1
+                            else:
+                                cm2[threshold][0][1] += 1
+                            if actual_nevd < 0.1:
+                                cm1[threshold][0][0] += 1
+                            else:
+                                cm1[threshold][0][1] += 1
                         else:
-                            start_comp += t
-                            break
+                            # Evaluate actual positive by optimality
+                            if optimality >= 1.0:
+                                cm100[threshold][1][0] += 1
+                            else:
+                                cm100[threshold][1][1] += 1
+                            if optimality >= 0.95:
+                                cm95[threshold][1][0] += 1
+                            else:
+                                cm95[threshold][1][1] += 1
+                            if optimality >= 0.90:
+                                cm90[threshold][1][0] += 1
+                            else:
+                                cm90[threshold][1][1] += 1
+                            # Evaluate actual positive by nEVD
+                            if actual_nevd < 0.5:
+                                cm5[threshold][1][0] += 1
+                            else:
+                                cm5[threshold][1][1] += 1
+                            if actual_nevd < 0.4:
+                                cm4[threshold][1][0] += 1
+                            else:
+                                cm4[threshold][1][1] += 1
+                            if actual_nevd < 0.3:
+                                cm3[threshold][1][0] += 1
+                            else:
+                                cm3[threshold][1][1] += 1
+                            if actual_nevd < 0.2:
+                                cm2[threshold][1][0] += 1
+                            else:
+                                cm2[threshold][1][1] += 1
+                            if actual_nevd < 0.1:
+                                cm1[threshold][1][0] += 1
+                            else:
+                                cm1[threshold][1][1] += 1
                 else:
                     patience = 0
                     curr_map_sol = birl.get_map_solution()
-                if done_with_demos:
-                    break
         
         # Output results for plotting
         for threshold in thresholds:
@@ -195,7 +271,26 @@ if __name__ == "__main__":
             for po in policy_optimalities[threshold]:
                 print(po)
             print("Accuracy")
-            print(sum(accuracies[threshold]) / num_worlds)
+            try:
+                print(sum(accuracies[threshold]) / len(accuracies[threshold]))
+            except ZeroDivisionError:
+                print(0.0)
+            print("CM100")
+            print(cm100[threshold])
+            print("CM95")
+            print(cm95[threshold])
+            print("CM90")
+            print(cm90[threshold])
+            print("CM5")
+            print(cm5[threshold])
+            print("CM4")
+            print(cm4[threshold])
+            print("CM3")
+            print(cm3[threshold])
+            print("CM2")
+            print(cm2[threshold])
+            print("CM1")
+            print(cm1[threshold])
             print("**************************************************")
     elif stopping_condition == "baseline_pi": # stop learning once learned policy is some degree better than baseline policy
         # Experiment setup
@@ -304,6 +399,14 @@ if __name__ == "__main__":
         num_demos = {threshold: [] for threshold in thresholds}
         policy_optimalities = {threshold: [] for threshold in thresholds}
         accuracies = {threshold: [] for threshold in thresholds}
+        cm100 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is if optimality = 100%/99%
+        cm95 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is if optimality = 95%/96%
+        cm90 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is if optimality = 90%/92%
+        cm5 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is with nEVD threshold = 0.5
+        cm4 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is with nEVD threshold = 0.4
+        cm3 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is with nEVD threshold = 0.3
+        cm2 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is with nEVD threshold = 0.2
+        cm1 = {threshold: [[0, 0], [0, 0]] for threshold in thresholds}  # actual positive is with nEVD threshold = 0.1
 
         for i in range(num_worlds):
             env = envs[i]
@@ -330,11 +433,82 @@ if __name__ == "__main__":
                     map_policy = birl.get_map_policy()
                     # compare with held out set
                     if len(held_out_sets[threshold]) >= 3:
-                        if birl.get_map_solution() == env.feature_weights:
+                        done = birl.get_map_solution() == env.feature_weights
+                        actual_nevd = continuous_utils.calculate_expected_value_difference(env, map_env)
+                        optimality = continuous_utils.calculate_policy_accuracy(env, map_env)
+                        if done:
                             num_demos[threshold].append(M + 1)
-                            optimality = continuous_utils.calculate_policy_accuracy(env, map_env)
                             policy_optimalities[threshold].append(optimality)
                             accuracies[threshold].append(optimality >= optimality_threshold)
+                            # Evaluate actual positive by optimality
+                            if optimality >= 1.0:
+                                cm100[threshold][0][0] += 1
+                            else:
+                                cm100[threshold][0][1] += 1
+                            if optimality >= 0.95:
+                                cm95[threshold][0][0] += 1
+                            else:
+                                cm95[threshold][0][1] += 1
+                            if optimality >= 0.90:
+                                cm90[threshold][0][0] += 1
+                            else:
+                                cm90[threshold][0][1] += 1
+                            # Evaluate actual positive by nEVD
+                            if actual_nevd < 0.5:
+                                cm5[threshold][0][0] += 1
+                            else:
+                                cm5[threshold][0][1] += 1
+                            if actual_nevd < 0.4:
+                                cm4[threshold][0][0] += 1
+                            else:
+                                cm4[threshold][0][1] += 1
+                            if actual_nevd < 0.3:
+                                cm3[threshold][0][0] += 1
+                            else:
+                                cm3[threshold][0][1] += 1
+                            if actual_nevd < 0.2:
+                                cm2[threshold][0][0] += 1
+                            else:
+                                cm2[threshold][0][1] += 1
+                            if actual_nevd < 0.1:
+                                cm1[threshold][0][0] += 1
+                            else:
+                                cm1[threshold][0][1] += 1
+                        else:
+                            # Evaluate actual positive by optimality
+                            if optimality >= 1.0:
+                                cm100[threshold][1][0] += 1
+                            else:
+                                cm100[threshold][1][1] += 1
+                            if optimality >= 0.95:
+                                cm95[threshold][1][0] += 1
+                            else:
+                                cm95[threshold][1][1] += 1
+                            if optimality >= 0.90:
+                                cm90[threshold][1][0] += 1
+                            else:
+                                cm90[threshold][1][1] += 1
+                            # Evaluate actual positive by nEVD
+                            if actual_nevd < 0.5:
+                                cm5[threshold][1][0] += 1
+                            else:
+                                cm5[threshold][1][1] += 1
+                            if actual_nevd < 0.4:
+                                cm4[threshold][1][0] += 1
+                            else:
+                                cm4[threshold][1][1] += 1
+                            if actual_nevd < 0.3:
+                                cm3[threshold][1][0] += 1
+                            else:
+                                cm3[threshold][1][1] += 1
+                            if actual_nevd < 0.2:
+                                cm2[threshold][1][0] += 1
+                            else:
+                                cm2[threshold][1][1] += 1
+                            if actual_nevd < 0.1:
+                                cm1[threshold][1][0] += 1
+                            else:
+                                cm1[threshold][1][1] += 1
         
         # Output results for plotting
         for threshold in thresholds:
@@ -346,5 +520,24 @@ if __name__ == "__main__":
             for po in policy_optimalities[threshold]:
                 print(po)
             print("Accuracy")
-            print(sum(accuracies[threshold]) / len(accuracies[threshold]))
+            try:
+                print(sum(accuracies[threshold]) / len(accuracies[threshold]))
+            except ZeroDivisionError:
+                print(0.0)
+            print("CM100")
+            print(cm100[threshold])
+            print("CM95")
+            print(cm95[threshold])
+            print("CM90")
+            print(cm90[threshold])
+            print("CM5")
+            print(cm5[threshold])
+            print("CM4")
+            print(cm4[threshold])
+            print("CM3")
+            print(cm3[threshold])
+            print("CM2")
+            print(cm2[threshold])
+            print("CM1")
+            print(cm1[threshold])
             print("**************************************************")
