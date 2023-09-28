@@ -244,10 +244,10 @@ def update_action():
         random_normalization)
         if methodology == "ours":
             final_bound = avar_bound
-            if ground_truth_nevd < threshold:
-                confusion_matrix[0][0] += 1
-            else:
-                confusion_matrix[0][1] += 1
+        if ground_truth_nevd < threshold:
+            confusion_matrix[0][0] += 1
+        else:
+            confusion_matrix[0][1] += 1
         policy_optimality = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
         policy_accuracy = mdp_utils.calculate_policy_accuracy(true_optimal_policy, map_policy)
         print("Success!")
@@ -259,22 +259,21 @@ def update_action():
             ground_truth_nevd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
             if methodology == "ours":
                 final_bound = avar_bound
-                if ground_truth_nevd < threshold:
-                    confusion_matrix[1][0] += 1
-                else:
-                    confusion_matrix[1][1] += 1
+            if ground_truth_nevd < threshold:
+                confusion_matrix[1][0] += 1
+            else:
+                confusion_matrix[1][1] += 1
             policy_optimality = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
             policy_accuracy = mdp_utils.calculate_policy_accuracy(true_optimal_policy, map_policy)
             store_result(True)
             return jsonify({"failed": True})
         else:
             print("More demos please")
-            if methodology == "ours":
-                ground_truth_nevd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
-                if ground_truth_nevd < threshold:
-                    confusion_matrix[1][0] += 1
-                else:
-                    confusion_matrix[1][1] += 1
+            ground_truth_nevd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
+            if ground_truth_nevd < threshold:
+                confusion_matrix[1][0] += 1
+            else:
+                confusion_matrix[1][1] += 1
             return jsonify({"demo_suff": False, "fun_fact": fun_facts[np.random.randint(0, len(fun_facts))]})
 
 @app.route("/end_simulation", methods=["POST"])
