@@ -270,12 +270,6 @@ def update_action():
             return jsonify({"failed": True})
         else:
             print("More demos please")
-            if not skip:
-                ground_truth_nevd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
-                if ground_truth_nevd < threshold:
-                    confusion_matrix[1][0] += 1
-                else:
-                    confusion_matrix[1][1] += 1
             return jsonify({"demo_suff": False, "fun_fact": fun_facts[np.random.randint(0, len(fun_facts))]})
 
 @app.route("/end_simulation", methods=["POST"])
