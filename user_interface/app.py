@@ -244,10 +244,12 @@ def update_action():
         random_normalization)
         if methodology == "ours":
             final_bound = avar_bound
+        available_states = GRID_SIZE**2 if environment_option == "driving" else GRID_SIZE**2 - 1
+        leftover = available_states - len(given_demos) - len(held_out_set)
         if ground_truth_nevd < threshold:
-            confusion_matrix[0][0] += 1
+            confusion_matrix[0][0] += leftover
         else:
-            confusion_matrix[0][1] += 1
+            confusion_matrix[0][1] += leftover
         policy_optimality = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
         policy_accuracy = mdp_utils.calculate_policy_accuracy(true_optimal_policy, map_policy)
         print("Success!")
@@ -270,6 +272,14 @@ def update_action():
             return jsonify({"failed": True})
         else:
             print("More demos please")
+            if not skip:
+                ground_truth_nevd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
+                if methodology == "ours":
+                    final_bound = avar_bound
+                if ground_truth_nevd < threshold:
+                    confusion_matrix[1][0] += 1
+                else:
+                    confusion_matrix[1][1] += 1
             return jsonify({"demo_suff": False, "fun_fact": fun_facts[np.random.randint(0, len(fun_facts))]})
 
 @app.route("/end_simulation", methods=["POST"])
