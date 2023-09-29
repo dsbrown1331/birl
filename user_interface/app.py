@@ -270,12 +270,6 @@ def update_action():
             return jsonify({"failed": True})
         else:
             print("More demos please")
-            if not skip:
-                ground_truth_nevd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
-                if ground_truth_nevd < threshold:
-                    confusion_matrix[1][0] += 1
-                else:
-                    confusion_matrix[1][1] += 1
             return jsonify({"demo_suff": False, "fun_fact": fun_facts[np.random.randint(0, len(fun_facts))]})
 
 @app.route("/end_simulation", methods=["POST"])
@@ -325,8 +319,6 @@ def store_result(failed = False):
     simulation_result["true_optimal_policy"] = true_optimal_policy
     simulation_result["policy_optimality"] = policy_optimality
     simulation_result["policy_accuracy"] = policy_accuracy
-    confusion_matrix[1][0] /= num_demos - 1  # to account for the multiple failures before success
-    confusion_matrix[1][1] /= num_demos - 1
     simulation_result["confusion_matrix"] = confusion_matrix
     simulation_result["demo_suff"] = not failed  # were demos actually sufficient or did simulation end b/c all states were shown
     simulation_result["user_evaluation"] = None if failed else request.form.get("user_response")
