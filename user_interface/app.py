@@ -37,7 +37,7 @@ feature_color = {
     4: '#946BBB',  # Purple
     5: '#FFFFFF'   # Goal (White)
 }
-SLEEP_TIME = 20
+SLEEP_TIME = 0
 
 teaching_option = None
 threshold = 0.3
@@ -197,7 +197,9 @@ def update_action():
         given_demos.append(given_demo)
     print("Added demo", given_demos[-1])
     start = time.time()
-    if not skip:  # skip is only in situation where we added a demo to the held out set
+    # skip is only in situation where we added a demo to the held out set
+    # we're not going to do anything with the map policy anyways if held out set is not sufficient size
+    if not skip and (methodology != "held_out" or len(held_out_set) >= 3):
         birl = bayesian_irl.BIRL(env, given_demos, beta)
         birl.run_mcmc(N, step_stdev, adaptive = adaptive)
         burn_idx = int(len(birl.chain) * burn_rate)
@@ -233,7 +235,7 @@ def update_action():
         time.sleep(SLEEP_TIME)  # to make each iteration similar in time
     elif methodology == "held_out" and not skip:
         if len(held_out_set) >= 3:
-            num_optimal_actions = mdp_utils.calculate_number_of_optimal_actions(map_env, map_policy, [s for s, _ in held_out_set])
+            num_optimal_actions = mdp_utils.calculate_number_of_optimal_actions(map_env, map_policy, held_out_set, True)
             if num_optimal_actions == len(held_out_set):
                 success = True
     end = time.time()
@@ -266,20 +268,23 @@ def update_action():
                     confusion_matrix[1][0] += 1
                 else:
                     confusion_matrix[1][1] += 1
-            policy_optimality = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
-            policy_accuracy = mdp_utils.calculate_policy_accuracy(true_optimal_policy, map_policy)
+                policy_optimality = mdp_utils.calculate_percentage_optimal_actions(map_policy, env)
+                policy_accuracy = mdp_utils.calculate_policy_accuracy(true_optimal_policy, map_policy)
             store_result(True)
             return jsonify({"failed": True})
         else:
             print("More demos please")
             if not skip:
-                ground_truth_nevd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
-                if methodology == "ours":
-                    final_bound = avar_bound
-                if ground_truth_nevd < threshold:
-                    confusion_matrix[1][0] += 1
+                if len(held_out_set) < 3:
+                    ground_truth_nevd = 100  # a default value
                 else:
-                    confusion_matrix[1][1] += 1
+                    ground_truth_nevd = mdp_utils.calculate_expected_value_difference(map_policy, env, birl.value_iters, rn = random_normalization)
+                    if methodology == "ours":
+                        final_bound = avar_bound
+                    if ground_truth_nevd < threshold:
+                        confusion_matrix[1][0] += 1
+                    else:
+                        confusion_matrix[1][1] += 1
             return jsonify({"demo_suff": False, "fun_fact": fun_facts[np.random.randint(0, len(fun_facts))]})
 
 @app.route("/end_simulation", methods=["POST"])
@@ -332,7 +337,7 @@ def store_result(failed = False):
     simulation_result["confusion_matrix"] = confusion_matrix
     simulation_result["demo_suff"] = not failed  # were demos actually sufficient or did simulation end b/c all states were shown
     simulation_result["user_evaluation"] = None if failed else request.form.get("user_response")
-    with open("./results/{}-{}.json".format("failed" if failed else "success", int(time.time())), "w") as f:
+    with open("../../ijcai-hri/user_study_results/{}-{}.json".format("failed" if failed else "success", int(time.time())), "w") as f:
         json.dump(simulation_result, f)
     return "Stored experiment result successfully"
 
