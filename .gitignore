@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Output files to prevent clogging
+*_outputs/
+F1/
+*.csv
+*.txt
+*.ipynb
