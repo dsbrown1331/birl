@@ -37,8 +37,3 @@ cd user_interface
 python3 app.py
 ```
 6. Have fun! All instructions should be on the user study interface itself. Please read and follow them carefully. The app has been tested, but if at any point there is a crash, just end the server with Ctrl+C then restart it. You can start and stop the server as much as you want, **as long as it's between complete simulations**—otherwise your work will be lost!
-
-## Submitting Results
-All experiment results are written to `user_interface/results/`. When you are done, please zip up the result files (NOT including the parent `results/` folder) and send them to Tu (Alina) Trinh via Slack or [email](mailto:tutrinh@berkeley.edu).
-
-Thank you very much for taking your time and participating! If you have any questions, please ask Tu (Alina) Trinh via Slack or [email](mailto:tutrinh@berkeley.edu).
