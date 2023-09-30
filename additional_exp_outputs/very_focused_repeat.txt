@@ -1,4 +1,0 @@
-Results at the point of termination
-Number of demos
-[]
-Average number of unique demos across worlds for each amount of demos
