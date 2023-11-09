@@ -179,7 +179,7 @@ def generate_optimal_demo(env, start_state):
 
     return optimal_trajectory
 
-def generate_boltzman_demo(env, beta, start_state):
+def generate_boltzman_demo(env, beta, q_values, start_state):
     """
     Genarates a single boltzman rational demonstration consisting of state action pairs(s,a)
     :param env: Markov decision process passed by main see (markov_decision_process.py)
@@ -188,9 +188,9 @@ def generate_boltzman_demo(env, beta, start_state):
     :return:
     """
     current_state = start_state
-    max_traj = env.num_states // 2  #this should be sufficiently long, maybe too long...
+    # max_traj = env.num_states // 2  #this should be sufficiently long, maybe too long...
+    max_traj = 1
     boltzman_rational_trajectory = []
-    q_values = calculate_q_values(env)
 
     while (
         current_state not in env.terminals  #stop when we reach a terminal
@@ -201,7 +201,7 @@ def generate_boltzman_demo(env, beta, start_state):
         boltzman_log_probs = log_numerators - logsumexp(log_numerators)
         boltzman_probability = np.exp(boltzman_log_probs)
 
-        bolts_act = np.random.choice([0, 1, 2, 3], p=boltzman_probability)
+        bolts_act = np.random.choice(list(range(env.num_actions)), p=boltzman_probability)
         boltzman_rational_trajectory.append((current_state, bolts_act))
         probs = env.transitions[current_state][bolts_act]
         next_state = np.random.choice(env.num_states, p=probs)
