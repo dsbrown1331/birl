@@ -166,7 +166,7 @@ if __name__ == "__main__":
         df_with_noise.to_csv("ours_with_noise.csv", index = False)
     elif stage == 3:
         df = pd.read_csv("ours_with_noise.csv")
-        noise_finder(df, 1.5)  # g: 1.5, d: 3
+        noise_finder(df, 1.5)  # g: 2 (14%), d: 3 (8%)
     elif stage == 4:
         user_studies = pd.read_csv("user_studies.csv")
         partitions = get_user_studies_partitions(user_studies)
