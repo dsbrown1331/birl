@@ -41,6 +41,7 @@ if __name__ == "__main__":
 
     # MCMC hyperparameters
     beta = args.beta # confidence for mcmc
+    main_beta = 10
     N = 500 # gets around 500 after burn and skip
     step_stdev = 0.5
     burn_rate = 0.10
@@ -89,7 +90,7 @@ if __name__ == "__main__":
                         pass
                     if debug:
                         print("running BIRL with demos", demos[i])
-                    birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
+                    birl = bayesian_irl.BIRL(env, demos[i], main_beta) # create BIRL environment
                 elif demo_type == "trajectories":
                     D = mdp_utils.generate_optimal_demo(env, demo_order[M])[:int(1/(1 - gamma))]
                     demos[i].append(D)
@@ -467,7 +468,7 @@ if __name__ == "__main__":
                     if debug:
                         print("running BIRL with demos")
                         print("demos", demos[i])
-                    birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
+                    birl = bayesian_irl.BIRL(env, demos[i], main_beta) # create BIRL environment
                 elif demo_type == "trajectories":
                     D = mdp_utils.generate_optimal_demo(env, demo_order[M])[:int(1/(1 - gamma))]
                     demos[i].append(D)
