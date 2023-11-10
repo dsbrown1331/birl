@@ -21,6 +21,7 @@ if __name__ == "__main__":
     parser.add_argument("--method", "-m", type = str, required = True, help = "nevd or baseline_pi or map_pi or held_out")
     parser.add_argument("--beta", "-b", type = float, help = "10, 1, 0.1, or 0")
     parser.add_argument("--exact", "-x", action = "store_true", help = "exact held_out or inexact")
+    parser.add_argument("--infer", "-i", action = "store_true", help = "inference beta = demo beta or not")
     args = parser.parse_args()
     world = args.env
     stopping_condition = args.method
@@ -90,7 +91,10 @@ if __name__ == "__main__":
                         pass
                     if debug:
                         print("running BIRL with demos", demos[i])
-                    birl = bayesian_irl.BIRL(env, demos[i], main_beta) # create BIRL environment
+                    if args.infer:
+                        birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
+                    else:
+                        birl = bayesian_irl.BIRL(env, demos[i], main_beta)
                 elif demo_type == "trajectories":
                     D = mdp_utils.generate_optimal_demo(env, demo_order[M])[:int(1/(1 - gamma))]
                     demos[i].append(D)
@@ -468,7 +472,10 @@ if __name__ == "__main__":
                     if debug:
                         print("running BIRL with demos")
                         print("demos", demos[i])
-                    birl = bayesian_irl.BIRL(env, demos[i], main_beta) # create BIRL environment
+                    if args.infer:
+                        birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
+                    else:
+                        birl = bayesian_irl.BIRL(env, demos[i], main_beta)
                 elif demo_type == "trajectories":
                     D = mdp_utils.generate_optimal_demo(env, demo_order[M])[:int(1/(1 - gamma))]
                     demos[i].append(D)
