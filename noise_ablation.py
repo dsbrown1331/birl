@@ -7,15 +7,18 @@ from scipy.stats import norm
 import numpy as np
 import math
 import argparse
+import time
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     rseed = 168
     random.seed(rseed)
     np.random.seed(rseed)
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--noise_epsilon", "-ne", type = float, help = "0 (original), 0.05, 0.1, 0.15, 0.2, 0.25")
+    parser.add_argument("--num_worlds", "-nw", type = int, help = "5 or 10")
     args = parser.parse_args()
     world = "goal"
     stopping_condition = "nevd"
@@ -38,7 +41,7 @@ if __name__ == "__main__":
     skip_rate = 2
     random_normalization = True # whether or not to normalize with random policy
     adaptive = True # whether or not to use adaptive step size
-    num_worlds = 10
+    num_worlds = args.num_worlds
 
     # Experiment setup
     thresholds = [0.3] # thresholds on the a-VaR bounds
@@ -163,3 +166,5 @@ if __name__ == "__main__":
         print("Confusion matrices")
         print(confusion_matrices[threshold])
     print("**************************************************")
+    end_time = time.time()
+    print(f"This took {round((end_time - start_time) / 60, 2)} minutes.")
