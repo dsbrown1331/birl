@@ -64,7 +64,7 @@ if __name__ == "__main__":
         random.shuffle(demo_order)
         noisy_demos = 0
         max_noisy_demos = round(args.noise_epsilon * 25)
-        for M in range(5):
+        for M in range(25):
             try:
                 if args.noise_epsilon == 0:  # optimal demos, one state each time, just like original
                     D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
