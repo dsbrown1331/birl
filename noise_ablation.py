@@ -65,24 +65,23 @@ if __name__ == "__main__":
         env = envs[i]
         demo_order = list(range(num_rows * num_cols))
         random.shuffle(demo_order)
-        noisy_demos = 0
-        max_noisy_demos = round(args.noise_epsilon * 25)
+        q_values = mdp_utils.calculate_q_values(env)
         for M in range(25):
             try:
                 if args.noise_epsilon == 0:  # optimal demos, one state each time, just like original
-                    D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
+                    D = mdp_utils.generate_optimal_demo(env, demo_order[M], q_values)[0]
                 else:
                     demo_probability = np.random.random()
                     demo_state = random.choice(demo_order)
                     if demo_state == env.terminals[0]:
                         raise IndexError
                     # "Epsilon-greedy" demonstrations
-                    if demo_probability < args.noise_epsilon and noisy_demos < max_noisy_demos:
-                        demo_action = random.choice(list(range(env.num_actions)))
+                    if demo_probability < args.noise_epsilon:
+                        best_action = mdp_utils.generate_optimal_demo(env, demo_state, q_values)[0][1]
+                        demo_action = random.choice(list(set(range(env.num_actions)) - set([best_action])))
                         D = (demo_state, demo_action)
-                        noisy_demos += 1
                     else:
-                        D = mdp_utils.generate_optimal_demo(env, demo_state)[0]
+                        D = mdp_utils.generate_optimal_demo(env, demo_state, q_values)[0]
                 demos[i].append(D)
             except IndexError:
                 pass

@@ -152,7 +152,7 @@ def get_random_policy(env):
 """
 Demonstration Generation Functions
 """
-def generate_optimal_demo(env, start_state):
+def generate_optimal_demo(env, start_state, q_values):
     """
     Genarates a single optimal demonstration consisting of state action pairs(s,a)
     :param env: Markov decision process passed by main see (markov_decision_process.py)
@@ -161,9 +161,8 @@ def generate_optimal_demo(env, start_state):
     :return:
     """
     current_state = start_state
-    max_traj_length = env.num_states  #this should be sufficiently long, maybe too long...
+    max_traj_length = 1  #this should be sufficiently long, maybe too long...
     optimal_trajectory = []
-    q_values = calculate_q_values(env)
 
     while (
         current_state not in env.terminals  #stop when we reach a terminal
