@@ -144,11 +144,15 @@ def get_optimal_policy(theta, lava_position, generating_demo = False, start_pos 
     res = minimize(trajreward, xi0, args=(theta, lava_position, traj_length), method='SLSQP', constraints=cons)
     return res.x.reshape(traj_length, 2)
 
-def get_human(theta, lava, type, generating_demo = False, start_pos = None):
+def get_human(theta, lava, type, noise_pct = 0, generating_demo = False, start_pos = None):
     vision_radius = 0.3
     xi_star = get_optimal_policy(theta, lava, generating_demo = generating_demo, start_pos = start_pos)
-    if type == "optimal":
+    if type == "optimal" or noise_pct == 0:
         return xi_star
+    if noise_pct > 0:
+        noise = np.random.normal(loc = 0, scale = noise_pct, size = xi_star.shape)
+        xi = xi_star + noise
+        return xi
     n = xi_star.shape[0]
     if type == "regular":
         stoptime_lb = n - 1
@@ -183,10 +187,10 @@ def get_human(theta, lava, type, generating_demo = False, start_pos = None):
     xi[-1,:] = [1,1]
     return xi
 
-def generate_optimal_demo(env, generating_demo = False):
+def generate_optimal_demo(env, noise_pct = 0, generating_demo = False):
     theta_star = env.feature_weights # true reward function
     lava = env.lava
-    demo = get_human(theta_star, lava, type = "optimal", generating_demo = generating_demo)
+    demo = get_human(theta_star, lava, type = "optimal", noise_pct = noise_pct, generating_demo = generating_demo)
     return demo
 
 def generate_random_demo(env, n):

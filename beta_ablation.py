@@ -20,8 +20,8 @@ if __name__ == "__main__":
     parser.add_argument("--env", "-e", type = str, required = True, help = "goal or driving")
     parser.add_argument("--method", "-m", type = str, required = True, help = "nevd or baseline_pi or map_pi or held_out")
     parser.add_argument("--beta", "-b", type = float, help = "10, 1, 0.1, or 0")
-    parser.add_argument("--exact", "-x", action = "store_true", help = "exact held_out or inexact")
-    parser.add_argument("--infer", "-i", action = "store_true", help = "inference beta = demo beta or not")
+    parser.add_argument("--exact", "-x", action = "store_true", help = "exact held_out, else inexact")
+    parser.add_argument("--infer", "-i", action = "store_true", help = "inference beta = demo beta, else not")
     args = parser.parse_args()
     world = args.env
     stopping_condition = args.method
@@ -41,8 +41,8 @@ if __name__ == "__main__":
     num_features = 4
 
     # MCMC hyperparameters
-    beta = args.beta # confidence for mcmc
-    main_beta = 10
+    demo_beta = args.beta # confidence for mcmc
+    inference_beta = 10
     N = 1050 # gets around 500 after burn and skip
     step_stdev = 0.5
     burn_rate = 0.05
@@ -82,26 +82,18 @@ if __name__ == "__main__":
             env = envs[i]
             q_values = mdp_utils.calculate_q_values(env)
             for M in range(len(demo_order) - 1, len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
-                if demo_type == "pairs":
-                    try:
-                        # D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
-                        D = mdp_utils.generate_boltzman_demo(env, beta, q_values, demo_order[M])[0]
-                        demos[i].append(D)
-                    except IndexError:
-                        pass
-                    if debug:
-                        print("running BIRL with demos", demos[i])
-                    if args.infer:
-                        birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
-                    else:
-                        birl = bayesian_irl.BIRL(env, demos[i], main_beta)
-                elif demo_type == "trajectories":
-                    D = mdp_utils.generate_optimal_demo(env, demo_order[M])[:int(1/(1 - gamma))]
+                try:
+                    # D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
+                    D = mdp_utils.generate_boltzman_demo(env, demo_beta, q_values, demo_order[M])[0]
                     demos[i].append(D)
-                    if debug:
-                        print("running BIRL with demos")
-                        print("demos", demos[i])
-                    birl = bayesian_irl.BIRL(env, list(set([pair for traj in demos[i] for pair in traj])), beta)
+                except IndexError:
+                    pass
+                if debug:
+                    print("running BIRL with demos", demos[i])
+                if args.infer:
+                    birl = bayesian_irl.BIRL(env, demos[i], demo_beta) # create BIRL environment
+                else:
+                    birl = bayesian_irl.BIRL(env, demos[i], inference_beta)
                 # use MCMC to generate sequence of sampled rewards
                 birl.run_mcmc(N, step_stdev, adaptive = adaptive)
                 #burn initial samples and skip every skip_rate for efficiency
@@ -462,27 +454,19 @@ if __name__ == "__main__":
             print("BASELINE POLICY: evd {}, policy optimality {}, and policy accuracy {}".format(baseline_evd, baseline_optimality, baseline_accuracy))
             for M in range(len(demo_order)): # number of demonstrations; we want good policy without needing to see all states
                 # print("Using {} demos".format(M + 1))
-                if demo_type == "pairs":
-                    try:
-                        # D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
-                        D = mdp_utils.generate_boltzman_demo(env, beta, q_values, demo_order[M])[0]
-                        demos[i].append(D)
-                    except IndexError:
-                        pass
-                    if debug:
-                        print("running BIRL with demos")
-                        print("demos", demos[i])
-                    if args.infer:
-                        birl = bayesian_irl.BIRL(env, demos[i], beta) # create BIRL environment
-                    else:
-                        birl = bayesian_irl.BIRL(env, demos[i], main_beta)
-                elif demo_type == "trajectories":
-                    D = mdp_utils.generate_optimal_demo(env, demo_order[M])[:int(1/(1 - gamma))]
+                try:
+                    # D = mdp_utils.generate_optimal_demo(env, demo_order[M])[0]
+                    D = mdp_utils.generate_boltzman_demo(env, demo_beta, q_values, demo_order[M])[0]
                     demos[i].append(D)
-                    if debug:
-                        print("running BIRL with demos")
-                        print("demos", demos[i])
-                    birl = bayesian_irl.BIRL(env, list(set([pair for traj in demos[i] for pair in traj])), beta)
+                except IndexError:
+                    pass
+                if debug:
+                    print("running BIRL with demos")
+                    print("demos", demos[i])
+                if args.infer:
+                    birl = bayesian_irl.BIRL(env, demos[i], demo_beta) # create BIRL environment
+                else:
+                    birl = bayesian_irl.BIRL(env, demos[i], inference_beta)
                 # use MCMC to generate sequence of sampled rewards
                 birl.run_mcmc(N, step_stdev, adaptive = adaptive)
                 #burn initial samples and skip every skip_rate for efficiency
